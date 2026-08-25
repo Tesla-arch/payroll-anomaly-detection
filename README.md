@@ -36,9 +36,27 @@ GitHub hosts the source at [Tesla-arch/payroll-anomaly-detection](https://github
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Tesla-arch/payroll-anomaly-detection?quickstart=1)
 
 1. Open that badge (or on GitHub: **Code → Codespaces → Create codespace on main**)
-2. Wait for the container to finish setup (first start can take several minutes)
-3. When port **5173** is forwarded, open it — that is the school app
+2. Wait until the codespace finishes **setup** (first start can take several minutes; a 502 means the app is not running yet)
+3. Open forwarded port **5173** — that is the school app
 4. Sign in with a demo account below (password: `password`)
+
+If port 5173 shows **HTTP ERROR 502**, the codespace is up but Vite is not. In the Codespace terminal run:
+
+```bash
+git pull origin main
+bash .devcontainer/setup.sh
+bash .devcontainer/start.sh
+```
+
+Then refresh the `…-5173.app.github.dev` tab. You can also start the two servers yourself:
+
+```bash
+cd backend && php artisan serve --host=0.0.0.0 --port=8000
+```
+
+```bash
+cd frontend && npm run dev -- --host 0.0.0.0 --port 5173
+```
 
 The codespace sleeps after idle time. Create or restart it whenever you want to use the app in a browser.
 

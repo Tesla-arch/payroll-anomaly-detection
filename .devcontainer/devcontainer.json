@@ -4,14 +4,13 @@
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "20"
-    },
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    }
   },
   "forwardPorts": [5173, 8000],
   "portsAttributes": {
     "5173": {
       "label": "School Management System",
-      "onAutoForward": "openPreview",
+      "onAutoForward": "notify",
       "visibility": "public"
     },
     "8000": {
@@ -22,6 +21,9 @@
   },
   "postCreateCommand": "bash .devcontainer/setup.sh",
   "postStartCommand": "bash .devcontainer/start.sh",
+  "postAttachCommand": {
+    "app": "bash .devcontainer/start.sh"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
