@@ -12,6 +12,7 @@ return [
         '#^https://.*\.app\.github\.dev$#',
         '#^https://.*\.githubpreview\.dev$#',
         '#^https://.*\.preview\.app\.github\.dev$#',
+        '#^https://.*\.onrender\.com$#',
     ],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],

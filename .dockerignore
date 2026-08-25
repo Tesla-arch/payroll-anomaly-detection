@@ -1,0 +1,17 @@
+.git
+.github
+.devcontainer
+**/.env
+frontend/.env.local
+**/node_modules
+**/vendor
+frontend/dist
+**/.phpunit.cache
+**/.phpunit.result.cache
+backend/storage/logs/*
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*.php
+backend/database/database.sqlite
+*.md
+docs
