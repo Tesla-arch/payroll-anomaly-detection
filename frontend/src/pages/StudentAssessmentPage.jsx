@@ -149,7 +149,7 @@ export default function StudentAssessmentPage() {
       </div>
 
       <section className="grid gap-4 lg:grid-cols-3">
-        <div className="card flex items-center gap-5">
+        <div className="card flex flex-col items-center gap-5 sm:flex-row">
           <svg viewBox="0 0 42 42" className="h-28 w-28 -rotate-90">
             <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e2e8f0" strokeWidth="6" />
             <circle
@@ -174,7 +174,7 @@ export default function StudentAssessmentPage() {
             <div>
               <label className="text-xs uppercase tracking-wide text-slate-400">Academic year</label>
               <select
-                className="input mt-1 w-40"
+                className="input mt-1 w-full sm:w-40"
                 value={year}
                 onChange={(event) => load(event.target.value, term)}
               >

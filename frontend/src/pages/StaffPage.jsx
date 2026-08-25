@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { FiPlus, FiSearch } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import DataTable from '../components/DataTable'
 
 export default function StaffPage() {
   const { hasRole } = useAuth()
@@ -45,51 +46,40 @@ export default function StaffPage() {
 
       <div className="card">
         <div className="mb-4 flex items-center gap-3">
-          <div className="relative max-w-sm flex-1">
+          <div className="relative w-full max-w-sm flex-1">
             <FiSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input className="input pl-9" placeholder="Search name, employee ID or department" value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Employee ID</th>
-                <th>Name</th>
-                <th>Dept</th>
-                <th>Rank / title</th>
-                <th>Salary</th>
-                <th>Status</th>
-                {canEdit && <th></th>}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id}>
-                  <td className="font-medium">{row.employee_id}</td>
-                  <td>{row.display_name || (row.user ? `${row.user.first_name} ${row.user.last_name}` : '—')}</td>
-                  <td>{row.department || '—'}</td>
-                  <td>{row.rank || row.job_title || '—'}</td>
-                  <td>GHS {Number(row.salary).toLocaleString()}</td>
-                  <td className="capitalize">{row.status}</td>
-                  {canEdit && (
-                    <td className="space-x-3 text-right">
-                      <button className="text-emerald-700" onClick={() => navigate(`/staff/${row.id}/edit`)}>Edit</button>
-                      {row.status === 'active' && (
-                        <button className="text-red-600" onClick={() => deactivate(row.id)}>Deactivate</button>
-                      )}
-                    </td>
+        <DataTable
+          rows={rows}
+          empty="No staff records found."
+          columns={[
+            {
+              header: 'Employee ID',
+              primary: true,
+              cell: (row) => row.employee_id,
+              sub: (row) => row.display_name || (row.user ? `${row.user.first_name} ${row.user.last_name}` : '—'),
+            },
+            { header: 'Name', hideOnMobile: true, cell: (row) => row.display_name || (row.user ? `${row.user.first_name} ${row.user.last_name}` : '—') },
+            { header: 'Dept', cell: (row) => row.department || '—' },
+            { header: 'Rank / title', cell: (row) => row.rank || row.job_title || '—' },
+            { header: 'Salary', cell: (row) => `GHS ${Number(row.salary).toLocaleString()}` },
+            { header: 'Status', cell: (row) => <span className="capitalize">{row.status}</span> },
+            ...(canEdit ? [{
+              header: '',
+              actions: true,
+              cell: (row) => (
+                <>
+                  <button className="text-emerald-700" onClick={() => navigate(`/staff/${row.id}/edit`)}>Edit</button>
+                  {row.status === 'active' && (
+                    <button className="text-red-600" onClick={() => deactivate(row.id)}>Deactivate</button>
                   )}
-                </tr>
-              ))}
-              {!rows.length && (
-                <tr>
-                  <td colSpan={canEdit ? 7 : 6} className="py-8 text-center text-slate-400">No staff records found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                </>
+              ),
+            }] : []),
+          ]}
+        />
       </div>
     </div>
   )

@@ -226,7 +226,7 @@ export default function ReportsPage() {
     return (
       <div className="space-y-4">
         <div className="h-20 animate-pulse rounded-2xl bg-stone-100" />
-        <div className="grid gap-3 sm:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {[1, 2, 3, 4].map((item) => <div key={item} className="h-24 animate-pulse rounded-2xl bg-stone-100" />)}
         </div>
         <div className="h-52 animate-pulse rounded-2xl bg-stone-100" />
@@ -369,10 +369,10 @@ export default function ReportsPage() {
           </div>
 
           <div className="grid gap-6 xl:grid-cols-3">
-            <div className="card xl:col-span-2 overflow-x-auto">
+            <div className="card min-w-0 xl:col-span-2 overflow-x-auto">
               <div className="mb-3">
                 <input
-                  className="input max-w-sm"
+                  className="input w-full max-w-sm"
                   placeholder="Filter by run name, month or status"
                   value={runQuery}
                   onChange={(e) => setRunQuery(e.target.value)}
@@ -485,7 +485,7 @@ export default function ReportsPage() {
           <div className="grid gap-6 xl:grid-cols-3">
             <div className="card">
               <h4 className="font-semibold text-emerald-950">All flags by severity</h4>
-              <div className="mt-4 flex items-center gap-5">
+              <div className="mt-4 flex flex-col items-center gap-5 sm:flex-row">
                 <div className="relative">
                   <svg viewBox="0 0 42 42" className="h-28 w-28 -rotate-90">
                     <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e2e8f0" strokeWidth="6" />
@@ -547,7 +547,7 @@ export default function ReportsPage() {
 
           <div className="card">
             <h4 className="font-semibold text-emerald-950">Case status</h4>
-            <div className="mt-4 grid gap-3 sm:grid-cols-4">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {(anomalies.byStatus || []).map((row) => (
                 <Link key={row.status} to={`/anomalies?status=${row.status}`} className="rounded-xl bg-stone-50 px-4 py-3 transition hover:bg-emerald-50 hover:ring-1 hover:ring-emerald-200">
                   <p className="text-xs uppercase tracking-wide text-slate-400">{prettyStatus(row.status)}</p>

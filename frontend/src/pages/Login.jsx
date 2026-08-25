@@ -84,9 +84,9 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f1ea] lg:grid lg:grid-cols-2">
+    <div className="min-h-dvh bg-[#f4f1ea] lg:grid lg:grid-cols-2">
       <section
-        className="relative h-64 overflow-hidden sm:h-80 lg:h-auto lg:min-h-screen"
+        className="relative h-52 overflow-hidden sm:h-80 lg:h-auto lg:min-h-dvh"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -100,21 +100,21 @@ export default function Login() {
         ))}
         <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/45 to-emerald-950/20" />
 
-        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 lg:p-8">
-          <div className="flex items-center gap-3 text-white">
-            <div className="grid h-11 w-11 place-items-center rounded-full bg-amber-400 font-bold text-emerald-950 shadow">
+        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4 sm:p-5 lg:p-8">
+          <div className="flex min-w-0 items-center gap-3 text-white">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-amber-400 font-bold text-emerald-950 shadow">
               SMS
             </div>
-            <div>
-              <p className="text-sm font-semibold leading-tight">School Management System</p>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold leading-tight">School Management System</p>
               <p className="text-xs text-emerald-100">Ghana basic schools · GES</p>
             </div>
           </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 p-5 lg:p-10">
+        <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 lg:p-10">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">{slides[active].title}</p>
-          <h1 className="mt-2 max-w-xl text-2xl font-semibold leading-snug text-white lg:text-4xl">
+          <h1 className="mt-2 max-w-xl text-xl font-semibold leading-snug text-white sm:text-2xl lg:text-4xl">
             Staff payroll portal for Ghanaian basic schools
           </h1>
           <p className="mt-3 max-w-lg text-sm text-emerald-50 lg:text-base">{slides[active].caption}</p>
@@ -140,10 +140,10 @@ export default function Login() {
         </div>
       </section>
 
-      <section className="flex items-center justify-center px-4 py-8 sm:px-8">
-        <form onSubmit={submit} className="w-full max-w-md rounded-3xl bg-white p-7 shadow-xl shadow-emerald-950/5 ring-1 ring-stone-200 sm:p-9">
+      <section className="flex items-center justify-center px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8 sm:py-8">
+        <form onSubmit={submit} className="w-full max-w-md rounded-3xl bg-white p-5 shadow-xl shadow-emerald-950/5 ring-1 ring-stone-200 sm:p-9">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">Authorized staff only</p>
-          <h2 className="mt-2 text-3xl font-semibold text-emerald-950">Sign in</h2>
+          <h2 className="mt-2 text-2xl font-semibold text-emerald-950 sm:text-3xl">Sign in</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-500">
             Enter your school email to open the payroll, attendance and anomaly dashboard.
           </p>
@@ -185,7 +185,7 @@ export default function Login() {
 
           <div className="mt-7 border-t border-stone-100 pt-5">
             <p className="text-xs font-medium uppercase tracking-wide text-slate-400">Quick access roles</p>
-            <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {demos.map(([demoEmail, label]) => (
                 <button
                   type="button"
@@ -194,7 +194,7 @@ export default function Login() {
                   onClick={() => setEmail(demoEmail)}
                 >
                   <span className="block font-semibold">{label}</span>
-                  <span className="text-slate-500">{demoEmail}</span>
+                  <span className="break-all text-slate-500">{demoEmail}</span>
                 </button>
               ))}
             </div>

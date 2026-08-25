@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { FiPlus } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import DataTable from '../components/DataTable'
 
 const statusFilters = [
   { id: 'all', label: 'All' },
@@ -119,65 +120,49 @@ export default function LeavePage() {
             </button>
           ))}
         </div>
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Staff</th>
-                <th>Leave type</th>
-                <th>Period</th>
-                <th>Days</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id}>
-                  <td>
-                    <p className="font-medium">{row.staff?.display_name || row.staff?.employee_id}</p>
-                    <p className="text-xs text-slate-400">{row.staff?.employee_id} · {row.staff?.department || '—'}</p>
-                  </td>
-                  <td className="capitalize">{prettyType(row.leave_type)}</td>
-                  <td>{prettyDate(row.start_date)} – {prettyDate(row.end_date)}</td>
-                  <td>{row.days_requested}</td>
-                  <td>
-                    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium capitalize ${statusTone[row.status] || 'bg-stone-100'}`}>
-                      {prettyStatus(row.status)}
-                    </span>
-                  </td>
-                  <td className="space-x-2 text-right">
-                    {hasRole('hr_officer') && row.status === 'pending_hr' && (
-                      <>
-                        <button className="text-emerald-700" onClick={() => act(row.id, 'review', 'forward')}>Forward</button>
-                        <button className="text-red-600" onClick={() => act(row.id, 'review', 'reject')}>Reject</button>
-                      </>
-                    )}
-                    {hasRole('headteacher') && row.status === 'pending_headteacher' && (
-                      <>
-                        <button className="text-emerald-700" onClick={() => act(row.id, 'approve', 'approve')}>Approve</button>
-                        <button className="text-red-600" onClick={() => act(row.id, 'approve', 'reject')}>Reject</button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-              {!rows.length && (
-                <tr>
-                  <td colSpan={6} className="py-10 text-center text-slate-400">
-                    No leave requests in this view.
-                    {canRequest && (
-                      <>
-                        {' '}
-                        <Link to="/leave/request" className="text-emerald-800">Submit a request</Link>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          rows={rows}
+          empty="No leave requests in this view."
+          columns={[
+            {
+              header: 'Staff',
+              primary: true,
+              cell: (row) => row.staff?.display_name || row.staff?.employee_id,
+              sub: (row) => `${row.staff?.employee_id || ''} · ${row.staff?.department || '—'}`,
+            },
+            { header: 'Leave type', cell: (row) => <span className="capitalize">{prettyType(row.leave_type)}</span> },
+            { header: 'Period', cell: (row) => `${prettyDate(row.start_date)} – ${prettyDate(row.end_date)}` },
+            { header: 'Days', cell: (row) => row.days_requested },
+            {
+              header: 'Status',
+              cell: (row) => (
+                <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium capitalize ${statusTone[row.status] || 'bg-stone-100'}`}>
+                  {prettyStatus(row.status)}
+                </span>
+              ),
+            },
+            {
+              header: '',
+              actions: true,
+              cell: (row) => (
+                <>
+                  {hasRole('hr_officer') && row.status === 'pending_hr' && (
+                    <>
+                      <button className="text-emerald-700" onClick={() => act(row.id, 'review', 'forward')}>Forward</button>
+                      <button className="text-red-600" onClick={() => act(row.id, 'review', 'reject')}>Reject</button>
+                    </>
+                  )}
+                  {hasRole('headteacher') && row.status === 'pending_headteacher' && (
+                    <>
+                      <button className="text-emerald-700" onClick={() => act(row.id, 'approve', 'approve')}>Approve</button>
+                      <button className="text-red-600" onClick={() => act(row.id, 'approve', 'reject')}>Reject</button>
+                    </>
+                  )}
+                </>
+              ),
+            },
+          ]}
+        />
       </div>
 
       {!!types.length && (
@@ -187,7 +172,7 @@ export default function LeavePage() {
             Days a staff member can apply for, and how many remain on this account.
           </p>
           <div className="mt-4 overflow-x-auto">
-            <table className="table">
+            <table className="table min-w-[32rem]">
               <thead>
                 <tr>
                   <th>Type</th>

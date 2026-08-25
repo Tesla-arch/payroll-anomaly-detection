@@ -5,6 +5,7 @@ import { FiArrowLeft, FiDownload } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import { SeverityBadge } from './Dashboard'
+import DataTable from '../components/DataTable'
 
 const steps = [
   { id: 'draft', label: 'Prepared' },
@@ -113,7 +114,7 @@ export default function PayrollDetailPage() {
       </div>
 
       <div className="overflow-x-auto rounded-2xl bg-white p-3 ring-1 ring-stone-200">
-        <div className="flex min-w-[420px] items-center gap-2">
+        <div className="flex min-w-max items-center gap-2">
           {steps.map((step, index) => {
             const done = index < stepIndex
             const active = index === stepIndex && run.status !== 'cancelled'
@@ -177,14 +178,14 @@ export default function PayrollDetailPage() {
             <h4 className="font-semibold text-emerald-950">Salary schedule</h4>
             <p className="text-sm text-slate-500">Click a staff line to see the slip. PAYE is not on this list.</p>
           </div>
-          <input className="input max-w-xs" placeholder="Search staff ID, name or department" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input className="input w-full max-w-xs" placeholder="Search staff ID, name or department" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
         <div className="space-y-2">
           {visible.map((row) => {
             const open = openId === row.id
             return (
               <div key={row.id} className={`rounded-2xl border ${row.status === 'excluded' ? 'border-stone-200 bg-stone-50 opacity-70' : open ? 'border-emerald-300 bg-emerald-50/40' : 'border-stone-200 bg-white'}`}>
-                <button type="button" className="grid w-full grid-cols-2 gap-2 px-4 py-3 text-left sm:grid-cols-6" onClick={() => setOpenId(open ? null : row.id)}>
+                <button type="button" className="grid w-full grid-cols-1 gap-1 px-4 py-3 text-left sm:grid-cols-2 sm:gap-2 lg:grid-cols-6" onClick={() => setOpenId(open ? null : row.id)}>
                   <span>
                     <span className="block font-medium text-emerald-950">{row.staff?.display_name || row.staff?.employee_id}</span>
                     <span className="text-xs text-slate-400">{row.staff?.employee_id} · {row.staff?.department || '—'}{row.status === 'excluded' ? ' · removed' : ''}</span>
@@ -192,8 +193,8 @@ export default function PayrollDetailPage() {
                   <span className="text-sm">{ghs(row.gross_salary)}</span>
                   <span className="hidden text-sm sm:block">{ghs(row.ssnit_contribution)}</span>
                   <span className="hidden text-sm sm:block">{ghs(row.loan_deductions)}</span>
-                  <span className="hidden text-sm font-medium sm:block">{ghs(row.net_salary)}</span>
-                  <span className="text-right text-sm text-emerald-800">{open ? 'Hide' : 'Open slip'}</span>
+                  <span className="text-sm font-medium">{ghs(row.net_salary)}</span>
+                  <span className="text-right text-sm text-emerald-800 sm:text-right">{open ? 'Hide' : 'Open slip'}</span>
                 </button>
                 {open && (
                   <div className="grid gap-3 border-t border-emerald-100 px-4 py-3 sm:grid-cols-2">
@@ -287,37 +288,26 @@ export default function PayrollDetailPage() {
           <h4 className="font-semibold text-emerald-950">Anomalies in this run</h4>
           <Link to={`/anomalies?run=${id}&status=open`} className="text-sm text-emerald-800">{openFlags} open</Link>
         </div>
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Rule</th>
-                <th>Staff</th>
-                <th>Severity</th>
-                <th>Status</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {(run.anomalies || []).map((item) => (
-                <tr key={item.id}>
-                  <td>{item.rule_code.replaceAll('_', ' ')}</td>
-                  <td>{item.staff?.employee_id}</td>
-                  <td><SeverityBadge value={item.severity} /></td>
-                  <td className="capitalize">{item.status.replaceAll('_', ' ')}</td>
-                  <td className="text-right">
-                    <Link className="text-emerald-700" to={`/anomalies/${item.id}`}>Review</Link>
-                  </td>
-                </tr>
-              ))}
-              {!(run.anomalies || []).length && (
-                <tr>
-                  <td colSpan={5} className="py-8 text-center text-slate-400">No flags on this run.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          rows={run.anomalies || []}
+          empty="No flags on this run."
+          columns={[
+            {
+              header: 'Rule',
+              primary: true,
+              cell: (item) => item.rule_code.replaceAll('_', ' '),
+              sub: (item) => item.staff?.employee_id,
+            },
+            { header: 'Staff', cell: (item) => item.staff?.employee_id },
+            { header: 'Severity', cell: (item) => <SeverityBadge value={item.severity} /> },
+            { header: 'Status', cell: (item) => <span className="capitalize">{item.status.replaceAll('_', ' ')}</span> },
+            {
+              header: '',
+              actions: true,
+              cell: (item) => <Link className="text-emerald-700" to={`/anomalies/${item.id}`}>Review</Link>,
+            },
+          ]}
+        />
       </div>
     </div>
   )

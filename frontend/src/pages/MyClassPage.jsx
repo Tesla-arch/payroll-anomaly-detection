@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { FiBookOpen, FiCheck, FiSave, FiUsers } from 'react-icons/fi'
 import api from '../api/client'
+import DataTable from '../components/DataTable'
 
 const statuses = [
   { id: 'present', label: 'Present' },
@@ -164,40 +165,35 @@ export default function MyClassPage() {
             <FiUsers className="text-emerald-700" />
             <h4 className="font-semibold text-emerald-950">Pupils in {selected?.name}</h4>
           </div>
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Admission</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Guardian</th>
-                  <th>Today</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {pupils.map((pupil) => (
-                  <tr key={pupil.id}>
-                    <td className="font-medium">{pupil.admission_number}</td>
-                    <td>{pupil.display_name}</td>
-                    <td className="capitalize">{pupil.gender || '—'}</td>
-                    <td>
-                      {pupil.guardian_name || '—'}
-                      {pupil.guardian_phone && <span className="block text-xs text-slate-400">{pupil.guardian_phone}</span>}
-                    </td>
-                    <td className="capitalize">{pupil.attendance || 'Unmarked'}</td>
-                    <td className="text-right">
-                      <Link className="text-emerald-700" to={`/students/${pupil.id}/assessment`}>Assessments</Link>
-                    </td>
-                  </tr>
-                ))}
-                {!pupils.length && (
-                  <tr><td colSpan={6} className="py-8 text-center text-slate-400">No pupils in this class yet.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+          <DataTable
+            rows={pupils}
+            empty="No pupils in this class yet."
+            columns={[
+              {
+                header: 'Admission',
+                primary: true,
+                cell: (pupil) => pupil.admission_number,
+                sub: (pupil) => pupil.display_name,
+              },
+              { header: 'Name', hideOnMobile: true, cell: (pupil) => pupil.display_name },
+              { header: 'Gender', cell: (pupil) => <span className="capitalize">{pupil.gender || '—'}</span> },
+              {
+                header: 'Guardian',
+                cell: (pupil) => (
+                  <>
+                    {pupil.guardian_name || '—'}
+                    {pupil.guardian_phone && <span className="block text-xs text-slate-400">{pupil.guardian_phone}</span>}
+                  </>
+                ),
+              },
+              { header: 'Today', cell: (pupil) => <span className="capitalize">{pupil.attendance || 'Unmarked'}</span> },
+              {
+                header: '',
+                actions: true,
+                cell: (pupil) => <Link className="text-emerald-700" to={`/students/${pupil.id}/assessment`}>Assessments</Link>,
+              },
+            ]}
+          />
         </div>
       )}
 
@@ -257,33 +253,25 @@ export default function MyClassPage() {
               </p>
             </div>
           </div>
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Pupil</th>
-                  <th>Admission</th>
-                  <th>Term average</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {pupils.map((pupil) => (
-                  <tr key={pupil.id}>
-                    <td className="font-medium">{pupil.display_name}</td>
-                    <td>{pupil.admission_number}</td>
-                    <td>{pupil.term_average == null ? 'Not recorded' : `${pupil.term_average}%`}</td>
-                    <td className="text-right">
-                      <Link className="btn-primary inline-flex text-xs" to={`/students/${pupil.id}/assessment`}>Record scores</Link>
-                    </td>
-                  </tr>
-                ))}
-                {!pupils.length && (
-                  <tr><td colSpan={4} className="py-8 text-center text-slate-400">No pupils in this class yet.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+          <DataTable
+            rows={pupils}
+            empty="No pupils in this class yet."
+            columns={[
+              {
+                header: 'Pupil',
+                primary: true,
+                cell: (pupil) => pupil.display_name,
+                sub: (pupil) => pupil.admission_number,
+              },
+              { header: 'Admission', hideOnMobile: true, cell: (pupil) => pupil.admission_number },
+              { header: 'Term average', cell: (pupil) => (pupil.term_average == null ? 'Not recorded' : `${pupil.term_average}%`) },
+              {
+                header: '',
+                actions: true,
+                cell: (pupil) => <Link className="btn-primary inline-flex text-xs" to={`/students/${pupil.id}/assessment`}>Record scores</Link>,
+              },
+            ]}
+          />
         </div>
       )}
     </div>

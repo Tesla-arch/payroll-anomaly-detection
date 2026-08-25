@@ -176,7 +176,7 @@ export default function AnomaliesPage() {
       <div className="grid gap-6 xl:grid-cols-3">
         <div className="card space-y-4">
           <h4 className="font-semibold text-emerald-950">Open by severity</h4>
-          <div className="flex items-center gap-5">
+          <div className="mt-4 flex flex-col items-center gap-5 sm:flex-row">
             <svg viewBox="0 0 42 42" className="h-28 w-28 -rotate-90">
               <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e2e8f0" strokeWidth="6" />
               {donut.map((slice) => (

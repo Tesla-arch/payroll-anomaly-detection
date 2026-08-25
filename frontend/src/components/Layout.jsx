@@ -53,6 +53,13 @@ export default function Layout() {
   const visible = links.filter((link) => !link.roles || hasRole(...link.roles))
 
   useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  useEffect(() => {
     const timer = setInterval(() => setNow(clockLabel()), 30000)
     api.get('/notifications').then(({ data }) => {
       setUnread((data || []).filter((item) => !item.is_read).length)
@@ -104,43 +111,43 @@ export default function Layout() {
   )
 
   return (
-    <div className="min-h-screen bg-[#f4f1ea] text-slate-800">
+    <div className="min-h-dvh bg-[#f4f1ea] text-slate-800">
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-emerald-950 text-emerald-50 lg:flex">
         {nav}
       </aside>
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <button type="button" className="absolute inset-0 bg-emerald-950/50" onClick={() => setOpen(false)} aria-label="Close menu" />
-          <aside className="relative z-50 flex h-full w-72 flex-col bg-emerald-950 text-emerald-50">
-            <button type="button" className="absolute right-3 top-3 text-white" onClick={() => setOpen(false)} aria-label="Close">
+          <aside className="relative z-50 flex h-full w-[min(18rem,86vw)] flex-col bg-emerald-950 text-emerald-50 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+            <button type="button" className="absolute right-3 top-3 min-h-11 min-w-11 text-white" onClick={() => setOpen(false)} aria-label="Close">
               <FiX size={20} />
             </button>
             {nav}
           </aside>
         </div>
       )}
-      <main className="lg:pl-64">
-        <header className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-stone-200 bg-[#f4f1ea]/90 px-4 py-3 backdrop-blur sm:px-6">
-          <div className="flex items-center gap-3">
-            <button type="button" className="rounded-lg p-2 text-emerald-950 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
+      <main className="min-w-0 lg:pl-64">
+        <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-stone-200 bg-[#f4f1ea]/90 px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur sm:px-6">
+          <div className="flex min-w-0 items-center gap-3">
+            <button type="button" className="min-h-11 min-w-11 rounded-lg p-2 text-emerald-950 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
               <FiMenu size={20} />
             </button>
-            <div>
+            <div className="min-w-0">
               <p className="text-xs text-slate-500">Ghana basic schools</p>
-              <h2 className="text-lg font-semibold text-emerald-950">Operations dashboard</h2>
+              <h2 className="truncate text-base font-semibold text-emerald-950 sm:text-lg">Operations dashboard</h2>
             </div>
           </div>
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex shrink-0 items-center gap-2 text-sm sm:gap-3">
             <span className="hidden rounded-full bg-white px-3 py-1 text-slate-500 ring-1 ring-stone-200 sm:inline">{now}</span>
             {unread > 0 && (
               <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-800">{unread} alerts</span>
             )}
-            <span className="hidden rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-900 sm:inline">
+            <span className="hidden rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-900 md:inline">
               {user?.role?.name}
             </span>
           </div>
         </header>
-        <div className="p-4 sm:p-6">
+        <div className="p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-6">
           <Outlet />
         </div>
       </main>

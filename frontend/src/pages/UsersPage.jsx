@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import api from '../api/client'
+import DataTable from '../components/DataTable'
 
 export default function UsersPage() {
   const [rows, setRows] = useState([])
@@ -26,21 +27,23 @@ export default function UsersPage() {
 
   return (
     <div className="grid gap-6 xl:grid-cols-3">
-      <div className="card xl:col-span-2">
+      <div className="card min-w-0 xl:col-span-2">
         <h3 className="mb-4 text-lg font-semibold">Users</h3>
-        <table className="table">
-          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                <td>{row.first_name} {row.last_name}</td>
-                <td>{row.email}</td>
-                <td>{row.role?.name}</td>
-                <td>{row.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          rows={rows}
+          empty="No users yet."
+          columns={[
+            {
+              header: 'Name',
+              primary: true,
+              cell: (row) => `${row.first_name} ${row.last_name}`,
+              sub: (row) => row.email,
+            },
+            { header: 'Email', hideOnMobile: true, cell: (row) => <span className="break-all">{row.email}</span> },
+            { header: 'Role', cell: (row) => row.role?.name },
+            { header: 'Status', cell: (row) => <span className="capitalize">{row.status}</span> },
+          ]}
+        />
       </div>
       <form className="card space-y-3" onSubmit={save}>
         <h3 className="font-semibold">Create user</h3>

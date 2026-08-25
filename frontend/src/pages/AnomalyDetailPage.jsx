@@ -74,7 +74,7 @@ export default function AnomalyDetailPage() {
         <SeverityBadge value={item.severity} />
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-4">
+      <div className="grid gap-3 grid-cols-2 sm:grid-cols-4">
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Risk</p>
           <p className="mt-1 text-2xl font-semibold text-emerald-950">{Number(item.risk_score || 0).toFixed(0)}</p>

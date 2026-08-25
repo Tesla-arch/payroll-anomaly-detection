@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import DataTable from '../components/DataTable'
 
 const filters = [
   { id: 'all', label: 'All runs' },
@@ -103,61 +104,39 @@ export default function PayrollPage() {
             </button>
           ))}
         </div>
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Run</th>
-                <th>Period</th>
-                <th>Staff</th>
-                <th>Net pay</th>
-                <th>Status</th>
-                <th>Flags</th>
-              </tr>
-            </thead>
-            <tbody>
-              {runs.map((run) => (
-                <tr
-                  key={run.id}
-                  className="cursor-pointer hover:bg-emerald-50/70"
-                  onClick={() => navigate(`/payroll/${run.id}`)}
-                >
-                  <td>
-                    <p className="font-medium">{run.run_name}</p>
-                    <p className="text-xs text-slate-400">Pay day {prettyDate(run.payment_date)}</p>
-                  </td>
-                  <td>{prettyDate(run.pay_period_start)} – {prettyDate(run.pay_period_end)}</td>
-                  <td>{run.payrolls_count ?? run.total_staff ?? '—'}</td>
-                  <td className="font-medium">{ghs(run.total_net)}</td>
-                  <td>
-                    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium capitalize ${statusTone[run.status] || 'bg-stone-100'}`}>
-                      {run.status === 'draft' ? 'Awaiting approval' : run.status}
-                    </span>
-                  </td>
-                  <td>
-                    <span className={run.critical_anomalies_count ? 'font-medium text-red-700' : 'text-slate-600'}>
-                      {run.open_anomalies_count ?? run.anomalies_count ?? 0}
-                      {run.critical_anomalies_count ? ` · ${run.critical_anomalies_count} critical` : ''}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-              {!runs.length && (
-                <tr>
-                  <td colSpan={6} className="py-10 text-center text-slate-400">
-                    No payroll runs in this view.
-                    {canPrepare && (
-                      <>
-                        {' '}
-                        <Link to="/payroll/prepare" className="text-emerald-800">Prepare the next month</Link>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <DataTable
+          rows={runs}
+          empty={canPrepare ? 'No payroll runs in this view. Prepare the next month.' : 'No payroll runs in this view.'}
+          onRowClick={(run) => navigate(`/payroll/${run.id}`)}
+          columns={[
+            {
+              header: 'Run',
+              primary: true,
+              cell: (run) => run.run_name,
+              sub: (run) => `Pay day ${prettyDate(run.payment_date)}`,
+            },
+            { header: 'Period', cell: (run) => `${prettyDate(run.pay_period_start)} – ${prettyDate(run.pay_period_end)}` },
+            { header: 'Staff', cell: (run) => run.payrolls_count ?? run.total_staff ?? '—' },
+            { header: 'Net pay', cell: (run) => ghs(run.total_net) },
+            {
+              header: 'Status',
+              cell: (run) => (
+                <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium capitalize ${statusTone[run.status] || 'bg-stone-100'}`}>
+                  {run.status === 'draft' ? 'Awaiting approval' : run.status}
+                </span>
+              ),
+            },
+            {
+              header: 'Flags',
+              cell: (run) => (
+                <span className={run.critical_anomalies_count ? 'font-medium text-red-700' : 'text-slate-600'}>
+                  {run.open_anomalies_count ?? run.anomalies_count ?? 0}
+                  {run.critical_anomalies_count ? ` · ${run.critical_anomalies_count} critical` : ''}
+                </span>
+              ),
+            },
+          ]}
+        />
       </div>
     </div>
   )

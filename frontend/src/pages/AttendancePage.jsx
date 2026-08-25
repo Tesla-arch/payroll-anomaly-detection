@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { FiCheck, FiClock, FiSave, FiSearch, FiUserCheck } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import DataTable from '../components/DataTable'
 
 const statuses = [
   { id: 'present', label: 'Present' },
@@ -204,7 +205,7 @@ export default function AttendancePage() {
                 <label className="text-xs uppercase tracking-wide text-slate-400">Date</label>
                 <input type="date" className="input mt-1" value={date} onChange={(event) => setDate(event.target.value)} />
               </div>
-              <div className="relative">
+              <div className="relative w-full sm:w-64">
                 <label className="text-xs uppercase tracking-wide text-slate-400">Search staff</label>
                 <div className="relative mt-1">
                   <FiSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -298,33 +299,21 @@ export default function AttendancePage() {
             <FiUserCheck className="text-emerald-700" />
             <h4 className="font-semibold text-emerald-950">Saved records for {date}</h4>
           </div>
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Staff</th>
-                  <th>Status</th>
-                  <th>Check-in</th>
-                  <th>Check-out</th>
-                  <th>Hours</th>
-                </tr>
-              </thead>
-              <tbody>
-                {history.map((row) => (
-                  <tr key={row.id}>
-                    <td>{row.staff?.display_name || row.staff?.employee_id}</td>
-                    <td className="capitalize">{String(row.status || '').replace('_', ' ')}</td>
-                    <td>{row.check_in_time ? String(row.check_in_time).slice(0, 5) : '—'}</td>
-                    <td>{row.check_out_time ? String(row.check_out_time).slice(0, 5) : '—'}</td>
-                    <td>{row.hours_worked ?? '—'}</td>
-                  </tr>
-                ))}
-                {!history.length && (
-                  <tr><td colSpan={5} className="py-8 text-center text-slate-400">No attendance saved for this date yet.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+          <DataTable
+            rows={history}
+            empty="No attendance saved for this date yet."
+            columns={[
+              {
+                header: 'Staff',
+                primary: true,
+                cell: (row) => row.staff?.display_name || row.staff?.employee_id,
+              },
+              { header: 'Status', cell: (row) => <span className="capitalize">{String(row.status || '').replace('_', ' ')}</span> },
+              { header: 'Check-in', cell: (row) => (row.check_in_time ? String(row.check_in_time).slice(0, 5) : '—') },
+              { header: 'Check-out', cell: (row) => (row.check_out_time ? String(row.check_out_time).slice(0, 5) : '—') },
+              { header: 'Hours', cell: (row) => row.hours_worked ?? '—' },
+            ]}
+          />
         </div>
       )}
     </div>

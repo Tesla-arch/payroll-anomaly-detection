@@ -103,7 +103,7 @@ function CampusHero({ user, hasRole, stats, health }) {
           setHoverPin(null)
         }}
       >
-        <div className="relative h-[28rem] sm:h-[32rem]">
+        <div className="relative min-h-80 h-80 sm:h-[28rem] lg:h-[32rem]">
           {academicSlides.map((item, index) => (
             <img
               key={item.id}
@@ -118,7 +118,7 @@ function CampusHero({ user, hasRole, stats, health }) {
             <button
               key={pin.target}
               type="button"
-              className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
+              className="absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 sm:block"
               style={{ top: pin.top, left: pin.left }}
               onMouseEnter={() => setHoverPin(pin.target)}
               onMouseLeave={() => setHoverPin(null)}
@@ -143,15 +143,15 @@ function CampusHero({ user, hasRole, stats, health }) {
             </div>
           )}
 
-          <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-4 p-5 sm:p-8">
-            <div className="max-w-xl text-white">
+          <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-3 p-4 sm:gap-4 sm:p-8">
+            <div className="max-w-xl min-w-0 text-white">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">{greeting()}</p>
-              <h3 className="mt-2 text-3xl font-semibold sm:text-4xl">{user?.first_name}, welcome back</h3>
+              <h3 className="mt-2 text-2xl font-semibold [overflow-wrap:anywhere] sm:text-4xl">{user?.first_name}, welcome back</h3>
               <p className="mt-2 text-sm text-emerald-50 sm:text-base">
                 Signed in as {user?.role?.name}. {health.detail}
               </p>
             </div>
-            <div className="rounded-2xl bg-white/10 px-5 py-4 text-white backdrop-blur">
+            <div className="hidden rounded-2xl bg-white/10 px-5 py-4 text-white backdrop-blur sm:block">
               <p className="text-xs uppercase tracking-wide text-emerald-100">Payroll health</p>
               <p className="mt-1 text-2xl font-semibold">{health.label}</p>
               <p className="mt-1 text-sm text-emerald-100">
@@ -160,7 +160,7 @@ function CampusHero({ user, hasRole, stats, health }) {
             </div>
           </div>
 
-          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
+          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">{slide.title}</p>
             <p className="mt-2 max-w-xl text-sm text-emerald-50 sm:text-base">{slide.caption}</p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -309,8 +309,8 @@ export default function Dashboard() {
             <h4 className="font-semibold text-emerald-950">Open flags by severity</h4>
             <Link to="/anomalies?status=open" className="text-xs font-medium text-emerald-700">View all</Link>
           </div>
-          <div className="mt-5 flex items-center gap-6">
-            <svg viewBox="0 0 42 42" className="h-36 w-36 -rotate-90">
+          <div className="mt-5 flex flex-col items-center gap-6 sm:flex-row sm:items-center">
+            <svg viewBox="0 0 42 42" className="h-32 w-32 shrink-0 -rotate-90 sm:h-36 sm:w-36">
               <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e2e8f0" strokeWidth="6" />
               {donut.map((slice) => (
                 <circle
@@ -330,7 +330,7 @@ export default function Dashboard() {
                 />
               ))}
             </svg>
-            <ul className="space-y-2 text-sm">
+            <ul className="w-full space-y-2 text-sm sm:w-auto">
               {donut.map((slice) => (
                 <li key={slice.key}>
                   <button

@@ -210,7 +210,7 @@ export default function StaffRegisterPage() {
       </div>
 
       <div className="overflow-x-auto rounded-2xl bg-white p-3 ring-1 ring-stone-200">
-        <div className="flex min-w-[640px] items-center gap-2">
+        <div className="flex min-w-max items-center gap-2">
           {steps.map((item, index) => {
             const Icon = item.icon
             const complete = filledCount(form, item.keys) >= Math.ceil(item.keys.length / 2)
@@ -222,7 +222,7 @@ export default function StaffRegisterPage() {
                 onClick={() => {
                   if (index <= step || validateStep(step)) setStep(index)
                 }}
-                className={`flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left transition ${active ? 'bg-emerald-800 text-white shadow' : complete ? 'bg-emerald-50 text-emerald-950' : 'text-slate-500 hover:bg-stone-50'}`}
+                className={`flex min-w-[10.5rem] shrink-0 items-center gap-3 rounded-xl px-3 py-3 text-left transition sm:min-w-0 sm:flex-1 ${active ? 'bg-emerald-800 text-white shadow' : complete ? 'bg-emerald-50 text-emerald-950' : 'text-slate-500 hover:bg-stone-50'}`}
               >
                 <span className={`grid h-9 w-9 place-items-center rounded-full ${active ? 'bg-amber-400 text-emerald-950' : complete ? 'bg-emerald-700 text-white' : 'bg-stone-200 text-slate-600'}`}>
                   {complete && !active ? <FiCheck /> : <Icon />}

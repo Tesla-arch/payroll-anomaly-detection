@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { FiMail, FiPlus, FiSearch, FiSend } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import DataTable from '../components/DataTable'
 
 const tabs = [
   { id: 'directory', label: 'Directory' },
@@ -253,44 +254,27 @@ export default function ParentsPage() {
               <FiSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input className="input pl-9" placeholder="Search parent, email or ward" value={search} onChange={(e) => setSearch(e.target.value)} />
             </div>
-            <div className="overflow-x-auto">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Parent</th>
-                    <th>Email</th>
-                    <th>Wards</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {parents.map((row) => (
-                    <tr
-                      key={row.id}
-                      className={`cursor-pointer ${selected?.id === row.id ? 'bg-emerald-50' : 'hover:bg-stone-50'}`}
-                      onClick={() => { setSelectedId(row.id); setEditing(false) }}
-                    >
-                      <td>
-                        <p className="font-medium">{row.first_name} {row.last_name}</p>
-                        <p className="text-xs text-slate-400">{row.phone || 'No phone'}</p>
-                      </td>
-                      <td className="text-emerald-800">{row.email || '—'}</td>
-                      <td>
-                        {(row.children || []).length
-                          ? (row.children || []).map((child) => wardName(child)).join(', ')
-                          : <span className="text-slate-400">No ward linked</span>}
-                      </td>
-                      <td className="capitalize">{row.status}</td>
-                    </tr>
-                  ))}
-                  {!parents.length && (
-                    <tr>
-                      <td colSpan={4} className="py-8 text-center text-slate-400">No parent accounts yet.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <DataTable
+              rows={parents}
+              empty="No parent accounts yet."
+              onRowClick={(row) => { setSelectedId(row.id); setEditing(false) }}
+              columns={[
+                {
+                  header: 'Parent',
+                  primary: true,
+                  cell: (row) => `${row.first_name} ${row.last_name}`,
+                  sub: (row) => row.phone || 'No phone',
+                },
+                { header: 'Email', cell: (row) => <span className="break-all text-emerald-800">{row.email || '—'}</span> },
+                {
+                  header: 'Wards',
+                  cell: (row) => (row.children || []).length
+                    ? (row.children || []).map((child) => wardName(child)).join(', ')
+                    : <span className="text-slate-400">No ward linked</span>,
+                },
+                { header: 'Status', cell: (row) => <span className="capitalize">{row.status}</span> },
+              ]}
+            />
           </div>
 
           <aside className="card space-y-3">
@@ -458,35 +442,23 @@ export default function ParentsPage() {
 
       {tab === 'sent' && (
         <div className="grid gap-6 xl:grid-cols-3">
-          <div className="card xl:col-span-2 overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Type</th>
-                  <th>Sent</th>
-                  <th>By</th>
-                </tr>
-              </thead>
-              <tbody>
-                {messages.map((row) => (
-                  <tr key={row.id} className={`cursor-pointer ${sent?.id === row.id ? 'bg-emerald-50' : 'hover:bg-stone-50'}`} onClick={() => setSentId(row.id)}>
-                    <td>
-                      <p className="font-medium">{row.subject}</p>
-                      <p className="text-xs text-slate-400">{prettyWhen(row.created_at)}</p>
-                    </td>
-                    <td className="capitalize">{row.is_broadcast ? 'Broadcast' : row.type}</td>
-                    <td>{row.sent_count}{row.failed_count ? ` · ${row.failed_count} failed` : ''}</td>
-                    <td>{row.sender?.first_name} {row.sender?.last_name}</td>
-                  </tr>
-                ))}
-                {!messages.length && (
-                  <tr>
-                    <td colSpan={4} className="py-8 text-center text-slate-400">No parent messages yet.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+          <div className="card min-w-0 xl:col-span-2">
+            <DataTable
+              rows={messages}
+              empty="No parent messages yet."
+              onRowClick={(row) => setSentId(row.id)}
+              columns={[
+                {
+                  header: 'Subject',
+                  primary: true,
+                  cell: (row) => row.subject,
+                  sub: (row) => prettyWhen(row.created_at),
+                },
+                { header: 'Type', cell: (row) => <span className="capitalize">{row.is_broadcast ? 'Broadcast' : row.type}</span> },
+                { header: 'Sent', cell: (row) => `${row.sent_count}${row.failed_count ? ` · ${row.failed_count} failed` : ''}` },
+                { header: 'By', cell: (row) => `${row.sender?.first_name || ''} ${row.sender?.last_name || ''}`.trim() || '—' },
+              ]}
+            />
           </div>
           <aside className="card space-y-3">
             {sent ? (
