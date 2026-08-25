@@ -13,7 +13,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 COPY backend/ ./
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 
-FROM php:8.3-cli-bookworm
+FROM php:8.4-cli-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libsqlite3-0 \
