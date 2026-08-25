@@ -1,0 +1,33 @@
+{
+  "name": "School Management System",
+  "image": "mcr.microsoft.com/devcontainers/php:1-8.4",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "forwardPorts": [5173, 8000],
+  "portsAttributes": {
+    "5173": {
+      "label": "School Management System",
+      "onAutoForward": "openPreview",
+      "visibility": "public"
+    },
+    "8000": {
+      "label": "Laravel API",
+      "onAutoForward": "silent",
+      "visibility": "public"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/start.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "xdebug.php-debug",
+        "bmewburn.vscode-intelephense-client"
+      ]
+    }
+  }
+}

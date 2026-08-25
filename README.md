@@ -29,6 +29,19 @@ School management system for Ghanaian basic schools with automated payroll (SSNI
 - Node.js 20+
 - SQLite (default) or MySQL
 
+## Open in your browser (GitHub Codespaces)
+
+GitHub hosts the source at [Tesla-arch/payroll-anomaly-detection](https://github.com/Tesla-arch/payroll-anomaly-detection). The live app needs PHP and Node, so GitHub Pages cannot run it. Use **Codespaces** instead:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Tesla-arch/payroll-anomaly-detection?quickstart=1)
+
+1. Open that badge (or on GitHub: **Code → Codespaces → Create codespace on main**)
+2. Wait for the container to finish setup (first start can take several minutes)
+3. When port **5173** is forwarded, open it — that is the school app
+4. Sign in with a demo account below (password: `password`)
+
+The codespace sleeps after idle time. Create or restart it whenever you want to use the app in a browser.
+
 ## Quick start
 
 **Backend**
@@ -49,6 +62,7 @@ API: http://localhost:8000/api/health
 ```bash
 cd frontend
 npm install
+copy .env.example .env   # Windows; uses Vite’s /api proxy to Laravel
 npm run dev
 ```
 
