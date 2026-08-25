@@ -1,0 +1,149 @@
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import {
+  FiAlertTriangle,
+  FiBarChart2,
+  FiBookOpen,
+  FiCalendar,
+  FiClipboard,
+  FiHome,
+  FiLogOut,
+  FiMail,
+  FiMenu,
+  FiShield,
+  FiUserCheck,
+  FiUsers,
+  FiX,
+} from 'react-icons/fi'
+import { useAuth } from '../context/AuthContext'
+import api from '../api/client'
+
+const links = [
+  { to: '/', label: 'Dashboard', icon: FiHome, roles: null },
+  { to: '/my-class', label: 'My class', icon: FiBookOpen, roles: ['super_admin', 'teacher'] },
+  { to: '/staff', label: 'Staff', icon: FiUserCheck, roles: ['super_admin', 'headteacher', 'hr_officer', 'payroll_officer', 'accountant', 'auditor'] },
+  { to: '/students', label: 'Students', icon: FiUsers, roles: ['super_admin', 'headteacher', 'hr_officer', 'teacher', 'parent'] },
+  { to: '/parents', label: 'Parents', icon: FiMail, roles: ['super_admin', 'headteacher', 'hr_officer', 'teacher'] },
+  { to: '/attendance', label: 'Attendance', icon: FiCalendar, roles: ['super_admin', 'hr_officer', 'headteacher', 'teacher', 'payroll_officer'] },
+  { to: '/leave', label: 'Leave', icon: FiClipboard, roles: ['super_admin', 'hr_officer', 'headteacher', 'teacher'] },
+  { to: '/payroll', label: 'Payroll', icon: FiBarChart2, roles: ['super_admin', 'headteacher', 'payroll_officer', 'accountant', 'auditor'] },
+  { to: '/anomalies', label: 'Anomalies', icon: FiAlertTriangle, roles: ['super_admin', 'headteacher', 'payroll_officer', 'accountant', 'auditor', 'hr_officer'] },
+  { to: '/reports', label: 'Reports', icon: FiBarChart2, roles: ['super_admin', 'headteacher', 'payroll_officer', 'accountant', 'auditor'] },
+  { to: '/audit', label: 'Audit trail', icon: FiShield, roles: ['super_admin', 'auditor', 'headteacher'] },
+  { to: '/users', label: 'Users', icon: FiUsers, roles: ['super_admin'] },
+]
+
+function clockLabel() {
+  return new Date().toLocaleString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+
+export default function Layout() {
+  const { user, logout, hasRole } = useAuth()
+  const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
+  const [now, setNow] = useState(clockLabel())
+  const [unread, setUnread] = useState(0)
+
+  const visible = links.filter((link) => !link.roles || hasRole(...link.roles))
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(clockLabel()), 30000)
+    api.get('/notifications').then(({ data }) => {
+      setUnread((data || []).filter((item) => !item.is_read).length)
+    }).catch(() => {})
+    return () => clearInterval(timer)
+  }, [])
+
+  const nav = (
+    <>
+      <div className="border-b border-emerald-900 px-5 py-5">
+        <div className="flex items-center gap-3">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-amber-400 text-sm font-bold text-emerald-950">SMS</div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.18em] text-amber-300">School Management System</p>
+            <h1 className="text-sm font-semibold leading-tight">Payroll & anomaly portal</h1>
+          </div>
+        </div>
+      </div>
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+        {visible.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === '/'}
+            onClick={() => setOpen(false)}
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${isActive ? 'bg-emerald-800 text-white' : 'text-emerald-100 hover:bg-emerald-900'}`
+            }
+          >
+            <Icon />
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+      <div className="border-t border-emerald-900 p-4 text-sm">
+        <p className="font-medium">{user?.name}</p>
+        <p className="text-emerald-300">{user?.role?.name}</p>
+        <button
+          className="mt-3 inline-flex items-center gap-2 text-amber-300 hover:text-white"
+          onClick={async () => {
+            await logout()
+            navigate('/login')
+          }}
+        >
+          <FiLogOut /> Sign out
+        </button>
+      </div>
+    </>
+  )
+
+  return (
+    <div className="min-h-screen bg-[#f4f1ea] text-slate-800">
+      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-emerald-950 text-emerald-50 lg:flex">
+        {nav}
+      </aside>
+      {open && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <button type="button" className="absolute inset-0 bg-emerald-950/50" onClick={() => setOpen(false)} aria-label="Close menu" />
+          <aside className="relative z-50 flex h-full w-72 flex-col bg-emerald-950 text-emerald-50">
+            <button type="button" className="absolute right-3 top-3 text-white" onClick={() => setOpen(false)} aria-label="Close">
+              <FiX size={20} />
+            </button>
+            {nav}
+          </aside>
+        </div>
+      )}
+      <main className="lg:pl-64">
+        <header className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-stone-200 bg-[#f4f1ea]/90 px-4 py-3 backdrop-blur sm:px-6">
+          <div className="flex items-center gap-3">
+            <button type="button" className="rounded-lg p-2 text-emerald-950 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
+              <FiMenu size={20} />
+            </button>
+            <div>
+              <p className="text-xs text-slate-500">Ghana basic schools</p>
+              <h2 className="text-lg font-semibold text-emerald-950">Operations dashboard</h2>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 text-sm">
+            <span className="hidden rounded-full bg-white px-3 py-1 text-slate-500 ring-1 ring-stone-200 sm:inline">{now}</span>
+            {unread > 0 && (
+              <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-800">{unread} alerts</span>
+            )}
+            <span className="hidden rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-900 sm:inline">
+              {user?.role?.name}
+            </span>
+          </div>
+        </header>
+        <div className="p-4 sm:p-6">
+          <Outlet />
+        </div>
+      </main>
+    </div>
+  )
+}
