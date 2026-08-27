@@ -38,6 +38,26 @@ export function AuthProvider({ children }) {
     return data.user
   }
 
+  const loginStaff = async (employeeId, email, password) => {
+    const { data } = await api.post('/auth/login/staff', {
+      employee_id: employeeId,
+      email,
+      password,
+    })
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('user', JSON.stringify(data.user))
+    setUser(data.user)
+    return data.user
+  }
+
+  const register = async (payload) => {
+    const { data } = await api.post('/auth/register', payload)
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('user', JSON.stringify(data.user))
+    setUser(data.user)
+    return data.user
+  }
+
   const logout = async () => {
     try {
       await api.post('/auth/logout')
@@ -53,7 +73,7 @@ export function AuthProvider({ children }) {
   const hasRole = (...slugs) => slugs.includes(role) || role === 'super_admin'
 
   const value = useMemo(
-    () => ({ user, loading, login, logout, role, hasRole }),
+    () => ({ user, loading, login, loginStaff, register, logout, role, hasRole }),
     [user, loading, role],
   )
 

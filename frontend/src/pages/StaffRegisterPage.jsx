@@ -32,6 +32,7 @@ const empty = {
   residential_address: '',
   digital_address: '',
   employee_id: '',
+  portal_role: 'teacher',
   rank: 'Teacher',
   job_title: 'Class Teacher',
   department: 'Lower Primary',
@@ -67,8 +68,8 @@ const regions = [
 
 const steps = [
   { id: 'personal', title: 'Personal', hint: 'Bio-data', icon: FiUser, keys: ['first_name', 'last_name', 'gender', 'date_of_birth', 'hometown', 'region'] },
-  { id: 'contact', title: 'Contact', hint: 'ID & address', icon: FiMapPin, keys: ['ghana_card_number', 'phone', 'email', 'residential_address', 'digital_address'] },
-  { id: 'appointment', title: 'Appointment', hint: 'Posting', icon: FiBriefcase, keys: ['employee_id', 'rank', 'department', 'employment_type', 'assumption_date'] },
+  { id: 'contact', title: 'Contact', hint: 'ID, email & login', icon: FiMapPin, keys: ['ghana_card_number', 'phone', 'email', 'residential_address', 'digital_address'] },
+  { id: 'appointment', title: 'Appointment', hint: 'Posting', icon: FiBriefcase, keys: ['employee_id', 'portal_role', 'rank', 'department', 'employment_type', 'assumption_date'] },
   { id: 'payroll', title: 'Payroll', hint: 'Pay & bank', icon: FiCreditCard, keys: ['salary', 'ssnit_number', 'bank_name', 'bank_account'] },
   { id: 'kin', title: 'Next of kin', hint: 'Review', icon: FiHeart, keys: ['next_of_kin_name', 'next_of_kin_phone'] },
 ]
@@ -132,6 +133,10 @@ export default function StaffRegisterPage() {
       toast.error('Enter the staff first name and surname to continue')
       return false
     }
+    if (index === 1 && !editing && !form.email.trim()) {
+      toast.error('Enter the employment email. Staff sign in with this address and their generated staff ID.')
+      return false
+    }
     if (index === 2 && !form.employee_id.trim()) {
       toast.error('The employee ID is still being generated. Please wait a moment.')
       return false
@@ -150,8 +155,8 @@ export default function StaffRegisterPage() {
 
   const save = async (event) => {
     event.preventDefault()
-    if (!validateStep(0) || !validateStep(2) || !validateStep(3)) {
-      setStep(!form.first_name.trim() || !form.last_name.trim() ? 0 : !form.employee_id.trim() ? 2 : 3)
+    if (!validateStep(0) || (!editing && !validateStep(1)) || !validateStep(2) || !validateStep(3)) {
+      setStep(!form.first_name.trim() || !form.last_name.trim() ? 0 : !editing && !form.email.trim() ? 1 : !form.employee_id.trim() ? 2 : 3)
       return
     }
     setBusy(true)
@@ -161,9 +166,19 @@ export default function StaffRegisterPage() {
       )
       payload.salary = Number(form.salary || 0)
       payload.hire_date = form.hire_date || form.assumption_date || null
-      if (editing) await api.put(`/staff/${id}`, payload)
-      else await api.post('/staff', payload)
-      toast.success(editing ? 'Staff record updated' : 'Staff registered successfully')
+      if (editing) {
+        delete payload.portal_role
+        await api.put(`/staff/${id}`, payload)
+        toast.success('Staff record updated')
+      } else {
+        const { data } = await api.post('/staff', payload)
+        const login = data.portal_login
+        toast.success(
+          login
+            ? `Registered. Staff ID ${login.employee_id} — they sign in with this ID and ${login.email}`
+            : 'Staff registered successfully',
+        )
+      }
       navigate('/staff')
     } catch (error) {
       const firstError = error.response?.data?.errors
@@ -308,7 +323,7 @@ export default function StaffRegisterPage() {
                 <Field label="Ghana Card number" hint="Format GHA-XXXXXXXXX-X">
                   <input className="input" placeholder="GHA-000000000-0" value={form.ghana_card_number} onChange={(e) => set('ghana_card_number', e.target.value)} />
                 </Field>
-                <Field label="Staff email">
+                <Field label="Staff email" hint="Required. Combined with the generated staff ID for portal sign-in.">
                   <input type="email" className="input" placeholder="name@school.gh" value={form.email} onChange={(e) => set('email', e.target.value)} />
                 </Field>
                 <Field label="Mobile number">
@@ -334,9 +349,25 @@ export default function StaffRegisterPage() {
                 <p className="text-sm text-slate-500">School posting used for attendance, leave and payroll.</p>
               </header>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Staff / employee ID" hint="Generated automatically and unique for every new staff member.">
+                <Field label="Staff / employee ID" hint="Generated automatically. Other staff sign in with this ID plus their employment email.">
                   <input className="input bg-stone-50 font-medium tracking-wide" value={form.employee_id || 'Generating…'} readOnly />
                 </Field>
+                {!editing && (
+                <Field label="Portal desk" hint="Teachers, payroll officers and accountants cannot self-register.">
+                  <div className="grid grid-cols-1 gap-2">
+                    {[['teacher', 'Teacher'], ['payroll_officer', 'Payroll Officer'], ['accountant', 'Accountant']].map(([value, label]) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => set('portal_role', value)}
+                        className={`rounded-xl border px-3 py-2 text-left text-sm ${form.portal_role === value ? 'border-emerald-700 bg-emerald-50 font-medium text-emerald-950' : 'border-stone-200'}`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </Field>
+                )}
                 <Field label="Rank">
                   <select className="input" value={form.rank} onChange={(e) => set('rank', e.target.value)}>
                     {['Headteacher', 'Assistant Headteacher', 'Senior Teacher', 'Teacher', 'KG Attendant', 'Clerk', 'Accountant', 'Storekeeper', 'Security', 'Cleaner'].map((item) => <option key={item}>{item}</option>)}
@@ -456,6 +487,8 @@ export default function StaffRegisterPage() {
                 <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
                   <div><dt className="text-slate-400">Name</dt><dd className="font-medium">{fullName || '—'}</dd></div>
                   <div><dt className="text-slate-400">Staff ID</dt><dd className="font-medium">{form.employee_id || '—'}</dd></div>
+                  <div><dt className="text-slate-400">Login email</dt><dd className="font-medium">{form.email || '—'}</dd></div>
+                  <div><dt className="text-slate-400">Portal desk</dt><dd className="font-medium capitalize">{(form.portal_role || 'teacher').replace('_', ' ')}</dd></div>
                   <div><dt className="text-slate-400">Posting</dt><dd className="font-medium">{form.rank} · {form.department}</dd></div>
                   <div><dt className="text-slate-400">Salary</dt><dd className="font-medium">{form.salary ? `GHS ${Number(form.salary).toLocaleString()}` : '—'}</dd></div>
                   <div><dt className="text-slate-400">SSNIT</dt><dd className="font-medium">{form.ssnit_number || 'Not captured'}</dd></div>
@@ -502,7 +535,7 @@ export default function StaffRegisterPage() {
           <div className="card text-sm">
             <p className="font-semibold text-emerald-950">This step</p>
             <p className="mt-1 text-slate-500">{steps[step].title}: {filledCount(form, steps[step].keys)} of {steps[step].keys.length} key fields filled.</p>
-            <p className="mt-3 text-xs text-slate-400">Required to finish: first name, surname, staff ID and basic salary.</p>
+            <p className="mt-3 text-xs text-slate-400">Required to finish: first name, surname, employment email, staff ID and basic salary. The staff member then signs in with the generated ID and that email.</p>
           </div>
         </aside>
       </form>

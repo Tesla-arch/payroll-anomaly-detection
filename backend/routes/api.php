@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/health', HealthController::class);
 
+Route::get('/auth/register-roles', [AuthController::class, 'registerRoles']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/login/staff', [AuthController::class, 'loginStaff']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {

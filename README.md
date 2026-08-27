@@ -104,16 +104,22 @@ App: http://localhost:5173
 
 Password for all accounts: `password`
 
+**Officers** (email + password — they may also [register](/register) themselves):
+
 | Email | Role |
-| admin@school.gh | Super Admin |
+| admin@school.gh | Super Admin / Administrator |
 | head@school.gh | Headteacher |
 | hr@school.gh | HR Officer |
-| payroll@school.gh | Payroll Officer |
-| accounts@school.gh | Accountant |
-| teacher@school.gh | Teacher |
 | auditor@school.gh | Auditor |
 | parent@school.gh | Parent |
 | parent2@school.gh | Parent (Ama Owusu’s household) |
+
+**Staff** (staff ID + employment email + password — HR issues the ID at employment):
+
+| Staff ID | Email | Role |
+| EMP-1001 | teacher@school.gh | Teacher |
+| EMP-PAY-01 | payroll@school.gh | Payroll Officer |
+| EMP-ACC-01 | accounts@school.gh | Accountant |
 
 The seeder plants a July 2026 payroll run with deliberate anomalies so the dashboard is not empty.
 

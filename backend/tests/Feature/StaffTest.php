@@ -46,6 +46,34 @@ class StaffTest extends TestCase
             ->assertJsonPath('employee_id', "SMS-{$year}-0002");
     }
 
+    public function test_new_staff_with_email_gets_a_portal_login(): void
+    {
+        $this->actingAsRole('hr_officer');
+
+        $response = $this->postJson('/api/staff', [
+            'first_name' => 'Ama',
+            'last_name' => 'Owusu',
+            'email' => 'ama.owusu@school.gh',
+            'phone' => '0242000000',
+            'salary' => 2800,
+            'portal_role' => 'teacher',
+        ])->assertCreated();
+
+        $id = $response->json('employee_id');
+        $this->assertNotEmpty($id);
+        $this->assertDatabaseHas('users', [
+            'email' => 'ama.owusu@school.gh',
+        ]);
+
+        $this->postJson('/api/auth/login/staff', [
+            'employee_id' => $id,
+            'email' => 'ama.owusu@school.gh',
+            'password' => 'password',
+        ])->assertOk()
+            ->assertJsonPath('user.role.slug', 'teacher')
+            ->assertJsonPath('user.employee_id', $id);
+    }
+
     public function test_duplicate_submitted_id_is_replaced_with_a_unique_id(): void
     {
         $this->actingAsRole('hr_officer');

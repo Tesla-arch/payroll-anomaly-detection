@@ -10,8 +10,10 @@ Authenticate with `Authorization: Bearer {token}` after `POST /auth/login`.
 - `GET /users` — filters: `role` (slug), `status`, `search`
 - `GET/POST /users`, `GET/PUT /users/{id}` — Super Admin only
 - `GET /roles`
-- `POST /auth/login` `{ email, password }`
-- `POST /auth/register`
+- `POST /auth/login` `{ email, password }` — Administrators, Headteachers, HR, Auditors and Parents
+- `POST /auth/login/staff` `{ employee_id, email, password }` — Teachers, Payroll Officers and Accountants (ID issued at employment)
+- `GET /auth/register-roles` — desks allowed to self-register
+- `POST /auth/register` `{ first_name, last_name, email, phone, password, password_confirmation, role }` — `role` is `super_admin`, `headteacher`, `hr_officer` or `auditor` only
 
 ## Authenticated
 

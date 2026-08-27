@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\Staff;
+use App\Models\User;
 use App\Support\Auditor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StaffController extends Controller
 {
@@ -45,9 +48,15 @@ class StaffController extends Controller
         }
 
         $staff = Staff::query()->create($data);
-        Auditor::log('staff.created', $staff, [], $request->user(), $request);
+        $login = $this->provisionPortalLogin($staff, $request);
+        Auditor::log('staff.created', $staff, ['employee_id' => $staff->employee_id], $request->user(), $request);
 
-        return response()->json($staff->load(['user', 'salaryGrade', 'allowances', 'loans']), 201);
+        $payload = $staff->load(['user.role', 'salaryGrade', 'allowances', 'loans'])->toArray();
+        if ($login) {
+            $payload['portal_login'] = $login;
+        }
+
+        return response()->json($payload, 201);
     }
 
     public function nextId(): JsonResponse
@@ -65,9 +74,10 @@ class StaffController extends Controller
     public function update(Request $request, Staff $staff): JsonResponse
     {
         $staff->update($this->validated($request, $staff));
+        $this->syncLinkedUser($staff);
         Auditor::log('staff.updated', $staff, [], $request->user(), $request);
 
-        return response()->json($staff->load(['user', 'salaryGrade']));
+        return response()->json($staff->load(['user.role', 'salaryGrade']));
     }
 
     public function deactivate(Request $request, Staff $staff): JsonResponse
@@ -83,7 +93,12 @@ class StaffController extends Controller
         return $request->validate([
             'user_id' => ['nullable', 'exists:users,id'],
             'salary_grade_id' => ['nullable', 'exists:salary_grades,id'],
-            'employee_id' => ['nullable', 'string', 'max:50', Rule::unique('staff', 'employee_id')->ignore($staff)],
+            'employee_id' => array_values(array_filter([
+                'nullable',
+                'string',
+                'max:50',
+                $staff ? Rule::unique('staff', 'employee_id')->ignore($staff) : null,
+            ])),
             'title' => ['nullable', 'string', 'max:20'],
             'first_name' => ['required', 'string', 'max:100'],
             'middle_name' => ['nullable', 'string', 'max:100'],
@@ -126,5 +141,79 @@ class StaffController extends Controller
             'next_of_kin_relationship' => ['nullable', 'string', 'max:50'],
             'next_of_kin_phone' => ['nullable', 'string', 'max:30'],
         ]);
+    }
+
+    /**
+     * Teachers, payroll officers and accountants receive a portal login keyed to the generated staff ID.
+     *
+     * @return array{employee_id: string, email: string, role: string}|null
+     */
+    protected function provisionPortalLogin(Staff $staff, Request $request): ?array
+    {
+        if ($staff->user_id || blank($staff->email)) {
+            return null;
+        }
+
+        $slug = $request->input('portal_role', 'teacher');
+        if (! in_array($slug, Role::STAFF_PORTAL_SLUGS, true)) {
+            throw ValidationException::withMessages([
+                'portal_role' => ['Choose Teacher, Payroll Officer or Accountant for this staff login.'],
+            ]);
+        }
+
+        if (User::query()->where('email', $staff->email)->exists()) {
+            throw ValidationException::withMessages([
+                'email' => ['This email already has a portal login. Use a different employment email.'],
+            ]);
+        }
+
+        $password = $request->input('portal_password') ?: 'password';
+        if (strlen((string) $password) < 8) {
+            throw ValidationException::withMessages([
+                'portal_password' => ['The first login password must be at least 8 characters.'],
+            ]);
+        }
+
+        $user = User::query()->create([
+            'first_name' => $staff->first_name,
+            'last_name' => $staff->last_name,
+            'email' => $staff->email,
+            'phone' => $staff->phone,
+            'password' => $password,
+            'role_id' => Role::query()->where('slug', $slug)->value('id'),
+            'status' => 'active',
+        ]);
+
+        $staff->update(['user_id' => $user->id]);
+        $staff->load('user.role');
+
+        return [
+            'employee_id' => $staff->employee_id,
+            'email' => $staff->email,
+            'role' => $slug,
+        ];
+    }
+
+    protected function syncLinkedUser(Staff $staff): void
+    {
+        $user = $staff->user;
+        if (! $user) {
+            return;
+        }
+
+        $updates = [
+            'first_name' => $staff->first_name ?: $user->first_name,
+            'last_name' => $staff->last_name ?: $user->last_name,
+            'phone' => $staff->phone ?: $user->phone,
+        ];
+        if (filled($staff->email) && $staff->email !== $user->email) {
+            if (User::query()->where('email', $staff->email)->where('id', '!=', $user->id)->exists()) {
+                throw ValidationException::withMessages([
+                    'email' => ['This email already belongs to another portal login.'],
+                ]);
+            }
+            $updates['email'] = $staff->email;
+        }
+        $user->update($updates);
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\Role;
+use App\Models\Staff;
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Sanctum\Sanctum;
@@ -48,5 +49,24 @@ abstract class TestCase extends BaseTestCase
         Sanctum::actingAs($user);
 
         return $user;
+    }
+
+    /**
+     * @return array{0: User, 1: Staff}
+     */
+    protected function staffWithPortal(string $slug, array $userOverrides = [], array $staffOverrides = []): array
+    {
+        $user = $this->userWithRole($slug, $userOverrides);
+        $staff = Staff::query()->create(array_merge([
+            'user_id' => $user->id,
+            'employee_id' => 'EMP-'.$user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'salary' => 2500,
+            'status' => 'active',
+        ], $staffOverrides));
+
+        return [$user, $staff];
     }
 }

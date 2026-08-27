@@ -120,6 +120,9 @@ class DatabaseSeeder extends Seeder
             'user_id' => $users['teacher']->id,
             'salary_grade_id' => $grades['t1']->id,
             'employee_id' => 'EMP-1001',
+            'first_name' => 'Ama',
+            'last_name' => 'Mensah',
+            'email' => 'teacher@school.gh',
             'department' => 'Lower Primary',
             'job_title' => 'Class Teacher',
             'salary' => 2500,
@@ -271,7 +274,41 @@ class DatabaseSeeder extends Seeder
             'issued_on' => '2025-01-15',
         ]);
 
-        return compact('normal', 'hrStaff', 'ghost', 'inactive', 'absent', 'onLeave', 'high', 'noBank', 'unauth', 'loanStaff');
+        $payrollStaff = Staff::query()->create([
+            'user_id' => $users['payroll']->id,
+            'salary_grade_id' => $grades['adm']->id,
+            'employee_id' => 'EMP-PAY-01',
+            'first_name' => 'Kofi',
+            'last_name' => 'Mensah',
+            'email' => 'payroll@school.gh',
+            'department' => 'Accounts',
+            'job_title' => 'Payroll Officer',
+            'salary' => 4000,
+            'bank_name' => 'GCB Bank',
+            'bank_account' => '1010101010',
+            'ssnit_number' => 'C10101010101',
+            'hire_date' => '2021-01-15',
+            'status' => 'active',
+        ]);
+
+        $accountsStaff = Staff::query()->create([
+            'user_id' => $users['accounts']->id,
+            'salary_grade_id' => $grades['adm']->id,
+            'employee_id' => 'EMP-ACC-01',
+            'first_name' => 'Abena',
+            'last_name' => 'Sarpong',
+            'email' => 'accounts@school.gh',
+            'department' => 'Accounts',
+            'job_title' => 'Accountant',
+            'salary' => 3800,
+            'bank_name' => 'Ecobank',
+            'bank_account' => '2020202020',
+            'ssnit_number' => 'C20202020202',
+            'hire_date' => '2020-08-01',
+            'status' => 'active',
+        ]);
+
+        return compact('normal', 'hrStaff', 'ghost', 'inactive', 'absent', 'onLeave', 'high', 'noBank', 'unauth', 'loanStaff', 'payrollStaff', 'accountsStaff');
     }
 
     protected function students(array $users, array $staff): void
@@ -359,7 +396,7 @@ class DatabaseSeeder extends Seeder
     protected function payrollDemo(User $officer, array $staff): void
     {
         $service = app(PayrollRunService::class);
-        $ids = collect($staff)->pluck('id')->all();
+        $ids = collect($staff)->except(['payrollStaff', 'accountsStaff'])->pluck('id')->all();
 
         $run = $service->execute([
             'run_name' => 'July 2026 Payroll',
