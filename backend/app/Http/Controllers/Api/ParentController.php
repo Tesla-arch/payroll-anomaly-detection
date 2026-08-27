@@ -50,6 +50,7 @@ class ParentController extends Controller
                 'parents' => User::query()->parents()->count(),
                 'active' => User::query()->parents()->where('status', 'active')->count(),
                 'with_email' => User::query()->parents()->where('status', 'active')->whereNotNull('email')->where('email', '!=', '')->count(),
+                'with_phone' => User::query()->parents()->where('status', 'active')->whereNotNull('phone')->where('phone', '!=', '')->count(),
                 'unlinked_students' => Student::query()->whereNull('parent_id')->count(),
                 'messages' => ParentMessage::query()->count(),
             ],
@@ -142,6 +143,8 @@ class ParentController extends Controller
             'body' => ['required', 'string', 'max:5000'],
             'meeting_at' => ['required_if:type,meeting', 'nullable', 'date'],
             'meeting_venue' => ['nullable', 'string', 'max:160'],
+            'channels' => ['sometimes', 'array', 'min:1'],
+            'channels.*' => [Rule::in(['email', 'whatsapp'])],
             'broadcast' => ['sometimes', 'boolean'],
             'parent_ids' => ['required_unless:type,broadcast', 'array'],
             'parent_ids.*' => ['integer', 'exists:users,id'],
@@ -165,6 +168,7 @@ class ParentController extends Controller
 
         Auditor::log('parent.message.sent', $notice, [
             'type' => $notice->type,
+            'channels' => $notice->channels,
             'recipients' => $parents->pluck('id')->all(),
             'broadcast' => $broadcast,
         ], $request->user(), $request);

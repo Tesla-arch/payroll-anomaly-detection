@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { FiMail, FiPlus, FiSearch, FiSend } from 'react-icons/fi'
+import { FiMail, FiMessageCircle, FiPlus, FiSearch, FiSend } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import DataTable from '../components/DataTable'
@@ -13,10 +13,10 @@ const tabs = [
 ]
 
 const roleDesk = {
-  teacher: 'Write a meeting note or notice, pick the parents, and send it to the emails on their accounts. Use Broadcast for the whole parent body.',
-  headteacher: 'Register parents, link wards, then send PTA meetings or a school-wide notice from this desk.',
-  hr_officer: 'Keep parent emails and wards up to date so teachers can reach the right household.',
-  super_admin: 'Full parent register — link pupils, send meetings, or broadcast one message to every registered email.',
+  teacher: 'Write a meeting note or notice, pick the parents, and send it to the email and WhatsApp number on their accounts. Use Broadcast for the whole parent body.',
+  headteacher: 'Register parents with a Ghana mobile, link wards, then send PTA meetings or a school-wide notice by email and WhatsApp.',
+  hr_officer: 'Keep parent emails, WhatsApp numbers and wards up to date so teachers can reach the right household.',
+  super_admin: 'Full parent register — link pupils, send meetings, or broadcast one message to every registered email and WhatsApp number.',
 }
 
 const emptyForm = {
@@ -62,6 +62,7 @@ export default function ParentsPage() {
     meeting_at: '',
     meeting_venue: 'School compound',
     parent_ids: [],
+    channels: ['email', 'whatsapp'],
   })
   const [sentId, setSentId] = useState(null)
 
@@ -93,7 +94,10 @@ export default function ParentsPage() {
   const selected = parents.find((row) => row.id === selectedId) || parents[0]
   const sent = messages.find((row) => row.id === sentId) || messages[0]
   const withEmail = parents.filter((row) => row.status === 'active' && row.email)
+  const withPhone = parents.filter((row) => row.status === 'active' && row.phone)
   const selectedParents = parents.filter((row) => compose.parent_ids.includes(row.id))
+  const wantsEmail = compose.channels.includes('email')
+  const wantsWhatsapp = compose.channels.includes('whatsapp')
 
   const startCreate = () => {
     setEditing(true)
@@ -122,6 +126,14 @@ export default function ParentsPage() {
         ? current.student_ids.filter((item) => item !== id)
         : [...current.student_ids, id],
     }))
+  }
+
+  const toggleChannel = (channel) => {
+    setCompose((current) => {
+      const on = current.channels.includes(channel)
+      const next = on ? current.channels.filter((item) => item !== channel) : [...current.channels, channel]
+      return { ...current, channels: next.length ? next : current.channels }
+    })
   }
 
   const toggleRecipient = (id) => {
@@ -167,9 +179,10 @@ export default function ParentsPage() {
         meeting_at: compose.type === 'meeting' ? compose.meeting_at : undefined,
         meeting_venue: compose.type === 'meeting' ? compose.meeting_venue : undefined,
         parent_ids: compose.type === 'broadcast' ? undefined : compose.parent_ids,
+        channels: compose.channels,
       }
       const { data } = await api.post('/parent-messages', payload)
-      toast.success(`${data.sent_count} email${data.sent_count === 1 ? '' : 's'} sent${data.failed_count ? ` · ${data.failed_count} failed` : ''}`)
+      toast.success(`${data.sent_count} household${data.sent_count === 1 ? '' : 's'} reached${data.failed_count ? ` · ${data.failed_count} failed` : ''}`)
       setCompose((current) => ({ ...current, subject: '', body: '', parent_ids: [] }))
       load()
       loadMessages()
@@ -183,9 +196,14 @@ export default function ParentsPage() {
   }
 
   const recipientPreview = useMemo(() => {
-    if (compose.type === 'broadcast') return `${withEmail.length} parent email${withEmail.length === 1 ? '' : 's'} on the register`
+    if (compose.type === 'broadcast') {
+      const count = wantsWhatsapp && wantsEmail
+        ? Math.max(withEmail.length, withPhone.length)
+        : wantsWhatsapp ? withPhone.length : withEmail.length
+      return `${count} household${count === 1 ? '' : 's'} on the register`
+    }
     return `${selectedParents.length} selected`
-  }, [compose.type, withEmail.length, selectedParents.length])
+  }, [compose.type, wantsEmail, wantsWhatsapp, withEmail.length, withPhone.length, selectedParents.length])
 
   return (
     <div className="space-y-5">
@@ -194,7 +212,7 @@ export default function ParentsPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">Home–school contact</p>
           <h3 className="mt-1 text-2xl font-semibold text-emerald-950">Parents</h3>
           <p className="mt-1 text-sm text-slate-500">
-            Link each household to its wards, keep the registered email current, then send meetings and notices from the school.
+            Link each household to its wards, keep the registered email and WhatsApp number current, then send meetings and notices from the school.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -215,7 +233,7 @@ export default function ParentsPage() {
         {roleDesk[role] || roleDesk.teacher}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Parents</p>
           <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.parents ?? parents.length}</p>
@@ -223,6 +241,10 @@ export default function ParentsPage() {
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Reachable by email</p>
           <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.with_email ?? withEmail.length}</p>
+        </div>
+        <div className="card">
+          <p className="text-xs uppercase tracking-wide text-slate-400">Reachable on WhatsApp</p>
+          <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.with_phone ?? withPhone.length}</p>
         </div>
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Pupils without a parent account</p>
@@ -252,7 +274,7 @@ export default function ParentsPage() {
           <div className="card xl:col-span-2">
             <div className="relative mb-4 max-w-sm">
               <FiSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input className="input pl-9" placeholder="Search parent, email or ward" value={search} onChange={(e) => setSearch(e.target.value)} />
+              <input className="input pl-9" placeholder="Search parent, email, phone or ward" value={search} onChange={(e) => setSearch(e.target.value)} />
             </div>
             <DataTable
               rows={parents}
@@ -284,7 +306,10 @@ export default function ParentsPage() {
                 <input className="input" placeholder="First name" value={form.first_name} onChange={(e) => setForm({ ...form, first_name: e.target.value })} required />
                 <input className="input" placeholder="Last name" value={form.last_name} onChange={(e) => setForm({ ...form, last_name: e.target.value })} required />
                 <input className="input" type="email" autoComplete="off" placeholder="Registered email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
-                <input className="input" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                <div>
+                  <input className="input" placeholder="WhatsApp number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                  <p className="mt-1 text-xs text-slate-400">Ghana mobile used for WhatsApp notices, e.g. 0241234567.</p>
+                </div>
                 <div>
                   <input
                     className="input"
@@ -397,6 +422,27 @@ export default function ParentsPage() {
               </div>
             </div>
             <input className="input" placeholder="Subject" value={compose.subject} onChange={(e) => setCompose({ ...compose, subject: e.target.value })} required />
+            <div>
+              <p className="text-xs uppercase tracking-wide text-slate-400">Send by</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {[
+                  { id: 'email', label: 'Email', icon: FiMail },
+                  { id: 'whatsapp', label: 'WhatsApp', icon: FiMessageCircle },
+                ].map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => toggleChannel(item.id)}
+                      className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm ${compose.channels.includes(item.id) ? 'bg-emerald-800 text-white' : 'bg-stone-100 text-slate-600 hover:bg-stone-200'}`}
+                    >
+                      <Icon /> {item.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
             {compose.type === 'meeting' && (
               <div className="grid gap-3 sm:grid-cols-2">
                 <label className="text-sm text-slate-600">
@@ -411,13 +457,13 @@ export default function ParentsPage() {
             )}
             <textarea
               className="input min-h-40"
-              placeholder="Write the message parents will receive in their registered inbox."
+              placeholder="Write the message parents will receive by email and WhatsApp."
               value={compose.body}
               onChange={(e) => setCompose({ ...compose, body: e.target.value })}
               required
             />
             <p className="text-xs text-slate-400">
-              Mail is sent to the address on each parent account. With the demo mailer it is written to the API log; connect SMTP in production.
+              Email goes to the address on file. WhatsApp uses the registered Ghana mobile (024… becomes +233…). With the demo mailer and WhatsApp log driver, copies are written to the API log; connect SMTP and a Meta WhatsApp Cloud token for live delivery.
             </p>
             <button className="btn-primary inline-flex items-center gap-2" disabled={busy}>
               <FiSend /> {busy ? 'Sending…' : `Send to ${recipientPreview}`}
@@ -427,13 +473,18 @@ export default function ParentsPage() {
             <h4 className="font-semibold text-emerald-950">{compose.type === 'broadcast' ? 'Everyone on the register' : 'Recipients'}</h4>
             {compose.type === 'broadcast' ? (
               <p className="text-sm text-slate-500">
-                This notice goes to every active parent account with an email — currently {withEmail.length} household{withEmail.length === 1 ? '' : 's'}.
+                This notice goes to every active parent
+                {wantsEmail && wantsWhatsapp ? ' by email and WhatsApp' : wantsWhatsapp ? ' on WhatsApp' : ' by email'}
+                {' '}— currently {withEmail.length} email{withEmail.length === 1 ? '' : 's'} and {withPhone.length} WhatsApp number{withPhone.length === 1 ? '' : 's'}.
               </p>
             ) : (
               <>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <button type="button" className="rounded-lg border border-stone-300 px-3 py-1 text-xs" onClick={() => setCompose((current) => ({ ...current, parent_ids: withEmail.map((row) => row.id) }))}>
                     Select all with email
+                  </button>
+                  <button type="button" className="rounded-lg border border-stone-300 px-3 py-1 text-xs" onClick={() => setCompose((current) => ({ ...current, parent_ids: withPhone.map((row) => row.id) }))}>
+                    Select all with WhatsApp
                   </button>
                   <button type="button" className="rounded-lg border border-stone-300 px-3 py-1 text-xs" onClick={() => setCompose((current) => ({ ...current, parent_ids: [] }))}>
                     Clear
@@ -445,7 +496,11 @@ export default function ParentsPage() {
                       <input type="checkbox" className="mt-1" checked={compose.parent_ids.includes(row.id)} onChange={() => toggleRecipient(row.id)} />
                       <span>
                         <span className="font-medium">{row.first_name} {row.last_name}</span>
-                        <span className="block text-xs text-slate-400">{row.email || 'No email'}{(row.children || []).length ? ` · ${(row.children || []).map(wardName).join(', ')}` : ''}</span>
+                        <span className="block text-xs text-slate-400">
+                          {row.email || 'No email'}
+                          {row.phone ? ` · ${row.phone}` : ' · No WhatsApp'}
+                          {(row.children || []).length ? ` · ${(row.children || []).map(wardName).join(', ')}` : ''}
+                        </span>
                       </span>
                     </label>
                   ))}
@@ -490,8 +545,22 @@ export default function ParentsPage() {
                 <ul className="space-y-1 text-sm">
                   {(sent.recipients || []).map((row) => (
                     <li key={row.id} className="flex justify-between gap-2 rounded-lg bg-stone-50 px-3 py-2">
-                      <span>{row.parent?.first_name} {row.parent?.last_name}<span className="block text-xs text-slate-400">{row.email}</span></span>
-                      <span className={row.status === 'sent' ? 'text-emerald-700' : 'text-red-700'}>{row.status}</span>
+                      <span>
+                        {row.parent?.first_name} {row.parent?.last_name}
+                        <span className="block text-xs text-slate-400">{row.email || 'No email'}</span>
+                        <span className="block text-xs text-slate-400">{row.phone || 'No WhatsApp'}</span>
+                      </span>
+                      <span className="text-right text-xs">
+                        {row.email_status && row.email_status !== 'skipped' && (
+                          <span className={`block ${row.email_status === 'sent' ? 'text-emerald-700' : 'text-red-700'}`}>Email {row.email_status}</span>
+                        )}
+                        {row.whatsapp_status && row.whatsapp_status !== 'skipped' && (
+                          <span className={`block ${row.whatsapp_status === 'sent' ? 'text-emerald-700' : 'text-red-700'}`}>WhatsApp {row.whatsapp_status}</span>
+                        )}
+                        {(!row.email_status || row.email_status === 'skipped') && (!row.whatsapp_status || row.whatsapp_status === 'skipped') && (
+                          <span className={row.status === 'sent' ? 'text-emerald-700' : 'text-red-700'}>{row.status}</span>
+                        )}
+                      </span>
                     </li>
                   ))}
                 </ul>

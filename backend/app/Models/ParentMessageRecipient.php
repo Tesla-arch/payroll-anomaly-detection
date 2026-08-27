@@ -10,8 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'parent_message_id',
     'parent_id',
     'email',
+    'phone',
+    'email_status',
+    'whatsapp_status',
     'status',
     'error',
+    'whatsapp_error',
     'sent_at',
 ])]
 class ParentMessageRecipient extends Model

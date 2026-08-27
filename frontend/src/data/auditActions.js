@@ -45,7 +45,7 @@ export const actionCatalog = {
   'anomaly.rescanned': { label: 'Run rescanned', hint: 'Anomaly rules were run again on a salary list.' },
   'parent.created': { label: 'Parent registered', hint: 'A household email was added to the parent register.' },
   'parent.updated': { label: 'Parent file updated', hint: 'Household details or ward links were changed.' },
-  'parent.message.sent': { label: 'Parent message sent', hint: 'A notice, meeting or broadcast was emailed.' },
+  'parent.message.sent': { label: 'Parent message sent', hint: 'A notice, meeting or broadcast was sent by email and/or WhatsApp.' },
 }
 
 const moduleTone = {

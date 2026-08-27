@@ -6,6 +6,7 @@ use App\Mail\ParentSchoolMail;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -153,6 +154,89 @@ class ParentModuleTest extends TestCase
         Mail::assertSent(ParentSchoolMail::class, function (ParentSchoolMail $mail) {
             return $mail->envelope()->subject === 'Meeting: PTA meeting'
                 && $mail->notice->meeting_venue === 'Assembly hall';
+        });
+    }
+
+    public function test_notice_is_sent_to_the_parent_whatsapp_number(): void
+    {
+        Mail::fake();
+        $this->actingAsRole('teacher');
+        $parent = $this->userWithRole('parent', [
+            'email' => 'wa.parent@example.com',
+            'phone' => '0241111111',
+        ]);
+
+        $this->postJson('/api/parent-messages', [
+            'type' => 'notice',
+            'subject' => 'Sports day',
+            'body' => 'House colours on Friday.',
+            'channels' => ['whatsapp'],
+            'parent_ids' => [$parent->id],
+        ])->assertCreated()
+            ->assertJsonPath('sent_count', 1)
+            ->assertJsonPath('recipients.0.phone', '233241111111')
+            ->assertJsonPath('recipients.0.whatsapp_status', 'sent')
+            ->assertJsonPath('recipients.0.email_status', 'skipped');
+
+        Mail::assertNothingSent();
+    }
+
+    public function test_whatsapp_channel_fails_without_a_phone_number(): void
+    {
+        Mail::fake();
+        $this->actingAsRole('teacher');
+        $parent = $this->userWithRole('parent', [
+            'email' => 'nophone@example.com',
+            'phone' => null,
+        ]);
+
+        $this->postJson('/api/parent-messages', [
+            'type' => 'notice',
+            'subject' => 'Sports day',
+            'body' => 'House colours on Friday.',
+            'channels' => ['whatsapp'],
+            'parent_ids' => [$parent->id],
+        ])->assertCreated()
+            ->assertJsonPath('sent_count', 0)
+            ->assertJsonPath('failed_count', 1)
+            ->assertJsonPath('recipients.0.whatsapp_status', 'failed');
+    }
+
+    public function test_cloud_whatsapp_posts_to_the_graph_api(): void
+    {
+        Mail::fake();
+        Http::fake([
+            'https://graph.facebook.com/*' => Http::response(['messages' => [['id' => 'wamid.demo']]], 200),
+        ]);
+        config([
+            'services.whatsapp.driver' => 'cloud',
+            'services.whatsapp.token' => 'test-token',
+            'services.whatsapp.phone_number_id' => '123456',
+            'services.whatsapp.version' => 'v21.0',
+        ]);
+
+        $this->actingAsRole('headteacher');
+        $parent = $this->userWithRole('parent', [
+            'email' => 'cloud.wa@example.com',
+            'phone' => '0541234567',
+        ]);
+
+        $this->postJson('/api/parent-messages', [
+            'type' => 'notice',
+            'subject' => 'Closed',
+            'body' => 'School closed tomorrow.',
+            'channels' => ['email', 'whatsapp'],
+            'parent_ids' => [$parent->id],
+        ])->assertCreated()
+            ->assertJsonPath('sent_count', 1)
+            ->assertJsonPath('recipients.0.whatsapp_status', 'sent')
+            ->assertJsonPath('recipients.0.email_status', 'sent');
+
+        Http::assertSent(function ($request) {
+            return str_contains($request->url(), '/123456/messages')
+                && $request['to'] === '233541234567'
+                && $request['messaging_product'] === 'whatsapp'
+                && str_contains((string) $request['text']['body'], 'School closed tomorrow.');
         });
     }
 

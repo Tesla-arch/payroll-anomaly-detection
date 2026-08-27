@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'meeting_at',
     'meeting_venue',
     'is_broadcast',
+    'channels',
     'sent_count',
     'failed_count',
 ])]
@@ -25,6 +26,7 @@ class ParentMessage extends Model
         return [
             'meeting_at' => 'datetime',
             'is_broadcast' => 'boolean',
+            'channels' => 'array',
         ];
     }
 
