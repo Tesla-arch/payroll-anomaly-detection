@@ -10,3 +10,4 @@
 8. As Headteacher, approve a draft only after critical flags are cleared. The Payroll Officer then marks it paid and can download payslips.
 9. Open **Reports** for the school snapshot. Use **Salary**, **Flags** and **School** tabs: click a run or department, switch the salary chart metric, then **Download CSV** for the active tab.
 10. Open **Parents** as HR or a teacher. Register a household email, link wards, then **Compose** a meeting or **Broadcast to all**. Demo mail is written to the API log unless SMTP is configured. Sign in as `parent@school.gh` to see the in-app notice.
+11. Open **Audit trail** as auditor (`auditor@school.gh`) or Headteacher. Click a KPI or a 14-day bar to pin a view, select an event, then open the related payroll run, staff file or flag. Download CSV for the current filter.

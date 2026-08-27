@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AnomalyController;
 use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\AuditLogController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompensationController;
 use App\Http\Controllers\Api\DashboardController;
@@ -143,5 +144,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:super_admin,payroll_officer,auditor,headteacher')->post('/anomalies/{payrollAnomaly}/resolve', [AnomalyController::class, 'resolve']);
 
-    Route::middleware('role:super_admin,auditor,headteacher')->get('/audit-logs', [ReportController::class, 'auditLogs']);
+    Route::middleware('role:super_admin,auditor,headteacher')->group(function () {
+        Route::get('/audit-logs/summary', [AuditLogController::class, 'summary']);
+        Route::get('/audit-logs', [AuditLogController::class, 'index']);
+    });
 });

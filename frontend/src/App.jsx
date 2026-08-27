@@ -56,7 +56,7 @@ export default function App() {
             <Route path="anomalies" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor', 'hr_officer']}><AnomaliesPage /></ProtectedRoute>} />
             <Route path="anomalies/:id" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor', 'hr_officer']}><AnomalyDetailPage /></ProtectedRoute>} />
             <Route path="reports" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor']}><ReportsPage /></ProtectedRoute>} />
-            <Route path="audit" element={<ProtectedRoute roles={['auditor', 'headteacher']}><AuditPage /></ProtectedRoute>} />
+            <Route path="audit" element={<ProtectedRoute roles={['auditor', 'headteacher', 'super_admin']}><AuditPage /></ProtectedRoute>} />
             <Route path="users" element={<ProtectedRoute roles={['super_admin']}><UsersPage /></ProtectedRoute>} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

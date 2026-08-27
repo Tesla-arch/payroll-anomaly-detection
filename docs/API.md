@@ -34,7 +34,8 @@ Authenticate with `Authorization: Bearer {token}` after `POST /auth/login`.
 - `GET /anomalies` — HR can read the queue to edit or deactivate flagged staff; only payroll / Headteacher / auditor record outcomes
 - `GET /reports/overview` — salary, flags and school roll snapshot
 - `GET /reports/payroll`, `GET /reports/anomalies`
-- `GET /audit-logs`
+- `GET /audit-logs` — filters: `module` (payroll, anomaly, staff, leave, parent, auth, user), `action`, `user_id`, `from`, `to`, `search`, `sensitive`
+- `GET /audit-logs/summary` — counts by desk, action, actor and day
 - `GET /leave-types` — catalogue, yearly days, remaining balance
 - `GET/POST /leave-requests` — staff apply; HR reviews; Headteacher approves
 

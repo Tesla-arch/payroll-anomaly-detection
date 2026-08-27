@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\AuditLog;
 use App\Models\LeaveRequest;
 use App\Models\Notification;
 use App\Models\Payroll;
@@ -153,17 +152,6 @@ class ReportController extends Controller
                 ],
             ],
         ]);
-    }
-
-    public function auditLogs(Request $request): JsonResponse
-    {
-        $query = AuditLog::query()->with('user')->latest();
-
-        if ($request->filled('action')) {
-            $query->where('action', 'like', '%'.$request->string('action').'%');
-        }
-
-        return response()->json($query->paginate(30));
     }
 
     public function notifications(Request $request): JsonResponse
