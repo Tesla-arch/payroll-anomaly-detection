@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/health', HealthController::class);
 
 Route::get('/auth/register-roles', [AuthController::class, 'registerRoles']);
+Route::get('/auth/captcha', [AuthController::class, 'captcha']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/login/staff', [AuthController::class, 'loginStaff']);
 Route::post('/auth/register', [AuthController::class, 'register']);

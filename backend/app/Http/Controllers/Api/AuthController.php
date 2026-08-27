@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Staff;
 use App\Models\User;
 use App\Support\Auditor;
+use App\Services\RegistrationCaptcha;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,11 @@ class AuthController extends Controller
             ]);
 
         return response()->json($roles);
+    }
+
+    public function captcha(RegistrationCaptcha $captcha): JsonResponse
+    {
+        return response()->json($captcha->issue());
     }
 
     public function login(Request $request): JsonResponse
@@ -114,7 +120,7 @@ class AuthController extends Controller
         return $this->issueToken($user->load(['role', 'staff']), $request, 'auth.login.staff');
     }
 
-    public function register(Request $request): JsonResponse
+    public function register(Request $request, RegistrationCaptcha $captcha): JsonResponse
     {
         $data = $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
@@ -123,7 +129,15 @@ class AuthController extends Controller
             'phone' => ['required', 'string', 'max:30'],
             'password' => ['required', 'confirmed', Password::min(8)],
             'role' => ['required', 'string', Rule::in(Role::SELF_REGISTER_SLUGS)],
+            'captcha_id' => ['required', 'uuid'],
+            'captcha' => ['required', 'string', 'max:12'],
         ]);
+
+        if (! $captcha->verify($data['captcha_id'], $data['captcha'])) {
+            throw ValidationException::withMessages([
+                'captcha' => ['The security code is incorrect or has expired. Refresh the image and try again.'],
+            ]);
+        }
 
         $role = Role::query()->where('slug', $data['role'])->first();
         if (! $role) {

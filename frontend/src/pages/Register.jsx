@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
+import { FiEye, FiEyeOff, FiRefreshCw } from 'react-icons/fi'
 import api from '../api/client'
 import AuthShell from '../components/AuthShell'
 import { useAuth } from '../context/AuthContext'
@@ -21,19 +21,32 @@ const empty = {
   password: '',
   password_confirmation: '',
   role: 'headteacher',
+  captcha: '',
 }
 
 export default function Register() {
   const { user, register } = useAuth()
   const [roles, setRoles] = useState(fallbackRoles)
   const [form, setForm] = useState(empty)
+  const [challenge, setChallenge] = useState({ id: '', svg: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [busy, setBusy] = useState(false)
+
+  const loadCaptcha = async () => {
+    try {
+      const { data } = await api.get('/auth/captcha')
+      setChallenge({ id: data.id, svg: data.svg })
+      setForm((current) => ({ ...current, captcha: '' }))
+    } catch {
+      toast.error('Could not load the security code')
+    }
+  }
 
   useEffect(() => {
     api.get('/auth/register-roles').then(({ data }) => {
       if (Array.isArray(data) && data.length) setRoles(data)
     }).catch(() => {})
+    loadCaptcha()
   }, [])
 
   if (user) return <Navigate to="/" replace />
@@ -46,14 +59,19 @@ export default function Register() {
       toast.error('Password confirmation does not match')
       return
     }
+    if (!challenge.id || !form.captcha.trim()) {
+      toast.error('Enter the security code from the image')
+      return
+    }
     setBusy(true)
     try {
-      await register(form)
+      await register({ ...form, captcha_id: challenge.id, captcha: form.captcha.trim() })
       toast.success('Officer account created')
     } catch (error) {
       const errors = error.response?.data?.errors || {}
       const first = Object.values(errors)[0]?.[0]
       toast.error(first || error.response?.data?.message || 'Could not register')
+      await loadCaptcha()
     } finally {
       setBusy(false)
     }
@@ -129,6 +147,41 @@ export default function Register() {
           type={showPassword ? 'text' : 'password'}
           autoComplete="new-password"
           minLength={8}
+          required
+        />
+
+        <label className="mt-4 block text-sm font-medium text-slate-700">Security code</label>
+        <p className="mt-1 text-xs text-slate-400">Type the five characters from the picture so we know a person is registering this desk.</p>
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <div className="overflow-hidden rounded-xl ring-1 ring-stone-200">
+            {challenge.svg ? (
+              <img
+                src={`data:image/svg+xml;utf8,${encodeURIComponent(challenge.svg)}`}
+                alt="Registration CAPTCHA"
+                width={180}
+                height={56}
+                className="block h-14 w-[180px] bg-[#f4f1ea]"
+              />
+            ) : (
+              <div className="grid h-14 w-[180px] place-items-center text-xs text-slate-400">Loading…</div>
+            )}
+          </div>
+          <button
+            type="button"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-stone-200 px-3 py-2 text-sm text-emerald-900 hover:bg-stone-50"
+            onClick={loadCaptcha}
+          >
+            <FiRefreshCw /> New code
+          </button>
+        </div>
+        <input
+          className="input mt-3 uppercase tracking-[0.28em]"
+          value={form.captcha}
+          onChange={(e) => set('captcha', e.target.value.toUpperCase())}
+          autoComplete="off"
+          spellCheck={false}
+          maxLength={8}
+          placeholder="ENTER CODE"
           required
         />
 

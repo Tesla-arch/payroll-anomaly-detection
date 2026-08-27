@@ -96,32 +96,49 @@ class AuthTest extends TestCase
     {
         $this->seedRoles();
 
-        $this->postJson('/api/auth/register', [
-            'first_name' => 'Efua',
-            'last_name' => 'Darko',
-            'email' => 'newhr@school.gh',
-            'phone' => '0241111111',
-            'password' => 'password1',
-            'password_confirmation' => 'password1',
-            'role' => 'hr_officer',
-        ])->assertCreated()
+        $this->postJson('/api/auth/register', $this->officerRegistration())
+            ->assertCreated()
             ->assertJsonPath('user.role.slug', 'hr_officer')
             ->assertJsonStructure(['token', 'user']);
+    }
+
+    public function test_registration_requires_a_valid_captcha(): void
+    {
+        $this->seedRoles();
+
+        $this->postJson('/api/auth/register', $this->officerRegistration([
+            'captcha' => 'WRONG',
+        ]))->assertStatus(422)
+            ->assertJsonValidationErrors('captcha');
+    }
+
+    public function test_captcha_challenge_is_single_use(): void
+    {
+        $this->seedRoles();
+        $payload = $this->officerRegistration();
+
+        $this->postJson('/api/auth/register', $payload)->assertCreated();
+        $this->postJson('/api/auth/register', array_merge($payload, [
+            'email' => 'second@school.gh',
+        ]))->assertStatus(422)
+            ->assertJsonValidationErrors('captcha');
+    }
+
+    public function test_captcha_endpoint_returns_an_image_challenge(): void
+    {
+        $this->getJson('/api/auth/captcha')
+            ->assertOk()
+            ->assertJsonStructure(['id', 'svg', 'expires_in']);
     }
 
     public function test_teachers_cannot_self_register(): void
     {
         $this->seedRoles();
 
-        $this->postJson('/api/auth/register', [
-            'first_name' => 'Ama',
-            'last_name' => 'Mensah',
+        $this->postJson('/api/auth/register', $this->officerRegistration([
             'email' => 'ama@school.gh',
-            'phone' => '0241111111',
-            'password' => 'password1',
-            'password_confirmation' => 'password1',
             'role' => 'teacher',
-        ])->assertStatus(422);
+        ]))->assertStatus(422);
     }
 
     public function test_register_roles_lists_officer_desks_only(): void

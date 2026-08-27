@@ -13,7 +13,8 @@ Authenticate with `Authorization: Bearer {token}` after `POST /auth/login`.
 - `POST /auth/login` `{ email, password }` — Administrators, Headteachers, HR, Auditors and Parents
 - `POST /auth/login/staff` `{ employee_id, email, password }` — Teachers, Payroll Officers and Accountants (ID issued at employment)
 - `GET /auth/register-roles` — desks allowed to self-register
-- `POST /auth/register` `{ first_name, last_name, email, phone, password, password_confirmation, role }` — `role` is `super_admin`, `headteacher`, `hr_officer` or `auditor` only
+- `GET /auth/captcha` — one-time SVG challenge for officer registration
+- `POST /auth/register` `{ first_name, last_name, email, phone, password, password_confirmation, role, captcha_id, captcha }` — `role` is `super_admin`, `headteacher`, `hr_officer` or `auditor` only
 
 ## Authenticated
 

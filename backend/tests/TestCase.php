@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\Role;
 use App\Models\Staff;
 use App\Models\User;
+use App\Services\RegistrationCaptcha;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Sanctum\Sanctum;
 
@@ -68,5 +69,26 @@ abstract class TestCase extends BaseTestCase
         ], $staffOverrides));
 
         return [$user, $staff];
+    }
+
+    /**
+     * @param  array<string, mixed>  $overrides
+     * @return array<string, mixed>
+     */
+    protected function officerRegistration(array $overrides = []): array
+    {
+        $id = app(RegistrationCaptcha::class)->put('K7M2P');
+
+        return array_merge([
+            'first_name' => 'Efua',
+            'last_name' => 'Darko',
+            'email' => 'newhr@school.gh',
+            'phone' => '0241111111',
+            'password' => 'password1',
+            'password_confirmation' => 'password1',
+            'role' => 'hr_officer',
+            'captcha_id' => $id,
+            'captcha' => 'K7M2P',
+        ], $overrides);
     }
 }
