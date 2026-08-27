@@ -174,12 +174,16 @@ class ParentController extends Controller
 
     protected function validatedParent(Request $request, ?User $parent = null): array
     {
+        $request->merge([
+            'email' => User::normalizeEmail($request->input('email')),
+        ]);
+
         return $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:160', Rule::unique('users', 'email')->ignore($parent?->id)],
             'phone' => ['nullable', 'string', 'max:30'],
-            'password' => [$parent ? 'nullable' : 'nullable', 'string', 'min:8'],
+            'password' => [$parent ? 'nullable' : 'required', 'string', 'min:8'],
             'status' => ['nullable', Rule::in(['active', 'inactive'])],
             'student_ids' => ['nullable', 'array'],
             'student_ids.*' => ['integer', 'exists:students,id'],

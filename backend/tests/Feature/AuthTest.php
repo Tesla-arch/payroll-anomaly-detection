@@ -17,7 +17,7 @@ class AuthTest extends TestCase
         ]);
 
         $this->postJson('/api/auth/login', [
-            'email' => 'head@school.gh',
+            'email' => 'HEAD@school.gh',
             'password' => 'password',
         ])->assertOk()
             ->assertJsonPath('user.role.slug', 'headteacher')

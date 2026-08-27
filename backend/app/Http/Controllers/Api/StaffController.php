@@ -161,7 +161,7 @@ class StaffController extends Controller
             ]);
         }
 
-        if (User::query()->where('email', $staff->email)->exists()) {
+        if (User::findByEmail($staff->email)) {
             throw ValidationException::withMessages([
                 'email' => ['This email already has a portal login. Use a different employment email.'],
             ]);
@@ -207,7 +207,7 @@ class StaffController extends Controller
             'phone' => $staff->phone ?: $user->phone,
         ];
         if (filled($staff->email) && $staff->email !== $user->email) {
-            if (User::query()->where('email', $staff->email)->where('id', '!=', $user->id)->exists()) {
+            if (User::query()->whereRaw('lower(email) = ?', [User::normalizeEmail($staff->email)])->where('id', '!=', $user->id)->exists()) {
                 throw ValidationException::withMessages([
                     'email' => ['This email already belongs to another portal login.'],
                 ]);

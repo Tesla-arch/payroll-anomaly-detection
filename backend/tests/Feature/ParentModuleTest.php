@@ -13,6 +13,26 @@ class ParentModuleTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_registered_parent_can_sign_in_with_email_and_password(): void
+    {
+        $this->actingAsRole('hr_officer');
+
+        $this->postJson('/api/parents', [
+            'first_name' => 'Ama',
+            'last_name' => 'Boateng',
+            'email' => 'Ama.Boateng@Example.com',
+            'password' => 'household1',
+        ])->assertCreated()
+            ->assertJsonPath('email', 'ama.boateng@example.com');
+
+        $this->postJson('/api/auth/login', [
+            'email' => 'AMA.BOATENG@example.com',
+            'password' => 'household1',
+        ])->assertOk()
+            ->assertJsonPath('user.role.slug', 'parent')
+            ->assertJsonPath('user.email', 'ama.boateng@example.com');
+    }
+
     public function test_hr_can_register_a_parent_and_link_a_ward(): void
     {
         $this->actingAsRole('hr_officer');
@@ -29,6 +49,7 @@ class ParentModuleTest extends TestCase
             'last_name' => 'Boateng',
             'email' => 'ama.boateng@example.com',
             'phone' => '0241111111',
+            'password' => 'household1',
             'student_ids' => [$student->id],
         ])->assertCreated()
             ->assertJsonPath('email', 'ama.boateng@example.com')
@@ -48,6 +69,7 @@ class ParentModuleTest extends TestCase
             'first_name' => 'Ama',
             'last_name' => 'Boateng',
             'email' => 'ama.boateng@example.com',
+            'password' => 'household1',
         ])->assertForbidden();
     }
 

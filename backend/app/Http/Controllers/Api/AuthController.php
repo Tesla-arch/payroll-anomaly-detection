@@ -50,12 +50,16 @@ class AuthController extends Controller
 
     public function login(Request $request): JsonResponse
     {
+        $request->merge([
+            'email' => User::normalizeEmail($request->input('email')),
+        ]);
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
         ]);
 
-        $user = User::query()->with(['role', 'staff'])->where('email', $credentials['email'])->first();
+        $user = User::findByEmail($credentials['email'])?->load(['role', 'staff']);
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
@@ -122,6 +126,10 @@ class AuthController extends Controller
 
     public function register(Request $request, RegistrationCaptcha $captcha): JsonResponse
     {
+        $request->merge([
+            'email' => User::normalizeEmail($request->input('email')),
+        ]);
+
         $data = $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],

@@ -195,6 +195,9 @@ export default function Register() {
           {' · '}
           <Link to="/login?desk=staff" className="font-medium text-emerald-800 hover:underline">Staff ID login</Link>
         </p>
+        <p className="mt-2 text-center text-xs text-slate-400">
+          Parents cannot register here. HR adds the household on the parent register, then the parent signs in with that email.
+        </p>
       </form>
     </AuthShell>
   )

@@ -77,6 +77,10 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
+        $request->merge([
+            'email' => User::normalizeEmail($request->input('email')),
+        ]);
+
         $data = $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
@@ -95,6 +99,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user): JsonResponse
     {
+        if ($request->exists('email')) {
+            $request->merge(['email' => User::normalizeEmail($request->input('email'))]);
+        }
+
         $data = $request->validate([
             'first_name' => ['sometimes', 'string', 'max:100'],
             'last_name' => ['sometimes', 'string', 'max:100'],

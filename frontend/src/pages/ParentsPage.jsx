@@ -145,7 +145,7 @@ export default function ParentsPage() {
       } else {
         const { data } = await api.post('/parents', payload)
         setSelectedId(data.id)
-        toast.success('Parent registered. They can sign in with the email on file.')
+        toast.success(`Parent registered. Sign in on the Email tab with ${data.email} and the password you set.`)
       }
       setEditing(false)
       load()
@@ -283,9 +283,25 @@ export default function ParentsPage() {
                 <p className="text-xs uppercase tracking-wide text-slate-400">{selectedId ? 'Edit parent' : 'New parent'}</p>
                 <input className="input" placeholder="First name" value={form.first_name} onChange={(e) => setForm({ ...form, first_name: e.target.value })} required />
                 <input className="input" placeholder="Last name" value={form.last_name} onChange={(e) => setForm({ ...form, last_name: e.target.value })} required />
-                <input className="input" type="email" placeholder="Registered email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+                <input className="input" type="email" autoComplete="off" placeholder="Registered email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
                 <input className="input" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-                <input className="input" placeholder={selectedId ? 'New password (optional)' : 'Portal password'} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                <div>
+                  <input
+                    className="input"
+                    type="password"
+                    autoComplete="new-password"
+                    placeholder={selectedId ? 'New password (optional)' : 'Portal password'}
+                    value={form.password}
+                    onChange={(e) => setForm({ ...form, password: e.target.value })}
+                    required={!selectedId}
+                    minLength={selectedId && !form.password ? undefined : 8}
+                  />
+                  <p className="mt-1 text-xs text-slate-400">
+                    {selectedId
+                      ? 'Leave blank to keep the current password.'
+                      : 'They sign in on the Email tab with this address. The default password is password.'}
+                  </p>
+                </div>
                 {selectedId && (
                   <select className="input" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
                     <option value="active">Active</option>

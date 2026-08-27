@@ -68,7 +68,7 @@ export default function Login() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">Role-based access</p>
         <h2 className="mt-2 text-2xl font-semibold text-emerald-950 sm:text-3xl">Sign in</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">
-          Officers register once, then use email. Other staff use the staff ID issued at employment and the email on their file.
+          Parents, administrators, HR, auditors and headteachers sign in with email. Teachers, payroll officers and accountants use the staff ID issued at employment.
         </p>
 
         <div className="mt-6 grid grid-cols-2 gap-1 rounded-2xl bg-stone-100 p-1">
@@ -77,7 +77,7 @@ export default function Login() {
             onClick={() => setMode('officer')}
             className={`rounded-xl px-3 py-2 text-sm font-medium ${mode === 'officer' ? 'bg-white text-emerald-950 shadow' : 'text-slate-500'}`}
           >
-            Officers
+            Email
           </button>
           <button
             type="button"
@@ -112,7 +112,7 @@ export default function Login() {
           </>
         ) : (
           <>
-            <label className="mt-6 block text-sm font-medium text-slate-700">School email</label>
+            <label className="mt-6 block text-sm font-medium text-slate-700">Email</label>
             <input
               className="input mt-1"
               value={email}
@@ -153,6 +153,7 @@ export default function Login() {
           <p className="mt-4 text-center text-sm text-slate-500">
             First time as Administrator, HR, Auditor or Headteacher?{' '}
             <Link to="/register" className="font-medium text-emerald-800 hover:underline">Create an officer account</Link>
+            <span className="mt-1 block">Parents do not self-register. Ask HR to add you on the parent register, then sign in here with that email.</span>
           </p>
         ) : (
           <p className="mt-4 text-center text-sm text-slate-500">
@@ -162,7 +163,7 @@ export default function Login() {
 
         <div className="mt-7 border-t border-stone-100 pt-5">
           <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-            {mode === 'staff' ? 'Demo staff logins' : 'Demo officer logins'}
+            {mode === 'staff' ? 'Demo staff logins' : 'Demo email logins'}
           </p>
           {mode === 'staff' ? (
             <div className="mt-3 grid grid-cols-1 gap-2">
