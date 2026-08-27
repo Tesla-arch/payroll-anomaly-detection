@@ -11,7 +11,7 @@ Authenticate with `Authorization: Bearer {token}` after `POST /auth/login`.
 - `GET/POST /users`, `GET/PUT /users/{id}` — Super Admin only
 - `GET /roles`
 - `POST /auth/login` `{ email, password }` — Administrators, Headteachers, HR, Auditors and Parents
-- `POST /auth/login/staff` `{ employee_id, email, password }` — Teachers, Payroll Officers and Accountants (ID issued at employment)
+- `POST /auth/login/staff` `{ employee_id, email }` — Teachers, Payroll Officers and Accountants (staff ID + employment email; no password)
 - `GET /auth/register-roles` — desks allowed to self-register
 - `GET /auth/captcha` — one-time SVG challenge for officer registration
 - `POST /auth/register` `{ first_name, last_name, email, phone, password, password_confirmation, role, captcha_id, captcha }` — `role` is `super_admin`, `headteacher`, `hr_officer` or `auditor` only

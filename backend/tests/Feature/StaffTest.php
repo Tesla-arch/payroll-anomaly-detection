@@ -68,7 +68,6 @@ class StaffTest extends TestCase
         $this->postJson('/api/auth/login/staff', [
             'employee_id' => $id,
             'email' => 'ama.owusu@school.gh',
-            'password' => 'password',
         ])->assertOk()
             ->assertJsonPath('user.role.slug', 'teacher')
             ->assertJsonPath('user.employee_id', $id);

@@ -49,7 +49,7 @@ export default function Login() {
     setBusy(true)
     try {
       if (mode === 'staff') {
-        await loginStaff(employeeId, email, password)
+        await loginStaff(employeeId, email)
       } else {
         await login(email, password)
       }
@@ -68,7 +68,7 @@ export default function Login() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">Role-based access</p>
         <h2 className="mt-2 text-2xl font-semibold text-emerald-950 sm:text-3xl">Sign in</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">
-          Parents, administrators, HR, auditors and headteachers sign in with email. Teachers, payroll officers and accountants use the staff ID issued at employment.
+          Parents, administrators, HR, auditors and headteachers sign in with email and password. Teachers, payroll officers and accountants use the staff ID issued at employment and the email on their file — no password.
         </p>
 
         <div className="mt-6 grid grid-cols-2 gap-1 rounded-2xl bg-stone-100 p-1">
@@ -125,25 +125,29 @@ export default function Login() {
           </>
         )}
 
-        <label className="mt-4 block text-sm font-medium text-slate-700">Password</label>
-        <div className="relative mt-1">
-          <input
-            className="input pr-11"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type={showPassword ? 'text' : 'password'}
-            autoComplete="current-password"
-            required
-          />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 hover:text-emerald-800"
-            onClick={() => setShowPassword((open) => !open)}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
-          >
-            {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-          </button>
-        </div>
+        {mode === 'officer' && (
+          <>
+            <label className="mt-4 block text-sm font-medium text-slate-700">Password</label>
+            <div className="relative mt-1">
+              <input
+                className="input pr-11"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="current-password"
+                required
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 hover:text-emerald-800"
+                onClick={() => setShowPassword((open) => !open)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+              </button>
+            </div>
+          </>
+        )}
 
         <button className="btn-primary mt-6 w-full py-2.5 text-base" disabled={busy}>
           {busy ? 'Signing in…' : 'Continue to portal'}
@@ -197,7 +201,12 @@ export default function Login() {
               ))}
             </div>
           )}
-          <p className="mt-3 text-center text-xs text-slate-400">Demo password: password</p>
+            {mode === 'staff' && (
+              <p className="mt-3 text-center text-xs text-slate-400">No password — use the issued staff ID and the email on the employment file.</p>
+            )}
+            {mode === 'officer' && (
+              <p className="mt-3 text-center text-xs text-slate-400">Demo password: password</p>
+            )}
         </div>
       </form>
     </AuthShell>

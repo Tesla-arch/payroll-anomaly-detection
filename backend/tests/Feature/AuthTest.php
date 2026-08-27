@@ -50,8 +50,7 @@ class AuthTest extends TestCase
 
         $this->postJson('/api/auth/login/staff', [
             'employee_id' => 'emp-pay-01',
-            'email' => 'payroll@school.gh',
-            'password' => 'password',
+            'email' => 'PAYROLL@school.gh',
         ])->assertOk()
             ->assertJsonPath('user.email', 'payroll@school.gh')
             ->assertJsonPath('user.employee_id', $staff->employee_id)
@@ -71,7 +70,6 @@ class AuthTest extends TestCase
         $this->postJson('/api/auth/login/staff', [
             'employee_id' => 'EMP-1001',
             'email' => 'other@school.gh',
-            'password' => 'password',
         ])->assertStatus(422);
     }
 
@@ -88,7 +86,6 @@ class AuthTest extends TestCase
         $this->postJson('/api/auth/login/staff', [
             'employee_id' => 'EMP-HEAD-01',
             'email' => 'head@school.gh',
-            'password' => 'password',
         ])->assertStatus(422);
     }
 

@@ -102,7 +102,7 @@ App: http://localhost:5173
 
 ## Demo accounts
 
-Password for all accounts: `password`
+Password for officer and parent email logins: `password`. Staff sign in with staff ID and employment email only (no password).
 
 **Officers** (email + password — they may also [register](/register) themselves):
 
@@ -114,7 +114,7 @@ Password for all accounts: `password`
 | parent@school.gh | Parent |
 | parent2@school.gh | Parent (Ama Owusu’s household) |
 
-**Staff** (staff ID + employment email + password — HR issues the ID at employment):
+**Staff** (staff ID + employment email — no password; HR issues the ID at employment):
 
 | Staff ID | Email | Role |
 | EMP-1001 | teacher@school.gh | Teacher |

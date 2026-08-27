@@ -80,10 +80,13 @@ class AuthController extends Controller
 
     public function loginStaff(Request $request): JsonResponse
     {
+        $request->merge([
+            'email' => User::normalizeEmail($request->input('email')),
+        ]);
+
         $credentials = $request->validate([
             'employee_id' => ['required', 'string', 'max:50'],
             'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
         ]);
 
         $staff = Staff::query()
@@ -91,13 +94,13 @@ class AuthController extends Controller
             ->whereRaw('lower(employee_id) = ?', [strtolower(trim($credentials['employee_id']))])
             ->first();
 
-        $email = strtolower($credentials['email']);
-        $fileEmail = strtolower((string) ($staff?->email ?: $staff?->user?->email));
+        $email = User::normalizeEmail($credentials['email']);
+        $fileEmail = User::normalizeEmail((string) ($staff?->email ?: $staff?->user?->email));
         $user = $staff?->user;
 
-        if (! $staff || $fileEmail === '' || $fileEmail !== $email || ! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (! $staff || $fileEmail === '' || $fileEmail !== $email || ! $user) {
             throw ValidationException::withMessages([
-                'employee_id' => ['The staff ID and email do not match an employment record, or the password is incorrect.'],
+                'employee_id' => ['The staff ID and email do not match an employment record.'],
             ]);
         }
 
