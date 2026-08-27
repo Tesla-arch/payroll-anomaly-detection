@@ -14,6 +14,7 @@ import {
   FiPlay,
   FiShield,
   FiUserCheck,
+  FiUserPlus,
   FiUsers,
 } from 'react-icons/fi'
 import api from '../api/client'
@@ -223,7 +224,7 @@ function CampusHero({ user, hasRole, stats, health }) {
 }
 
 export default function Dashboard() {
-  const { user, hasRole } = useAuth()
+  const { user, role, hasRole } = useAuth()
   const [data, setData] = useState(null)
   const [severityFilter, setSeverityFilter] = useState('all')
   const [focusSeverity, setFocusSeverity] = useState(null)
@@ -268,6 +269,7 @@ export default function Dashboard() {
     hasRole('teacher') && { to: '/my-class', label: 'My class', icon: FiUsers },
     hasRole('teacher', 'parent') && { to: '/students', label: 'Student records', icon: FiUsers },
     hasRole('hr_officer', 'headteacher', 'teacher') && { to: '/parents', label: 'Message parents', icon: FiMail },
+    role === 'super_admin' && { to: '/users/create', label: 'Create user', icon: FiUserPlus },
     hasRole('auditor') && { to: '/audit', label: 'Open audit trail', icon: FiShield },
   ].filter(Boolean)
 

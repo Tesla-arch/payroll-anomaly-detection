@@ -34,7 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/{notification}/read', [ReportController::class, 'markNotificationRead']);
 
     Route::middleware('role:super_admin')->group(function () {
+        Route::get('/users/summary', [UserController::class, 'summary']);
         Route::get('/users', [UserController::class, 'index']);
+        Route::get('/users/{user}', [UserController::class, 'show']);
         Route::post('/users', [UserController::class, 'store']);
         Route::put('/users/{user}', [UserController::class, 'update']);
         Route::get('/roles', [UserController::class, 'roles']);

@@ -22,6 +22,7 @@ import AnomalyDetailPage from './pages/AnomalyDetailPage'
 import ReportsPage from './pages/ReportsPage'
 import AuditPage from './pages/AuditPage'
 import UsersPage from './pages/UsersPage'
+import UserFormPage from './pages/UserFormPage'
 
 export default function App() {
   return (
@@ -58,6 +59,8 @@ export default function App() {
             <Route path="reports" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor']}><ReportsPage /></ProtectedRoute>} />
             <Route path="audit" element={<ProtectedRoute roles={['auditor', 'headteacher', 'super_admin']}><AuditPage /></ProtectedRoute>} />
             <Route path="users" element={<ProtectedRoute roles={['super_admin']}><UsersPage /></ProtectedRoute>} />
+            <Route path="users/create" element={<ProtectedRoute roles={['super_admin']}><UserFormPage /></ProtectedRoute>} />
+            <Route path="users/:id/edit" element={<ProtectedRoute roles={['super_admin']}><UserFormPage /></ProtectedRoute>} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

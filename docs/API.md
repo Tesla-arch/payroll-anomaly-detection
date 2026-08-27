@@ -6,7 +6,10 @@ Authenticate with `Authorization: Bearer {token}` after `POST /auth/login`.
 
 ## Public
 
-- `GET /health`
+- `GET /users/summary` — totals by status and desk
+- `GET /users` — filters: `role` (slug), `status`, `search`
+- `GET/POST /users`, `GET/PUT /users/{id}` — Super Admin only
+- `GET /roles`
 - `POST /auth/login` `{ email, password }`
 - `POST /auth/register`
 

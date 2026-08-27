@@ -1,7 +1,7 @@
 # User manual (demo)
 
 1. Start the API (`php artisan serve` in `backend`) and the UI (`npm run dev` in `frontend`).
-2. Sign in as `admin@school.gh` / `password`.
+2. Sign in as `admin@school.gh` / `password`. Open **Users**, then **Create user** to open a portal login and pick a desk.
 3. Open **Anomalies** to work the investigation desk. Each case lists **what to do**: HR edits or deactivates the staff file; Payroll **recalculates** the slip or **removes them from this draft**. Then record an outcome. As accountant you can view only.
 4. Open a case, follow the numbered steps for that rule, then save an outcome. Removing someone from a draft closes their flags so the Headteacher can approve.
 5. As Headteacher (`head@school.gh`), try **Approve** on a run that still has critical flags — it should be blocked.
