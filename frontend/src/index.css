@@ -1,7 +1,36 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Segoe UI", system-ui, sans-serif;
+}
+
+:root {
+  --page: #f4f1ea;
+  --surface: #ffffff;
+  --surface-2: #f5f5f4;
+  --surface-3: #e7e5e4;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --line: #e7e5e4;
+  --heading: #022c22;
+  --tint: #ecfdf5;
+  --tint-ink: #022c22;
+}
+
+html.dark {
+  --page: #101a16;
+  --surface: #1a2820;
+  --surface-2: #15211b;
+  --surface-3: #24352c;
+  --ink: #e8eeea;
+  --muted: #9db0a6;
+  --line: #2c4036;
+  --heading: #ecf4ef;
+  --tint: #163328;
+  --tint-ink: #d1fae5;
+  color-scheme: dark;
 }
 
 html,
@@ -17,8 +46,8 @@ html {
 
 body {
   margin: 0;
-  background: #f4f1ea;
-  color: #1e293b;
+  background: var(--page);
+  color: var(--ink);
   font-family: var(--font-sans);
   -webkit-text-size-adjust: 100%;
 }
@@ -84,6 +113,17 @@ textarea {
   @apply w-full min-h-11 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100;
 }
 
+html.dark .input {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+html.dark .input:focus {
+  --tw-ring-color: rgb(6 78 59 / 0.55);
+  border-color: #34d399;
+}
+
 .btn-primary {
   @apply inline-flex min-h-11 items-center justify-center rounded-lg bg-emerald-800 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60;
 }
@@ -102,4 +142,127 @@ textarea {
 
 .table td {
   @apply border-t border-slate-100 py-2;
+}
+
+html.dark .bg-white {
+  background-color: var(--surface);
+}
+
+html.dark .bg-\[\#f4f1ea\],
+html.dark .bg-\[\#f4f1ea\]\/90 {
+  background-color: var(--page);
+}
+
+html.dark .bg-stone-50,
+html.dark .bg-slate-50 {
+  background-color: var(--surface-2);
+}
+
+html.dark .bg-stone-100 {
+  background-color: var(--surface-3);
+}
+
+html.dark .bg-emerald-50 {
+  background-color: var(--tint);
+}
+
+html.dark .bg-emerald-100 {
+  background-color: #1f4a38;
+}
+
+html.dark .text-slate-800,
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: var(--ink);
+}
+
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: var(--muted);
+}
+
+html.dark .text-emerald-950,
+html.dark .text-emerald-900 {
+  color: var(--heading);
+}
+
+html.dark .text-emerald-800 {
+  color: #6ee7b7;
+}
+
+html.dark .border-stone-200,
+html.dark .border-slate-200,
+html.dark .border-slate-100,
+html.dark .divide-stone-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--line);
+}
+
+html.dark .ring-stone-200,
+html.dark .ring-slate-200,
+html.dark .ring-emerald-100,
+html.dark .ring-stone-100 {
+  --tw-ring-color: var(--line);
+}
+
+html.dark .hover\:bg-stone-50:hover,
+html.dark .hover\:bg-stone-100:hover,
+html.dark .active\:bg-stone-50:active {
+  background-color: var(--surface-3);
+}
+
+html.dark .hover\:bg-emerald-50:hover {
+  background-color: var(--tint);
+}
+
+html.dark .hover\:border-emerald-300:hover,
+html.dark .hover\:border-emerald-400:hover {
+  border-color: #34d399;
+}
+
+html.dark .bg-red-50 {
+  background-color: #3f1d1d;
+}
+
+html.dark .text-red-800 {
+  color: #fecaca;
+}
+
+html.dark .bg-red-100 {
+  background-color: #4c1d1d;
+}
+
+html.dark .bg-orange-50 {
+  background-color: #3f2a16;
+}
+
+html.dark .text-orange-800 {
+  color: #fdba74;
+}
+
+html.dark .bg-amber-50 {
+  background-color: #3f3216;
+}
+
+html.dark .text-amber-800 {
+  color: #fde68a;
+}
+
+html.dark .bg-rose-50 {
+  background-color: #3f1d28;
+}
+
+html.dark .text-rose-800 {
+  color: #fecdd3;
+}
+
+html.dark .bg-white\/90 {
+  background-color: rgb(16 26 22 / 0.9);
+}
+
+html.dark .hover\:bg-emerald-50\/60:hover {
+  background-color: rgb(22 51 40 / 0.65);
+}
+
+html.dark .hover\:bg-white:hover {
+  background-color: var(--surface-3);
 }

@@ -16,6 +16,7 @@ import {
   FiX,
 } from 'react-icons/fi'
 import { useAuth } from '../context/AuthContext'
+import ThemeToggle from './ThemeToggle'
 import api from '../api/client'
 
 const links = [
@@ -138,7 +139,8 @@ export default function Layout() {
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2 text-sm sm:gap-3">
-            <span className="hidden rounded-full bg-white px-3 py-1 text-slate-500 ring-1 ring-stone-200 sm:inline">{now}</span>
+            <ThemeToggle />
+            <span className="hidden rounded-full bg-white px-3 py-1 text-slate-500 ring-1 ring-stone-200 lg:inline">{now}</span>
             {unread > 0 && (
               <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-800">{unread} alerts</span>
             )}

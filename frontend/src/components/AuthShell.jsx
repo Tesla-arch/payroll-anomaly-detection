@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { authSlides } from '../data/authSlides'
+import ThemeToggle from './ThemeToggle'
 
 export default function AuthShell({ children }) {
   const [active, setActive] = useState(0)
@@ -78,7 +79,13 @@ export default function AuthShell({ children }) {
       </section>
 
       <section className="flex items-center justify-center px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8 sm:py-8">
-        {children}
+        <div className="flex w-full max-w-md flex-col gap-4">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-xs font-medium text-slate-500">Visibility</p>
+            <ThemeToggle />
+          </div>
+          {children}
+        </div>
       </section>
     </div>
   )
