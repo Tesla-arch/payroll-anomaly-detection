@@ -96,14 +96,35 @@ class Student extends Model
             return false;
         }
 
-        $user->loadMissing('staff');
+        $user->loadMissing('staff.subjects');
         $this->loadMissing('schoolClass');
+
+        if ($this->schoolClass?->isJuniorHigh()) {
+            return (bool) $user->staff?->teachesJuniorHigh();
+        }
 
         if (! $this->schoolClass?->teacher_id || ! $user->staff) {
             return true;
         }
 
         return (int) $this->schoolClass->teacher_id === (int) $user->staff->id;
+    }
+
+    public function userCanEditSubject(User $user, int $subjectId): bool
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+
+        if (! $this->userCanEditAssessments($user)) {
+            return false;
+        }
+
+        if (! $this->schoolClass?->isJuniorHigh()) {
+            return true;
+        }
+
+        return (bool) $user->staff?->teachesSubject($subjectId);
     }
 
     public function getNameAttribute(): string

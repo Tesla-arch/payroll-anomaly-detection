@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['name', 'code', 'levels', 'sort_order'])]
@@ -51,6 +52,11 @@ class Subject extends Model
     public function assessments(): HasMany
     {
         return $this->hasMany(StudentAssessment::class);
+    }
+
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(Staff::class)->withTimestamps();
     }
 
     public function offeredIn(?string $level): bool

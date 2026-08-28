@@ -16,11 +16,20 @@ class MyClassController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
+        $user = $request->user()->loadMissing('staff.subjects');
         $classes = $this->taughtClasses($request)->withCount(['students' => fn ($query) => $query->where('status', 'active')])->get();
+        $subjects = $user->staff?->subjects
+            ? $user->staff->subjects->filter(fn ($subject) => $subject->offeredIn('Junior High'))->sortBy('sort_order')->values()->map(fn ($subject) => [
+                'id' => $subject->id,
+                'name' => $subject->name,
+                'code' => $subject->code,
+            ])->all()
+            : [];
 
         return response()->json([
-            'staff_id' => $request->user()->staff?->id,
-            'classes' => $classes->map(fn (SchoolClass $class) => $this->classSummary($class)),
+            'staff_id' => $user->staff?->id,
+            'subjects' => $subjects,
+            'classes' => $classes->map(fn (SchoolClass $class) => $this->classSummary($class, $subjects)),
         ]);
     }
 
@@ -45,9 +54,17 @@ class MyClassController extends Controller
 
         $averages = $this->termAverages($pupils->pluck('id'), $year, $term);
         $schoolClass->loadCount(['students' => fn ($query) => $query->where('status', 'active')]);
+        $user = $request->user()->loadMissing('staff.subjects');
+        $subjects = $user->staff?->subjects
+            ? $user->staff->subjects->filter(fn ($subject) => $subject->offeredIn($schoolClass->level))->sortBy('sort_order')->values()->map(fn ($subject) => [
+                'id' => $subject->id,
+                'name' => $subject->name,
+                'code' => $subject->code,
+            ])->all()
+            : [];
 
         return response()->json([
-            'class' => $this->classSummary($schoolClass),
+            'class' => $this->classSummary($schoolClass, $subjects),
             'date' => $date->toDateString(),
             'academic_year' => $year,
             'term' => $term,
@@ -124,31 +141,51 @@ class MyClassController extends Controller
 
         abort_unless($user->hasRole('teacher') && $user->staff, 403, 'You do not have a class teaching assignment.');
 
-        return SchoolClass::query()->where('teacher_id', $user->staff->id)->orderBy('sort_order');
+        $staff = $user->staff->loadMissing('subjects');
+
+        return SchoolClass::query()
+            ->where(function ($query) use ($staff) {
+                $query->where('teacher_id', $staff->id);
+                if ($staff->teachesJuniorHigh()) {
+                    $query->orWhere('level', 'Junior High');
+                }
+            })
+            ->orderBy('sort_order');
     }
 
     protected function assertOwns(Request $request, SchoolClass $class): void
     {
-        $user = $request->user()->loadMissing('staff');
+        $user = $request->user()->loadMissing('staff.subjects');
         if ($user->isSuperAdmin()) {
             return;
         }
 
         abort_unless(
-            $user->hasRole('teacher') && $user->staff && (int) $class->teacher_id === (int) $user->staff->id,
+            $user->hasRole('teacher') && $user->staff && $this->staffOwnsClass($user->staff, $class),
             403,
             'This class is assigned to another tutor.',
         );
     }
 
-    protected function classSummary(SchoolClass $class): array
+    protected function staffOwnsClass($staff, SchoolClass $class): bool
+    {
+        if ($class->isJuniorHigh()) {
+            return $staff->teachesJuniorHigh();
+        }
+
+        return (int) $class->teacher_id === (int) $staff->id;
+    }
+
+    protected function classSummary(SchoolClass $class, array $subjects = []): array
     {
         return [
             'id' => $class->id,
             'name' => $class->name,
             'level' => $class->level,
             'capacity' => $class->capacity,
+            'assignment_mode' => $class->isJuniorHigh() ? 'subject' : 'classroom',
             'students_count' => $class->students_count ?? $class->students()->count(),
+            'subjects' => $class->isJuniorHigh() ? $subjects : [],
         ];
     }
 

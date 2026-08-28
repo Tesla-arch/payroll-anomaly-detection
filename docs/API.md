@@ -61,9 +61,11 @@ Roles: `super_admin`, `headteacher`, `hr_officer` manage the register. Teachers 
 
 ## Classrooms and class teachers
 
-Roles: `headteacher`, `hr_officer`, `super_admin` assign tutors. Teachers then see those rooms under **My class**. A teacher may hold more than one classroom.
+Roles: `headteacher`, `hr_officer`, `super_admin` assign teaching. Lower and Upper Primary keep one class teacher per room. Junior High teachers are assigned by subject and take JHS 1, 2 and 3 together.
 
-- `GET /classes` — catalogue (Grade 1–6, JHS 1–3) with nested `teacher` and pupil counts
-- `GET /classes/teachers` — active teaching staff and the rooms they already tutor
-- `PUT /classes/{id}/teacher` — `{ teacher_id }` (nullable to clear). Only active staff with role `teacher` or a Teacher/Tutor job title.
+- `GET /classes` — catalogue with `assignment_mode` (`classroom` or `subject`) and nested `teacher` on primary rooms
+- `GET /classes/teachers` — active teaching staff, primary rooms they tutor, and JHS subjects they teach
+- `PUT /classes/{id}/teacher` — `{ teacher_id }` (nullable to clear). Primary rooms only.
+- `GET /classes/jhs-subjects` — Junior High subjects with the teacher who covers JHS 1–3
+- `PUT /classes/jhs-subjects/{id}/teacher` — `{ teacher_id }` (nullable to clear). One teacher per subject.
 - `POST /classes` — optional extra room (`hr_officer`, `teacher`, `super_admin`)

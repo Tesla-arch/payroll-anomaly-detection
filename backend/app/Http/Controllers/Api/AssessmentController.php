@@ -25,7 +25,7 @@ class AssessmentController extends Controller
     public function update(Request $request, Student $student): JsonResponse
     {
         $this->assertCanView($request, $student);
-        abort_unless($student->userCanEditAssessments($request->user()), 403, 'Only the class tutor can enter assessment scores.');
+        abort_unless($student->userCanEditAssessments($request->user()), 403, 'Only the assigned teacher can enter assessment scores.');
 
         $data = $request->validate([
             'academic_year' => ['required', 'string', 'max:12'],
@@ -41,6 +41,10 @@ class AssessmentController extends Controller
         ]);
 
         foreach ($data['scores'] as $row) {
+            if (! $student->userCanEditSubject($request->user(), (int) $row['subject_id'])) {
+                continue;
+            }
+
             StudentAssessment::query()->updateOrCreate(
                 [
                     'student_id' => $student->id,
@@ -104,7 +108,11 @@ class AssessmentController extends Controller
         }
 
         $level = $student->schoolClass?->level;
-        $subjects = Subject::query()->orderBy('sort_order')->get()->filter(fn (Subject $subject) => $subject->offeredIn($level));
+        $subjects = Subject::query()
+            ->with(['teachers.user'])
+            ->orderBy('sort_order')
+            ->get()
+            ->filter(fn (Subject $subject) => $subject->offeredIn($level));
         $rows = StudentAssessment::query()
             ->where('student_id', $student->id)
             ->where('academic_year', $year)
@@ -112,7 +120,7 @@ class AssessmentController extends Controller
             ->get()
             ->keyBy('subject_id');
 
-        $items = $subjects->map(function (Subject $subject) use ($rows) {
+        $items = $subjects->map(function (Subject $subject) use ($rows, $request, $student) {
             $row = $rows->get($subject->id);
             $scores = [
                 'classwork' => $row?->classwork,
@@ -122,6 +130,9 @@ class AssessmentController extends Controller
             ];
             $average = AssessmentGrading::average($scores);
             $grade = AssessmentGrading::grade($average);
+            $subjectTeacher = $subject->relationLoaded('teachers')
+                ? $subject->teachers->first()
+                : $subject->teachers()->with('user')->first();
 
             return [
                 'subject_id' => $subject->id,
@@ -132,6 +143,10 @@ class AssessmentController extends Controller
                 'grade' => $grade['grade'],
                 'band' => $grade['remark'],
                 'remark' => $row?->remark,
+                'can_edit' => $student->userCanEditSubject($request->user(), $subject->id),
+                'teacher' => $student->schoolClass?->isJuniorHigh()
+                    ? ($subjectTeacher?->display_name)
+                    : ($student->schoolClass?->teacher?->display_name),
             ];
         })->values();
 

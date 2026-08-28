@@ -54,4 +54,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Student::class, 'class_id');
     }
+
+    public function isJuniorHigh(): bool
+    {
+        return $this->level === 'Junior High';
+    }
+
+    public function usesClassTutor(): bool
+    {
+        return ! $this->isJuniorHigh();
+    }
 }

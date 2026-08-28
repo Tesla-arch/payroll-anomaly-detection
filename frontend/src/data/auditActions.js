@@ -29,7 +29,8 @@ export const actionCatalog = {
   'staff.created': { label: 'Staff registered', hint: 'A new employment file was opened.' },
   'staff.updated': { label: 'Staff file updated', hint: 'Bio-data, posting or payroll details were changed.' },
   'staff.deactivated': { label: 'Staff deactivated', hint: 'The employee will not be picked up on the next payroll prepare.' },
-  'class.teacher_assigned': { label: 'Class teacher assigned', hint: 'A Grade or JHS classroom was given a class tutor.' },
+  'class.teacher_assigned': { label: 'Class teacher assigned', hint: 'A Grade classroom was given a class tutor.' },
+  'class.subject_assigned': { label: 'JHS subject teacher assigned', hint: 'A Junior High subject was given a teacher who takes JHS 1, 2 and 3.' },
   'leave.requested': { label: 'Leave requested', hint: 'A staff member submitted the official leave form.' },
   'leave.reviewed': { label: 'Leave reviewed by HR', hint: 'HR forwarded or rejected the request.' },
   'leave.approve': { label: 'Leave approved', hint: 'The Headteacher approved the leave.' },
@@ -74,6 +75,8 @@ const metaLabels = {
   class_name: 'Classroom',
   previous_teacher_id: 'Previous tutor',
   teacher_id: 'Class tutor',
+  subject: 'Subject',
+  covers: 'Covers',
 }
 
 export function moduleLabel(module) {

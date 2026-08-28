@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\SchoolClass;
+use App\Models\Subject;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -124,6 +125,70 @@ class ClassAssignmentTest extends TestCase
                 'name' => 'Grade 1',
                 'teacher_id' => $teacher->id,
             ]);
+    }
+
+    public function test_jhs_teachers_are_assigned_by_subject_not_classroom(): void
+    {
+        $this->actingAsRole('headteacher');
+        [, $teacher] = $this->staffWithPortal('teacher', [
+            'first_name' => 'Kojo',
+            'last_name' => 'Ampofo',
+        ], [
+            'job_title' => 'JHS Teacher',
+        ]);
+
+        SchoolClass::syncCatalogue();
+        Subject::syncCatalogue();
+        $jhs = SchoolClass::query()->where('name', 'JHS 1')->firstOrFail();
+        $maths = Subject::query()->where('code', 'MAT')->firstOrFail();
+
+        $this->putJson("/api/classes/{$jhs->id}/teacher", [
+            'teacher_id' => $teacher->id,
+        ])->assertUnprocessable()
+            ->assertJsonValidationErrors(['teacher_id']);
+
+        $this->putJson("/api/classes/jhs-subjects/{$maths->id}/teacher", [
+            'teacher_id' => $teacher->id,
+        ])->assertOk()
+            ->assertJsonPath('teacher_id', $teacher->id)
+            ->assertJsonPath('name', 'Mathematics')
+            ->assertJsonPath('covers', ['JHS 1', 'JHS 2', 'JHS 3']);
+
+        $this->assertDatabaseHas('staff_subject', [
+            'staff_id' => $teacher->id,
+            'subject_id' => $maths->id,
+        ]);
+        $this->assertDatabaseHas('school_classes', [
+            'id' => $jhs->id,
+            'teacher_id' => null,
+        ]);
+    }
+
+    public function test_jhs_subject_teacher_sees_all_three_rooms(): void
+    {
+        SchoolClass::syncCatalogue();
+        Subject::syncCatalogue();
+        [$user, $teacher] = $this->staffWithPortal('teacher');
+        $teacher->subjects()->sync([
+            Subject::query()->where('code', 'MAT')->value('id'),
+        ]);
+        \Laravel\Sanctum\Sanctum::actingAs($user);
+
+        $names = collect($this->getJson('/api/my-class')->assertOk()->json('classes'))->pluck('name')->all();
+        $this->assertEqualsCanonicalizing(['JHS 1', 'JHS 2', 'JHS 3'], $names);
+    }
+
+    public function test_primary_class_teacher_does_not_receive_jhs_rooms(): void
+    {
+        SchoolClass::syncCatalogue();
+        Subject::syncCatalogue();
+        [$user, $teacher] = $this->staffWithPortal('teacher');
+        $grade = SchoolClass::query()->where('name', 'Grade 1')->firstOrFail();
+        $grade->update(['teacher_id' => $teacher->id]);
+        \Laravel\Sanctum\Sanctum::actingAs($user);
+
+        $names = collect($this->getJson('/api/my-class')->assertOk()->json('classes'))->pluck('name')->all();
+        $this->assertSame(['Grade 1'], $names);
     }
 
     protected function classroom(): SchoolClass

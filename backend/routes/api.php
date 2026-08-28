@@ -85,6 +85,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:super_admin,headteacher,hr_officer')->group(function () {
         Route::get('/classes/teachers', [ClassController::class, 'teachers']);
+        Route::get('/classes/jhs-subjects', [ClassController::class, 'jhsSubjects']);
+        Route::put('/classes/jhs-subjects/{subject}/teacher', [ClassController::class, 'assignJhsSubject']);
         Route::put('/classes/{schoolClass}/teacher', [ClassController::class, 'assignTeacher']);
     });
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
@@ -125,6 +126,27 @@ class Staff extends Model
     public function classes(): HasMany
     {
         return $this->hasMany(SchoolClass::class, 'teacher_id');
+    }
+
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class)->withTimestamps();
+    }
+
+    public function teachesJuniorHigh(): bool
+    {
+        $subjects = $this->relationLoaded('subjects') ? $this->subjects : $this->subjects()->get();
+
+        return $subjects->contains(fn (Subject $subject) => $subject->offeredIn('Junior High'));
+    }
+
+    public function teachesSubject(int $subjectId): bool
+    {
+        if ($this->relationLoaded('subjects')) {
+            return $this->subjects->contains('id', $subjectId);
+        }
+
+        return $this->subjects()->where('subjects.id', $subjectId)->exists();
     }
 
     public function attendances(): HasMany

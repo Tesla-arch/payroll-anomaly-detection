@@ -9,6 +9,6 @@
 7. As Payroll Officer (staff ID `EMP-PAY-01` / `payroll@school.gh`), open **Payroll** and **Prepare payroll**. The run deducts SSNIT, loans and absence only — not PAYE — then scans for anomalies.
 8. As Headteacher, approve a draft only after critical flags are cleared. The Payroll Officer then marks it paid and can download payslips.
 9. Open **Reports** for the school snapshot. Use **Salary**, **Flags** and **School** tabs: click a run or department, switch the salary chart metric, then **Download CSV** for the active tab.
-10. As Headteacher (`head@school.gh`) or HR (`hr@school.gh`), open **Classes**. Each Grade and JHS card shows the current tutor. Use **Assign teacher**, search, and tap a name. Teachers then see that room under **My class**. **Clear** removes the tutor without deleting the classroom.
+10. As Headteacher (`head@school.gh`) or HR (`hr@school.gh`), open **Classes**. Grade 1–6 cards still take one class teacher each. Junior High is assigned **by subject** — that teacher takes JHS 1, 2 and 3. Teachers then see those rooms under **My class**.
 11. Open **Parents** as HR or a teacher. Register a household email, link wards, then **Compose** a meeting or **Broadcast to all**. Demo mail is written to the API log unless SMTP is configured. Sign in as `parent@school.gh` to see the in-app notice.
 12. Open **Audit trail** as auditor (`auditor@school.gh`) or Headteacher. Click a KPI or a 14-day bar to pin a view, select an event, then open the related payroll run, staff file or flag. Download CSV for the current filter.

@@ -28,6 +28,7 @@ function statusClass(status, active) {
 
 export default function MyClassPage() {
   const [classes, setClasses] = useState([])
+  const [subjects, setSubjects] = useState([])
   const [classId, setClassId] = useState(null)
   const [ready, setReady] = useState(false)
   const [tab, setTab] = useState('register')
@@ -40,6 +41,7 @@ export default function MyClassPage() {
     api.get('/my-class').then(({ data: payload }) => {
       const list = payload.classes || []
       setClasses(list)
+      setSubjects(payload.subjects || [])
       setClassId((current) => current || list[0]?.id || null)
     }).catch(() => toast.error('Could not load your class assignment'))
       .finally(() => setReady(true))
@@ -64,6 +66,8 @@ export default function MyClassPage() {
   }, [classId, date])
 
   const selected = classes.find((item) => item.id === classId)
+  const taughtSubjects = selected?.subjects?.length ? selected.subjects : subjects
+  const isJhs = selected?.level === 'Junior High'
   const pupils = data?.pupils || []
   const summary = data?.summary || {}
   const markedCount = useMemo(() => Object.values(marks).filter(Boolean).length, [marks])
@@ -103,7 +107,7 @@ export default function MyClassPage() {
       <div className="card max-w-xl">
         <h3 className="text-xl font-semibold text-emerald-950">No class assigned</h3>
         <p className="mt-2 text-sm text-slate-600">
-          You are not listed as class tutor on any class. Ask HR or the headteacher to assign you a class.
+          You are not listed as a class teacher (primary) or a JHS subject teacher. Ask HR or the headteacher to assign you on the Classes desk.
         </p>
       </div>
     )
@@ -113,9 +117,15 @@ export default function MyClassPage() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">Class teacher</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800">
+            {isJhs ? 'JHS subject teacher' : 'Class teacher'}
+          </p>
           <h3 className="mt-1 text-2xl font-semibold text-emerald-950">My class</h3>
-          <p className="mt-1 text-sm text-slate-500">Manage your pupils, take today’s attendance and record term assessments.</p>
+          <p className="mt-1 text-sm text-slate-500">
+            {isJhs
+              ? `You teach ${(taughtSubjects || []).map((item) => item.name).join(', ') || 'assigned subjects'} across JHS 1, 2 and 3.`
+              : 'Manage your pupils, take today’s attendance and record term assessments.'}
+          </p>
         </div>
         {classes.length > 1 && (
           <select className="input w-56" value={classId || ''} onChange={(event) => setClassId(Number(event.target.value))}>
@@ -128,9 +138,12 @@ export default function MyClassPage() {
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div className="card">
-          <p className="text-sm text-slate-500">Assigned class</p>
+          <p className="text-sm text-slate-500">{isJhs ? 'Open class' : 'Assigned class'}</p>
           <p className="mt-2 text-2xl font-semibold text-emerald-950">{selected?.name || '—'}</p>
-          <p className="text-xs text-slate-400">{selected?.level}</p>
+          <p className="text-xs text-slate-400">
+            {selected?.level}
+            {isJhs && taughtSubjects.length ? ` · ${(taughtSubjects).map((item) => item.code).join(', ')}` : ''}
+          </p>
         </div>
         <div className="card">
           <p className="text-sm text-slate-500">On roll</p>

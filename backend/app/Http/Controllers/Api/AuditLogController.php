@@ -229,6 +229,7 @@ class AuditLogController extends Controller
             'User' => $model ? trim($model->first_name.' '.$model->last_name) : null,
             'ParentMessage' => $model?->subject,
             'SchoolClass' => $model?->name ?: ($meta['class_name'] ?? null),
+            'Subject' => $model?->name ?: ($meta['subject'] ?? null),
             default => null,
         };
 
@@ -243,6 +244,7 @@ class AuditLogController extends Controller
             'User' => str_starts_with($log->action, 'parent') ? '/parents' : '/users',
             'ParentMessage' => '/parents?tab=sent',
             'SchoolClass' => '/classes',
+            'Subject' => '/classes',
             default => null,
         };
 

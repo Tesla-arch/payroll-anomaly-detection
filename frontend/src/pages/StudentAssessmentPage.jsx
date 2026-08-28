@@ -68,6 +68,8 @@ export default function StudentAssessmentPage() {
 
   const selected = subjects.find((item) => item.subject_id === selectedId) || subjects[0]
   const canEdit = Boolean(data?.can_edit)
+  const canEditSelected = Boolean(selected?.can_edit)
+  const isJhs = data?.student?.level === 'Junior High'
   const overall = data?.summary?.overall
   const ring = useMemo(() => Math.min(100, Number(overall || 0)), [overall])
 
@@ -133,7 +135,7 @@ export default function StudentAssessmentPage() {
           <h3 className="mt-2 text-2xl font-semibold text-emerald-950">{data.student.display_name}</h3>
           <p className="mt-1 text-sm text-slate-500">
             {data.student.admission_number} · {data.student.class} · {data.student.level}
-            {data.student.class_tutor ? ` · Tutor: ${data.student.class_tutor}` : ''}
+            {data.student.class_tutor && !isJhs ? ` · Tutor: ${data.student.class_tutor}` : ''}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -230,7 +232,12 @@ export default function StudentAssessmentPage() {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <p className="text-sm font-medium text-emerald-950">{item.name}</p>
-                    <p className="text-xs text-slate-400">{item.code} · {item.grade} {item.average == null ? '' : `· ${item.average}%`}</p>
+                    <p className="text-xs text-slate-400">
+                      {item.code}
+                      {item.average == null ? '' : ` · ${item.average}%`}
+                      {item.teacher ? ` · ${item.teacher}` : ''}
+                      {item.can_edit ? ' · Your subject' : ''}
+                    </p>
                   </div>
                   <span className="rounded-full px-2 py-0.5 text-xs font-medium" style={{ color: scoreColor(item.average) }}>{item.grade}</span>
                 </div>
@@ -267,7 +274,7 @@ export default function StudentAssessmentPage() {
                     <div className="mt-2 h-2 overflow-hidden rounded-full bg-white">
                       <div className="h-full rounded-full transition-all" style={{ width: `${selected[key] || 0}%`, background: scoreColor(selected[key]) }} />
                     </div>
-                    {canEdit && (
+                    {canEditSelected && (
                       <div className="mt-3">
                         <NumberField value={selected[key]} onChange={(value) => setScore(selected.subject_id, key, value)} />
                       </div>
@@ -275,11 +282,16 @@ export default function StudentAssessmentPage() {
                   </div>
                 ))}
               </div>
-              {canEdit && (
+              {canEditSelected && (
                 <div>
                   <label className="text-sm font-medium text-slate-700">Subject remark</label>
                   <input className="input mt-1" value={selected.remark || ''} onChange={(event) => setScore(selected.subject_id, 'remark', event.target.value)} placeholder="Optional comment for this subject" />
                 </div>
+              )}
+              {canEdit && !canEditSelected && (
+                <p className="text-sm text-slate-500">
+                  {selected.teacher ? `${selected.teacher} enters scores for this subject.` : 'Another subject teacher enters scores here.'}
+                </p>
               )}
             </>
           ) : (
@@ -287,7 +299,9 @@ export default function StudentAssessmentPage() {
           )}
 
           <div>
-            <label className="text-sm font-medium text-slate-700">Class tutor’s term comment</label>
+            <label className="text-sm font-medium text-slate-700">
+              {isJhs ? 'Teacher’s term comment' : 'Class tutor’s term comment'}
+            </label>
             <textarea
               className="input mt-1 min-h-24"
               disabled={!canEdit}
@@ -296,7 +310,11 @@ export default function StudentAssessmentPage() {
               placeholder={canEdit ? 'Write a short terminal comment for parents…' : 'No comment yet'}
             />
             {!canEdit && (
-              <p className="mt-2 text-xs text-slate-400">Scores are view-only. Only the class tutor can enter or change continuous assessment.</p>
+              <p className="mt-2 text-xs text-slate-400">
+                {isJhs
+                  ? 'Scores are view-only except for the JHS subjects assigned to you.'
+                  : 'Scores are view-only. Only the class tutor can enter or change continuous assessment.'}
+              </p>
             )}
           </div>
         </div>

@@ -322,10 +322,18 @@ class DatabaseSeeder extends Seeder
     protected function students(array $users, array $staff): void
     {
         SchoolClass::syncCatalogue();
+        Subject::syncCatalogue();
 
         SchoolClass::query()->where('level', 'Lower Primary')->update(['teacher_id' => $staff['normal']->id]);
         SchoolClass::query()->where('level', 'Upper Primary')->update(['teacher_id' => $staff['loanStaff']->id]);
-        SchoolClass::query()->where('level', 'Junior High')->update(['teacher_id' => $staff['noBank']->id]);
+        SchoolClass::query()->where('level', 'Junior High')->update(['teacher_id' => null]);
+
+        $staff['high']->subjects()->sync(
+            Subject::query()->whereIn('code', ['MAT', 'ISC', 'ICT', 'CAT', 'PHE'])->pluck('id')->all()
+        );
+        $staff['noBank']->subjects()->sync(
+            Subject::query()->whereIn('code', ['ENG', 'GHL', 'SOC', 'RME', 'CAD', 'FRE'])->pluck('id')->all()
+        );
 
         $grade3 = SchoolClass::query()->where('name', 'Grade 3')->where('level', 'Lower Primary')->first();
         $grade5 = SchoolClass::query()->where('name', 'Grade 5')->where('level', 'Upper Primary')->first();
