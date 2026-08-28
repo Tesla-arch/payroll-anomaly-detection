@@ -18,12 +18,13 @@ FROM php:8.4-cli-bookworm
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libsqlite3-0 \
         libsqlite3-dev \
+        libpq-dev \
         libzip-dev \
         libpng-dev \
         libjpeg62-turbo-dev \
         libfreetype6-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) pdo_sqlite zip gd bcmath \
+    && docker-php-ext-install -j$(nproc) pdo_sqlite pdo_pgsql zip gd bcmath \
     && echo "memory_limit=256M" > /usr/local/etc/php/conf.d/memory.ini \
     && rm -rf /var/lib/apt/lists/*
 
@@ -51,7 +52,7 @@ ENV APP_ENV=production \
     QUEUE_CONNECTION=sync \
     BROADCAST_CONNECTION=log \
     MAIL_MAILER=log \
-    SEED_ON_BOOT=true
+    RESET_DATABASE=false
 
 EXPOSE 10000
 CMD ["sh", "/var/www/html/scripts/render-start.sh"]

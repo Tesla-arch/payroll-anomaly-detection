@@ -13,6 +13,7 @@ use App\Models\Staff;
 use App\Models\StaffAllowance;
 use App\Models\StaffAttendance;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\User;
 use App\Services\PayrollAnomalyDetectionService;
 use App\Services\PayrollRunService;
@@ -23,6 +24,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        if (Role::query()->exists()) {
+            SchoolClass::syncCatalogue();
+            Subject::syncCatalogue();
+
+            return;
+        }
+
         $roles = $this->roles();
         $users = $this->users($roles);
         $grades = $this->grades();

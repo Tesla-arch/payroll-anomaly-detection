@@ -8,6 +8,16 @@ if [ -n "$RENDER_EXTERNAL_URL" ]; then
   export FRONTEND_URL="${FRONTEND_URL:-$RENDER_EXTERNAL_URL}"
 fi
 
+# Render injects DATABASE_URL for Postgres. Laravel reads DB_URL.
+if [ -n "$DATABASE_URL" ]; then
+  export DB_CONNECTION="${DB_CONNECTION:-pgsql}"
+  export DB_URL="${DB_URL:-$DATABASE_URL}"
+fi
+
+if [ -n "$APP_KEY" ] && [ "${APP_KEY#base64:}" = "$APP_KEY" ]; then
+  export APP_KEY="base64:${APP_KEY}"
+fi
+
 mkdir -p \
   database \
   storage/framework/cache/data \
@@ -23,11 +33,13 @@ if [ -z "$APP_KEY" ]; then
   php artisan key:generate --force
 fi
 
-# Free-plan disks are ephemeral. Reseed demo accounts after every cold start.
-if [ "${SEED_ON_BOOT:-true}" = "true" ]; then
+# Never wipe on boot. Postgres keeps staff, students, parents and officers
+# after the free web service sleeps. Seed only fills an empty database.
+if [ "${RESET_DATABASE:-false}" = "true" ]; then
   php artisan migrate:fresh --force --seed
 else
   php artisan migrate --force
+  php artisan db:seed --force
 fi
 
 php artisan config:cache

@@ -11,7 +11,8 @@ fi
 php artisan key:generate --force
 mkdir -p database
 touch database/database.sqlite
-php artisan migrate:fresh --seed --force
+php artisan migrate --force
+php artisan db:seed --force
 
 cd "$ROOT/frontend"
 if [ ! -f .env ]; then

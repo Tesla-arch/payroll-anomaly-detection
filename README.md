@@ -62,17 +62,20 @@ The codespace sleeps after idle time. Create or restart it whenever you want to 
 
 ## Deploy on Render (free)
 
-Render can host the Laravel API and the React app from this GitHub repo as **one free web service**. PHP is not a native Render runtime, so the repo includes a `Dockerfile` and `render.yaml`.
+Render can host the Laravel API and the React app from this GitHub repo as **one free web service**, plus a **free Postgres database** so the records you create stay after logout.
 
-**Limits of the free plan:** the site sleeps after 15 minutes idle (first load can take about a minute), SQLite data is wiped on sleep/redeploy and demo accounts are seeded again, and free instance hours are capped at 750/month.
+**Limits of the free plan:** the site sleeps after 15 minutes idle (first load can take about a minute), free Postgres expires after 30 days unless you upgrade it, and free instance hours are capped at 750/month.
 
 1. Push `main` to [Tesla-arch/payroll-anomaly-detection](https://github.com/Tesla-arch/payroll-anomaly-detection)
 2. Sign in at [dashboard.render.com](https://dashboard.render.com) with GitHub
-3. **New → Blueprint** → pick this repository → apply `render.yaml`
-4. Wait for the Docker build (several minutes the first time)
-5. Open the `*.onrender.com` URL and sign in with a demo account below (`password`)
+3. **New → Blueprint** → pick this repository → apply `render.yaml` (this creates the web service **and** `payroll-db`)
+4. If the web service already exists, open **Blueprints** and sync so Render adds the Postgres database and `DATABASE_URL`
+5. Wait for the Docker build (several minutes the first time)
+6. Open the `*.onrender.com` URL and sign in with a demo account below (`password`)
 
-If you create the service manually instead: **New → Web Service** → this repo → **Docker** → instance type **Free** → health check path `/api/health`.
+Staff, students, parents and officers you add, edit or deactivate are stored in Postgres. They survive the web service sleeping. Do **not** set `RESET_DATABASE=true` unless you intend to wipe everything and reload the demo.
+
+If you create the service manually instead: **New → Web Service** (Docker, Free, health check `/api/health`) **and** **New → Postgres** (Free). Link the database and set `DB_CONNECTION=pgsql` plus `DATABASE_URL` / `DB_URL` to the internal connection string.
 
 ## Quick start
 
@@ -83,7 +86,7 @@ cd backend
 composer install
 copy .env.example .env   # Windows
 php artisan key:generate
-php artisan migrate:fresh --seed
+php artisan migrate --seed
 php artisan serve
 ```
 

@@ -1,3 +1,9 @@
+databases:
+  - name: payroll-db
+    plan: free
+    postgresMajorVersion: "16"
+    ipAllowList: []
+
 services:
   - type: web
     name: payroll-anomaly-detection
@@ -13,15 +19,25 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
+      - key: APP_KEY
+        generateValue: true
       - key: LOG_CHANNEL
         value: stderr
       - key: DB_CONNECTION
-        value: sqlite
+        value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: payroll-db
+          property: connectionString
+      - key: DB_URL
+        fromDatabase:
+          name: payroll-db
+          property: connectionString
       - key: SESSION_DRIVER
         value: file
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION
         value: sync
-      - key: SEED_ON_BOOT
-        value: "true"
+      - key: RESET_DATABASE
+        value: "false"
