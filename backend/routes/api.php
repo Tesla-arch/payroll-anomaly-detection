@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\AuditLogController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClassController;
 use App\Http\Controllers\Api\CompensationController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\HealthController;
@@ -72,7 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/students/{student}/assessment/pdf', [AssessmentController::class, 'pdf']);
         Route::get('/students/{student}/assessment', [AssessmentController::class, 'show']);
         Route::get('/students/{student}', [StudentController::class, 'show']);
-        Route::get('/classes', [StudentController::class, 'classes']);
+        Route::get('/classes', [ClassController::class, 'index']);
     });
 
     Route::middleware('role:super_admin,teacher')->group(function () {
@@ -82,10 +83,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/students/{student}/assessment', [AssessmentController::class, 'update']);
     });
 
+    Route::middleware('role:super_admin,headteacher,hr_officer')->group(function () {
+        Route::get('/classes/teachers', [ClassController::class, 'teachers']);
+        Route::put('/classes/{schoolClass}/teacher', [ClassController::class, 'assignTeacher']);
+    });
+
     Route::middleware('role:super_admin,hr_officer,teacher')->group(function () {
         Route::post('/students', [StudentController::class, 'store']);
         Route::put('/students/{student}', [StudentController::class, 'update']);
-        Route::post('/classes', [StudentController::class, 'storeClass']);
+        Route::post('/classes', [ClassController::class, 'store']);
     });
 
     Route::middleware('role:super_admin,headteacher,hr_officer,teacher,parent')->get('/parent-messages', [ParentController::class, 'messages']);

@@ -13,6 +13,7 @@ export const auditModules = [
   { id: 'payroll', label: 'Payroll' },
   { id: 'anomaly', label: 'Flags' },
   { id: 'staff', label: 'Staff' },
+  { id: 'class', label: 'Classes' },
   { id: 'leave', label: 'Leave' },
   { id: 'parent', label: 'Parents' },
   { id: 'auth', label: 'Sign-in' },
@@ -28,6 +29,7 @@ export const actionCatalog = {
   'staff.created': { label: 'Staff registered', hint: 'A new employment file was opened.' },
   'staff.updated': { label: 'Staff file updated', hint: 'Bio-data, posting or payroll details were changed.' },
   'staff.deactivated': { label: 'Staff deactivated', hint: 'The employee will not be picked up on the next payroll prepare.' },
+  'class.teacher_assigned': { label: 'Class teacher assigned', hint: 'A Grade or JHS classroom was given a class tutor.' },
   'leave.requested': { label: 'Leave requested', hint: 'A staff member submitted the official leave form.' },
   'leave.reviewed': { label: 'Leave reviewed by HR', hint: 'HR forwarded or rejected the request.' },
   'leave.approve': { label: 'Leave approved', hint: 'The Headteacher approved the leave.' },
@@ -54,6 +56,7 @@ const moduleTone = {
   staff: { bg: 'bg-sky-50', text: 'text-sky-800', ring: 'ring-sky-100', dot: 'bg-sky-700' },
   leave: { bg: 'bg-violet-50', text: 'text-violet-800', ring: 'ring-violet-100', dot: 'bg-violet-600' },
   parent: { bg: 'bg-teal-50', text: 'text-teal-800', ring: 'ring-teal-100', dot: 'bg-teal-700' },
+  class: { bg: 'bg-lime-50', text: 'text-lime-800', ring: 'ring-lime-100', dot: 'bg-lime-700' },
   auth: { bg: 'bg-stone-100', text: 'text-slate-700', ring: 'ring-stone-200', dot: 'bg-slate-500' },
   user: { bg: 'bg-indigo-50', text: 'text-indigo-800', ring: 'ring-indigo-100', dot: 'bg-indigo-600' },
 }
@@ -68,6 +71,9 @@ const metaLabels = {
   status: 'Outcome',
   resolution_notes: 'Notes',
   payroll_run_id: 'Salary run',
+  class_name: 'Classroom',
+  previous_teacher_id: 'Previous tutor',
+  teacher_id: 'Class tutor',
 }
 
 export function moduleLabel(module) {

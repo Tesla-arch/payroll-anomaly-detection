@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\SchoolClass;
 use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -58,25 +57,6 @@ class StudentController extends Controller
         $student->update($this->payload($request, $student));
 
         return response()->json($student->load('schoolClass'));
-    }
-
-    public function classes(): JsonResponse
-    {
-        return response()->json(
-            SchoolClass::query()->withCount('students')->orderBy('sort_order')->orderBy('name')->get()
-        );
-    }
-
-    public function storeClass(Request $request): JsonResponse
-    {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:50'],
-            'level' => ['nullable', 'string', 'max:50'],
-            'capacity' => ['nullable', 'integer', 'min:1'],
-            'teacher_id' => ['nullable', 'exists:staff,id'],
-        ]);
-
-        return response()->json(SchoolClass::query()->create($data), 201);
     }
 
     protected function payload(Request $request, ?Student $student = null): array

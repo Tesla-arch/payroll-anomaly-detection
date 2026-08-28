@@ -4,7 +4,7 @@ School management system for Ghanaian basic schools with automated payroll (SSNI
 
 ## What it does
 
-- Staff, students, parent emails, attendance, and two-step leave approval (HR → Headteacher)
+- Staff, students, parent emails, attendance, class-teacher assignment (Headteacher / HR), and two-step leave approval (HR → Headteacher)
 - Payroll runs using 5.5% employee SSNIT, staff loans and absence — no PAYE deduction
 - Automatic scan after every payroll run
 - Anomaly dashboard with evidence, risk score, narrative, and recommended action

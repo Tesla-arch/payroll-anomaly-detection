@@ -228,6 +228,7 @@ class AuditLogController extends Controller
             'LeaveRequest' => $model?->staff?->display_name,
             'User' => $model ? trim($model->first_name.' '.$model->last_name) : null,
             'ParentMessage' => $model?->subject,
+            'SchoolClass' => $model?->name ?: ($meta['class_name'] ?? null),
             default => null,
         };
 
@@ -241,6 +242,7 @@ class AuditLogController extends Controller
             'LeaveRequest' => '/leave',
             'User' => str_starts_with($log->action, 'parent') ? '/parents' : '/users',
             'ParentMessage' => '/parents?tab=sent',
+            'SchoolClass' => '/classes',
             default => null,
         };
 

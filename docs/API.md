@@ -58,3 +58,12 @@ Roles: `super_admin`, `headteacher`, `hr_officer` manage the register. Teachers 
 - `POST /parent-messages` — `{ type: notice|meeting|broadcast, subject, body, meeting_at?, meeting_venue?, parent_ids? }`
 
 `broadcast` emails every active parent. `meeting` requires `meeting_at`. Mail uses the parent user’s registered email.
+
+## Classrooms and class teachers
+
+Roles: `headteacher`, `hr_officer`, `super_admin` assign tutors. Teachers then see those rooms under **My class**. A teacher may hold more than one classroom.
+
+- `GET /classes` — catalogue (Grade 1–6, JHS 1–3) with nested `teacher` and pupil counts
+- `GET /classes/teachers` — active teaching staff and the rooms they already tutor
+- `PUT /classes/{id}/teacher` — `{ teacher_id }` (nullable to clear). Only active staff with role `teacher` or a Teacher/Tutor job title.
+- `POST /classes` — optional extra room (`hr_officer`, `teacher`, `super_admin`)

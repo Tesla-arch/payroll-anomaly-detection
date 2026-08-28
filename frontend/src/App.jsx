@@ -12,6 +12,7 @@ import ParentsPage from './pages/ParentsPage'
 import StudentRegisterPage from './pages/StudentRegisterPage'
 import StudentAssessmentPage from './pages/StudentAssessmentPage'
 import MyClassPage from './pages/MyClassPage'
+import ClassesPage from './pages/ClassesPage'
 import AttendancePage from './pages/AttendancePage'
 import LeavePage from './pages/LeavePage'
 import LeaveRequestPage from './pages/LeaveRequestPage'
@@ -42,6 +43,7 @@ export default function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path="my-class" element={<MyClassPage />} />
+            <Route path="classes" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'super_admin']}><ClassesPage /></ProtectedRoute>} />
             <Route path="staff" element={<StaffPage />} />
             <Route path="staff/register" element={<StaffRegisterPage />} />
             <Route path="staff/:id/edit" element={<StaffRegisterPage />} />

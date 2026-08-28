@@ -6,6 +6,7 @@ import {
   FiBookOpen,
   FiCalendar,
   FiClipboard,
+  FiGrid,
   FiHome,
   FiLogOut,
   FiMail,
@@ -22,6 +23,7 @@ import api from '../api/client'
 const links = [
   { to: '/', label: 'Dashboard', icon: FiHome, roles: null },
   { to: '/my-class', label: 'My class', icon: FiBookOpen, roles: ['super_admin', 'teacher'] },
+  { to: '/classes', label: 'Classes', icon: FiGrid, roles: ['super_admin', 'headteacher', 'hr_officer'] },
   { to: '/staff', label: 'Staff', icon: FiUserCheck, roles: ['super_admin', 'headteacher', 'hr_officer', 'payroll_officer', 'accountant', 'auditor'] },
   { to: '/students', label: 'Students', icon: FiUsers, roles: ['super_admin', 'headteacher', 'hr_officer', 'teacher', 'parent'] },
   { to: '/parents', label: 'Parents', icon: FiMail, roles: ['super_admin', 'headteacher', 'hr_officer', 'teacher'] },
