@@ -20,15 +20,15 @@
 }
 
 html.dark {
-  --page: #101a16;
-  --surface: #1a2820;
-  --surface-2: #15211b;
-  --surface-3: #24352c;
-  --ink: #e8eeea;
-  --muted: #9db0a6;
-  --line: #2c4036;
-  --heading: #ecf4ef;
-  --tint: #163328;
+  --page: #0c1612;
+  --surface: #16241c;
+  --surface-2: #112019;
+  --surface-3: #1f3329;
+  --ink: #eef5f0;
+  --muted: #b6c9bd;
+  --line: #335043;
+  --heading: #f3faf5;
+  --tint: #1a3a2c;
   --tint-ink: #d1fae5;
   color-scheme: dark;
 }
@@ -132,6 +132,13 @@ html.dark .input:focus {
   @apply min-w-0 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:p-5;
 }
 
+html.dark .card {
+  background-color: var(--surface);
+  color: var(--ink);
+  --tw-ring-color: var(--line);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+}
+
 .table {
   @apply w-full min-w-[36rem] text-left text-sm;
 }
@@ -144,8 +151,18 @@ html.dark .input:focus {
   @apply border-t border-slate-100 py-2;
 }
 
+html.dark .table th {
+  color: var(--muted);
+}
+
+html.dark .table td {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
 html.dark .bg-white {
   background-color: var(--surface);
+  color: var(--ink);
 }
 
 html.dark .bg-\[\#f4f1ea\],
@@ -186,8 +203,9 @@ html.dark .text-emerald-900 {
   color: var(--heading);
 }
 
-html.dark .text-emerald-800 {
-  color: #6ee7b7;
+html.dark .text-emerald-800,
+html.dark .text-emerald-700 {
+  color: #86efac;
 }
 
 html.dark .border-stone-200,
@@ -206,6 +224,7 @@ html.dark .ring-stone-100 {
 
 html.dark .hover\:bg-stone-50:hover,
 html.dark .hover\:bg-stone-100:hover,
+html.dark .hover\:bg-stone-200:hover,
 html.dark .active\:bg-stone-50:active {
   background-color: var(--surface-3);
 }
@@ -239,12 +258,35 @@ html.dark .text-orange-800 {
   color: #fdba74;
 }
 
-html.dark .bg-amber-50 {
+html.dark .bg-amber-50,
+html.dark .bg-amber-100 {
   background-color: #3f3216;
 }
 
-html.dark .text-amber-800 {
+html.dark .text-amber-800,
+html.dark .text-amber-700,
+html.dark .text-amber-950 {
   color: #fde68a;
+}
+
+html.dark .text-red-600,
+html.dark .text-red-700 {
+  color: #fca5a5;
+}
+
+html.dark .text-orange-700 {
+  color: #fdba74;
+}
+
+html.dark .ring-red-200,
+html.dark .ring-amber-200,
+html.dark .ring-orange-200,
+html.dark .ring-red-100 {
+  --tw-ring-color: rgb(255 255 255 / 0.12);
+}
+
+html.dark strong {
+  color: var(--heading);
 }
 
 html.dark .bg-rose-50 {

@@ -313,7 +313,7 @@ export default function Dashboard() {
           </div>
           <div className="mt-5 flex flex-col items-center gap-6 sm:flex-row sm:items-center">
             <svg viewBox="0 0 42 42" className="h-32 w-32 shrink-0 -rotate-90 sm:h-36 sm:w-36">
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e2e8f0" strokeWidth="6" />
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--line)" strokeWidth="6" />
               {donut.map((slice) => (
                 <circle
                   key={slice.key}
