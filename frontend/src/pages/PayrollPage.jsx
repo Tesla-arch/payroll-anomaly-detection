@@ -16,7 +16,7 @@ const filters = [
 const statusTone = {
   draft: 'bg-amber-50 text-amber-800',
   approved: 'bg-sky-50 text-sky-800',
-  paid: 'bg-emerald-50 text-emerald-800',
+  paid: 'tone-success',
   cancelled: 'bg-stone-100 text-slate-500',
 }
 

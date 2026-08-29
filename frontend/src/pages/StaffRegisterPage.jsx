@@ -237,9 +237,9 @@ export default function StaffRegisterPage() {
                 onClick={() => {
                   if (index <= step || validateStep(step)) setStep(index)
                 }}
-                className={`flex min-w-[10.5rem] shrink-0 items-center gap-3 rounded-xl px-3 py-3 text-left transition sm:min-w-0 sm:flex-1 ${active ? 'bg-emerald-800 text-white shadow' : complete ? 'bg-emerald-50 text-emerald-950' : 'text-slate-500 hover:bg-stone-50'}`}
+                className={`flex min-w-[10.5rem] shrink-0 items-center gap-3 rounded-xl px-3 py-3 text-left transition sm:min-w-0 sm:flex-1 ${active ? 'bg-emerald-800 text-white shadow' : complete ? 'tone-success' : 'text-slate-500 hover:bg-stone-50'}`}
               >
-                <span className={`grid h-9 w-9 place-items-center rounded-full ${active ? 'bg-amber-400 text-emerald-950' : complete ? 'bg-emerald-700 text-white' : 'bg-stone-200 text-slate-600'}`}>
+                <span className={`grid h-9 w-9 place-items-center rounded-full ${active ? 'bg-accent' : complete ? 'tone-success-solid' : 'bg-stone-200 text-slate-600'}`}>
                   {complete && !active ? <FiCheck /> : <Icon />}
                 </span>
                 <span>
@@ -516,10 +516,10 @@ export default function StaffRegisterPage() {
         </div>
 
         <aside className="space-y-4 xl:sticky xl:top-24">
-          <div className="overflow-hidden rounded-3xl bg-emerald-950 text-white shadow-lg">
-            <div className="h-16 bg-gradient-to-r from-emerald-800 to-amber-500/80" />
+          <div className="bg-brand overflow-hidden rounded-3xl text-white shadow-lg">
+            <div className="id-card-stripe h-16" />
             <div className="-mt-8 px-5 pb-5">
-              <div className="grid h-16 w-16 place-items-center rounded-2xl bg-amber-400 text-lg font-bold text-emerald-950 shadow">
+              <div className="bg-accent grid h-16 w-16 place-items-center rounded-2xl text-lg font-bold shadow">
                 {initials}
               </div>
               <p className="mt-3 text-lg font-semibold leading-snug">{fullName || 'New staff member'}</p>

@@ -394,7 +394,7 @@ export default function AuditPage() {
                 onClick={() => setFilter({ user: String(userId) === String(actor.id) ? '' : String(actor.id) })}
                 className={`inline-flex items-center gap-2 rounded-full px-2 py-1 text-xs ${String(userId) === String(actor.id) ? 'bg-emerald-800 text-white' : 'bg-white ring-1 ring-stone-200 hover:bg-stone-50'}`}
               >
-                <span className={`grid h-6 w-6 place-items-center rounded-full text-[10px] font-semibold ${String(userId) === String(actor.id) ? 'bg-amber-400 text-emerald-950' : 'bg-emerald-950 text-amber-300'}`}>
+                <span className={`grid h-6 w-6 place-items-center rounded-full text-[10px] font-semibold ${String(userId) === String(actor.id) ? 'bg-accent' : 'bg-brand text-accent'}`}>
                   {initials(actor.name)}
                 </span>
                 {actor.name}

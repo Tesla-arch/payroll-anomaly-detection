@@ -552,13 +552,13 @@ export default function ParentsPage() {
                       </span>
                       <span className="text-right text-xs">
                         {row.email_status && row.email_status !== 'skipped' && (
-                          <span className={`block ${row.email_status === 'sent' ? 'text-emerald-700' : 'text-red-700'}`}>Email {row.email_status}</span>
+                          <span className={`block ${row.email_status === 'sent' ? 'text-success' : 'text-red-700'}`}>Email {row.email_status}</span>
                         )}
                         {row.whatsapp_status && row.whatsapp_status !== 'skipped' && (
-                          <span className={`block ${row.whatsapp_status === 'sent' ? 'text-emerald-700' : 'text-red-700'}`}>WhatsApp {row.whatsapp_status}</span>
+                          <span className={`block ${row.whatsapp_status === 'sent' ? 'text-success' : 'text-red-700'}`}>WhatsApp {row.whatsapp_status}</span>
                         )}
                         {(!row.email_status || row.email_status === 'skipped') && (!row.whatsapp_status || row.whatsapp_status === 'skipped') && (
-                          <span className={row.status === 'sent' ? 'text-emerald-700' : 'text-red-700'}>{row.status}</span>
+                          <span className={row.status === 'sent' ? 'text-success' : 'text-red-700'}>{row.status}</span>
                         )}
                       </span>
                     </li>

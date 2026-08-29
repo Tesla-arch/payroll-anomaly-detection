@@ -14,7 +14,7 @@ const statuses = [
 
 function chipClass(status, active) {
   if (!active) return 'bg-stone-100 text-slate-600 hover:bg-stone-200'
-  if (status === 'present') return 'bg-emerald-800 text-white'
+  if (status === 'present') return 'tone-success-solid'
   if (status === 'late') return 'bg-amber-500 text-white'
   if (status === 'absent') return 'bg-red-700 text-white'
   return 'bg-sky-700 text-white'
@@ -164,7 +164,7 @@ export default function AttendancePage() {
             <p className="font-semibold tabular-nums text-emerald-950">{clock}</p>
           </div>
           {user?.staff_id && (
-            <button type="button" className="rounded-lg bg-amber-400 px-4 py-2 text-sm font-semibold text-emerald-950" onClick={clockSelf}>
+            <button type="button" className="bg-accent rounded-lg px-4 py-2 text-sm font-semibold" onClick={clockSelf}>
               <span className="inline-flex items-center gap-2"><FiClock /> Clock me in</span>
             </button>
           )}
@@ -174,7 +174,7 @@ export default function AttendancePage() {
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {[
           ['On roll', summary.roll ?? 0, 'text-emerald-950'],
-          ['Present', summary.present ?? 0, 'text-emerald-800'],
+          ['Present', summary.present ?? 0, 'text-success'],
           ['Late', summary.late ?? 0, 'text-amber-700'],
           ['Absent', summary.absent ?? 0, 'text-red-700'],
           ['On leave', summary.on_leave ?? 0, 'text-sky-800'],
@@ -239,7 +239,7 @@ export default function AttendancePage() {
                 <div key={member.staff_id} className={`rounded-2xl border px-3 py-3 sm:px-4 ${member.on_approved_leave ? 'border-sky-200 bg-sky-50/70' : 'border-stone-200 bg-white'}`}>
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-emerald-950 text-sm font-semibold text-amber-300">
+                      <div className="bg-brand text-accent grid h-11 w-11 place-items-center rounded-2xl text-sm font-semibold">
                         {initials(member.display_name)}
                       </div>
                       <div>

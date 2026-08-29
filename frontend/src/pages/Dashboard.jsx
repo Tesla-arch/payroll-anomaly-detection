@@ -114,7 +114,7 @@ function CampusHero({ user, hasRole, stats, health }) {
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${index === active ? 'hero-slide-active opacity-100' : 'opacity-0'}`}
             />
           ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/45 to-emerald-950/15" />
+          <div className="absolute inset-0 hero-scrim" />
 
           {slide.id === 'campus' && campusMap.map((pin) => (
             <button
@@ -127,9 +127,9 @@ function CampusHero({ user, hasRole, stats, health }) {
               onClick={() => jumpTo(pin.target)}
               aria-label={`Explore ${pin.label}`}
             >
-              <span className="campus-hotspot absolute inset-0 -m-2 rounded-full bg-amber-300/70" />
-              <span className="relative grid h-4 w-4 place-items-center rounded-full bg-amber-400 ring-4 ring-white/40" />
-              <span className={`absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-emerald-950/90 px-3 py-1 text-xs font-medium text-white shadow ${hoverPin === pin.target ? 'opacity-100' : 'opacity-0 sm:opacity-80'}`}>
+              <span className="campus-hotspot bg-accent-soft absolute inset-0 -m-2 rounded-full" />
+              <span className="bg-accent relative grid h-4 w-4 place-items-center rounded-full ring-4 ring-white/40" />
+              <span className={`absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-brand px-3 py-1 text-xs font-medium text-white shadow ${hoverPin === pin.target ? 'opacity-100' : 'opacity-0 sm:opacity-80'}`}>
                 {pin.label}
               </span>
             </button>
@@ -140,14 +140,14 @@ function CampusHero({ user, hasRole, stats, health }) {
               className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
               style={{ top: slide.hotspot.top, left: slide.hotspot.left }}
             >
-              <span className="campus-hotspot absolute inset-0 -m-2 rounded-full bg-amber-300/70" />
-              <span className="relative grid h-4 w-4 place-items-center rounded-full bg-amber-400 ring-4 ring-white/30" />
+              <span className="campus-hotspot bg-accent-soft absolute inset-0 -m-2 rounded-full" />
+              <span className="bg-accent relative grid h-4 w-4 place-items-center rounded-full ring-4 ring-white/30" />
             </div>
           )}
 
           <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-3 p-4 sm:gap-4 sm:p-8">
             <div className="max-w-xl min-w-0 text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">{greeting()}</p>
+              <p className="text-accent text-xs font-semibold uppercase tracking-[0.2em]">{greeting()}</p>
               <h3 className="mt-2 text-2xl font-semibold [overflow-wrap:anywhere] sm:text-4xl">{user?.first_name}, welcome back</h3>
               <p className="mt-2 text-sm text-emerald-50 sm:text-base">
                 Signed in as {user?.role?.name}. {health.detail}
@@ -163,11 +163,11 @@ function CampusHero({ user, hasRole, stats, health }) {
           </div>
 
           <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">{slide.title}</p>
+            <p className="text-accent text-xs font-semibold uppercase tracking-[0.22em]">{slide.title}</p>
             <p className="mt-2 max-w-xl text-sm text-emerald-50 sm:text-base">{slide.caption}</p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               {canOpen && slide.to !== '/' && (
-                <Link to={slide.to} className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-emerald-950 hover:bg-amber-300">
+                <Link to={slide.to} className="bg-accent inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold hover:opacity-90">
                   {slide.action} <FiArrowRight />
                 </Link>
               )}
@@ -193,7 +193,7 @@ function CampusHero({ user, hasRole, stats, health }) {
                       type="button"
                       aria-label={item.title}
                       onClick={() => setActive(index)}
-                      className={`h-2 rounded-full transition-all ${index === active ? 'w-8 bg-amber-400' : 'w-2 bg-white/50 hover:bg-white'}`}
+                      className={`h-2 rounded-full transition-all ${index === active ? 'bg-accent w-8' : 'w-2 bg-white/50 hover:bg-white'}`}
                     />
                   ))}
                 </div>
@@ -212,10 +212,10 @@ function CampusHero({ user, hasRole, stats, health }) {
             key={item.id}
             type="button"
             onClick={() => setActive(index)}
-            className={`group relative h-28 w-40 shrink-0 overflow-hidden rounded-2xl text-left ring-2 transition ${index === active ? 'ring-amber-400' : 'ring-transparent hover:ring-emerald-300'}`}
+            className={`group relative h-28 w-40 shrink-0 overflow-hidden rounded-2xl text-left ring-2 transition ${index === active ? 'ring-accent' : 'ring-transparent hover:ring-emerald-300'}`}
           >
             <img src={item.src} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-            <span className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 to-transparent" />
+            <span className="hero-scrim-thumb absolute inset-0" />
             <span className="absolute inset-x-0 bottom-0 p-2 text-xs font-medium text-white">{item.title}</span>
           </button>
         ))}
@@ -440,7 +440,7 @@ export default function Dashboard() {
           <h4 className="font-semibold text-emerald-950">Today&apos;s attendance</h4>
           <div className="mt-4 grid grid-cols-3 gap-3 text-center">
             {[
-              ['Present', attendance.present, 'text-emerald-800'],
+              ['Present', attendance.present, 'text-success'],
               ['Absent', attendance.absent, 'text-red-700'],
               ['On leave', attendance.on_leave, 'text-amber-700'],
             ].map(([label, value, cls]) => (

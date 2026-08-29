@@ -274,7 +274,7 @@ export default function LeaveRequestPage() {
               </Field>
             </div>
             {selected && (
-              <div className={`rounded-xl px-4 py-3 text-sm ${overMax || overBalance ? 'bg-rose-50 text-rose-800' : 'bg-emerald-50 text-emerald-900'}`}>
+              <div className={`rounded-xl px-4 py-3 text-sm ${overMax || overBalance ? 'bg-rose-50 text-rose-800' : 'tone-success'}`}>
                 <p className="inline-flex items-center gap-2 font-medium">
                   <FiCalendar />
                   {days} {selected.count === 'calendar' ? 'calendar' : 'working'} {days === 1 ? 'day' : 'days'} of {selected.name.toLowerCase()}

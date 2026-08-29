@@ -9,27 +9,53 @@
 :root {
   --page: #f4f1ea;
   --surface: #ffffff;
-  --surface-2: #f5f5f4;
-  --surface-3: #e7e5e4;
-  --ink: #1e293b;
-  --muted: #64748b;
-  --line: #e7e5e4;
-  --heading: #022c22;
-  --tint: #ecfdf5;
-  --tint-ink: #022c22;
+  --surface-2: #f5f3ee;
+  --surface-3: #e2ded6;
+  --ink: #1c2430;
+  --muted: #5c6570;
+  --line: #e2ded6;
+  --heading: #15233b;
+  --tint: #eef2f8;
+  --tint-ink: #15233b;
+  --brand: #15233b;
+  --brand-hover: #1a2c4a;
+  --brand-active: #243a5e;
+  --brand-fg: #e8eef6;
+  --brand-muted: #a8b6cc;
+  --primary: #1e3a5f;
+  --primary-hover: #243a5e;
+  --link: #1e3a5f;
+  --accent: #c9a227;
+  --accent-ink: #1a1508;
+  --success: #0d4f38;
+  --success-fg: #047857;
+  --success-bg: #e6f3ec;
 }
 
 html.dark {
-  --page: #0c1612;
-  --surface: #16241c;
-  --surface-2: #112019;
-  --surface-3: #1f3329;
-  --ink: #eef5f0;
-  --muted: #b6c9bd;
-  --line: #335043;
-  --heading: #f3faf5;
-  --tint: #1a3a2c;
-  --tint-ink: #d1fae5;
+  --page: #0f141c;
+  --surface: #171e28;
+  --surface-2: #121820;
+  --surface-3: #1e2836;
+  --ink: #e6ebf2;
+  --muted: #9aa6b5;
+  --line: #2c3848;
+  --heading: #f4f7fb;
+  --tint: #1a2535;
+  --tint-ink: #dce4f0;
+  --brand: #121a28;
+  --brand-hover: #1a2740;
+  --brand-active: #2a4570;
+  --brand-fg: #dce4f0;
+  --brand-muted: #8fa0b8;
+  --primary: #3a5a88;
+  --primary-hover: #4a6a98;
+  --link: #9bb4d4;
+  --accent: #d4b03a;
+  --accent-ink: #1a1508;
+  --success: #1a7a58;
+  --success-fg: #a7f3d0;
+  --success-bg: #14352a;
   color-scheme: dark;
 }
 
@@ -109,34 +135,81 @@ textarea {
   }
 }
 
-.input {
-  @apply w-full min-h-11 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100;
+.hero-scrim {
+  background-image: linear-gradient(
+    to top,
+    var(--brand) 0%,
+    color-mix(in srgb, var(--brand) 48%, transparent) 48%,
+    color-mix(in srgb, var(--brand) 16%, transparent) 100%
+  );
 }
 
-html.dark .input {
+.hero-scrim-thumb {
+  background-image: linear-gradient(to top, color-mix(in srgb, var(--brand) 80%, transparent), transparent);
+}
+
+.bg-brand {
+  background-color: var(--brand);
+  color: var(--brand-fg);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.bg-accent-soft {
+  background-color: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.ring-accent {
+  --tw-ring-color: var(--accent);
+}
+
+.tone-success {
+  background-color: var(--success-bg);
+  color: var(--success-fg);
+}
+
+.tone-success-solid {
+  background-color: var(--success);
+  color: #fff;
+}
+
+.text-success {
+  color: var(--success-fg);
+}
+
+.input {
+  @apply w-full min-h-11 rounded-lg border px-3 py-2 text-sm outline-none;
   border-color: var(--line);
   background: var(--surface);
   color: var(--ink);
 }
 
-html.dark .input:focus {
-  --tw-ring-color: rgb(6 78 59 / 0.55);
-  border-color: #34d399;
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 22%, transparent);
 }
 
 .btn-primary {
-  @apply inline-flex min-h-11 items-center justify-center rounded-lg bg-emerald-800 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60;
+  @apply inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white disabled:opacity-60;
+  background-color: var(--primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
 }
 
 .card {
-  @apply min-w-0 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 sm:p-5;
+  @apply min-w-0 rounded-2xl p-4 sm:p-5;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 0 0 1px var(--line);
 }
 
 html.dark .card {
-  background-color: var(--surface);
-  color: var(--ink);
-  --tw-ring-color: var(--line);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 0 0 1px var(--line);
 }
 
 .table {
@@ -144,20 +217,174 @@ html.dark .card {
 }
 
 .table th {
-  @apply pb-2 text-xs uppercase tracking-wide text-slate-500;
-}
-
-.table td {
-  @apply border-t border-slate-100 py-2;
-}
-
-html.dark .table th {
+  @apply pb-2 text-xs uppercase tracking-wide;
   color: var(--muted);
 }
 
-html.dark .table td {
-  border-color: var(--line);
+.table td {
+  @apply py-2;
+  border-top: 1px solid var(--line);
   color: var(--ink);
+}
+
+.bg-emerald-950 {
+  background-color: var(--brand);
+}
+
+.bg-emerald-900 {
+  background-color: var(--brand-hover);
+}
+
+.bg-emerald-800,
+.bg-emerald-700 {
+  background-color: var(--primary);
+}
+
+.hover\:bg-emerald-700:hover {
+  background-color: var(--primary-hover);
+}
+
+.hover\:bg-emerald-900:hover {
+  background-color: var(--brand-hover);
+}
+
+.bg-emerald-100 {
+  background-color: color-mix(in srgb, var(--tint) 70%, var(--primary));
+}
+
+html.dark .bg-emerald-100 {
+  background-color: var(--brand-active);
+}
+
+.bg-emerald-50 {
+  background-color: var(--tint);
+}
+
+.hover\:bg-emerald-50:hover {
+  background-color: var(--tint);
+}
+
+.hover\:bg-emerald-50\/60:hover {
+  background-color: color-mix(in srgb, var(--tint) 65%, transparent);
+}
+
+.bg-emerald-50\/40 {
+  background-color: color-mix(in srgb, var(--tint) 40%, transparent);
+}
+
+.bg-emerald-50\/60 {
+  background-color: color-mix(in srgb, var(--tint) 60%, transparent);
+}
+
+.bg-emerald-950\/50 {
+  background-color: color-mix(in srgb, var(--brand) 50%, transparent);
+}
+
+.bg-emerald-950\/40 {
+  background-color: color-mix(in srgb, var(--brand) 40%, transparent);
+}
+
+.bg-emerald-950\/90 {
+  background-color: color-mix(in srgb, var(--brand) 90%, transparent);
+}
+
+.bg-emerald-950\/80 {
+  background-color: color-mix(in srgb, var(--brand) 80%, transparent);
+}
+
+.text-emerald-950,
+.text-emerald-900 {
+  color: var(--heading);
+}
+
+.text-emerald-800,
+.text-emerald-700 {
+  color: var(--link);
+}
+
+.hover\:text-emerald-800:hover {
+  color: var(--link);
+}
+
+.text-emerald-300 {
+  color: var(--brand-muted);
+}
+
+.text-emerald-200 {
+  color: color-mix(in srgb, var(--brand-fg) 80%, transparent);
+}
+
+.text-emerald-100,
+.text-emerald-50 {
+  color: var(--brand-fg);
+}
+
+.id-card-stripe {
+  background: linear-gradient(to right, var(--primary), color-mix(in srgb, var(--accent) 75%, var(--primary)));
+}
+
+.border-emerald-900 {
+  border-color: color-mix(in srgb, var(--brand-fg) 16%, transparent);
+}
+
+.border-emerald-700 {
+  border-color: var(--primary);
+}
+
+.border-emerald-400,
+.border-emerald-300,
+.hover\:border-emerald-300:hover,
+.hover\:border-emerald-400:hover {
+  border-color: color-mix(in srgb, var(--primary) 50%, var(--line));
+}
+
+.border-emerald-100 {
+  border-color: color-mix(in srgb, var(--primary) 20%, var(--line));
+}
+
+.ring-emerald-700 {
+  --tw-ring-color: var(--primary);
+}
+
+.ring-emerald-300,
+.hover\:ring-emerald-300:hover {
+  --tw-ring-color: color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+.ring-emerald-200,
+.ring-emerald-100 {
+  --tw-ring-color: color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.from-emerald-950 {
+  --tw-gradient-from: var(--brand);
+  --tw-gradient-to: color-mix(in srgb, var(--brand) 0%, transparent);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-emerald-950\/45 {
+  --tw-gradient-via: color-mix(in srgb, var(--brand) 45%, transparent);
+  --tw-gradient-via-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to);
+  --tw-gradient-stops: var(--tw-gradient-via-stops);
+}
+
+.to-emerald-950\/20,
+.to-emerald-950\/15 {
+  --tw-gradient-to: color-mix(in srgb, var(--brand) 18%, transparent);
+}
+
+.from-emerald-950\/80 {
+  --tw-gradient-from: color-mix(in srgb, var(--brand) 80%, transparent);
+  --tw-gradient-to: transparent;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.shadow-emerald-950\/5 {
+  --tw-shadow-color: color-mix(in srgb, var(--brand) 8%, transparent);
+}
+
+.shadow-emerald-950\/15 {
+  --tw-shadow-color: color-mix(in srgb, var(--brand) 18%, transparent);
 }
 
 html.dark .bg-white {
@@ -179,14 +406,6 @@ html.dark .bg-stone-100 {
   background-color: var(--surface-3);
 }
 
-html.dark .bg-emerald-50 {
-  background-color: var(--tint);
-}
-
-html.dark .bg-emerald-100 {
-  background-color: #1f4a38;
-}
-
 html.dark .text-slate-800,
 html.dark .text-slate-700,
 html.dark .text-slate-600 {
@@ -198,16 +417,6 @@ html.dark .text-slate-400 {
   color: var(--muted);
 }
 
-html.dark .text-emerald-950,
-html.dark .text-emerald-900 {
-  color: var(--heading);
-}
-
-html.dark .text-emerald-800,
-html.dark .text-emerald-700 {
-  color: #86efac;
-}
-
 html.dark .border-stone-200,
 html.dark .border-slate-200,
 html.dark .border-slate-100,
@@ -217,7 +426,6 @@ html.dark .divide-stone-200 > :not([hidden]) ~ :not([hidden]) {
 
 html.dark .ring-stone-200,
 html.dark .ring-slate-200,
-html.dark .ring-emerald-100,
 html.dark .ring-stone-100 {
   --tw-ring-color: var(--line);
 }
@@ -227,15 +435,6 @@ html.dark .hover\:bg-stone-100:hover,
 html.dark .hover\:bg-stone-200:hover,
 html.dark .active\:bg-stone-50:active {
   background-color: var(--surface-3);
-}
-
-html.dark .hover\:bg-emerald-50:hover {
-  background-color: var(--tint);
-}
-
-html.dark .hover\:border-emerald-300:hover,
-html.dark .hover\:border-emerald-400:hover {
-  border-color: #34d399;
 }
 
 html.dark .bg-red-50 {
@@ -298,13 +497,18 @@ html.dark .text-rose-800 {
 }
 
 html.dark .bg-white\/90 {
-  background-color: rgb(16 26 22 / 0.9);
-}
-
-html.dark .hover\:bg-emerald-50\/60:hover {
-  background-color: rgb(22 51 40 / 0.65);
+  background-color: rgb(15 20 28 / 0.9);
 }
 
 html.dark .hover\:bg-white:hover {
   background-color: var(--surface-3);
+}
+
+html.dark .bg-sky-50 {
+  background-color: #1a2c3d;
+}
+
+html.dark .text-sky-800,
+html.dark .text-sky-900 {
+  color: #bae6fd;
 }

@@ -6,6 +6,7 @@ import {
   FiBookOpen,
   FiCalendar,
   FiClipboard,
+  FiDownload,
   FiGrid,
   FiHome,
   FiLogOut,
@@ -72,11 +73,11 @@ export default function Layout() {
 
   const nav = (
     <>
-      <div className="border-b border-emerald-900 px-5 py-5">
+      <div className="border-b border-white/10 px-5 py-5">
         <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-full bg-amber-400 text-sm font-bold text-emerald-950">SMS</div>
+          <div className="bg-accent grid h-10 w-10 place-items-center rounded-full text-sm font-bold">SMS</div>
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-amber-300">School Management System</p>
+            <p className="text-accent text-xs uppercase tracking-[0.18em]">School Management System</p>
             <h1 className="text-sm font-semibold leading-tight">Payroll & anomaly portal</h1>
           </div>
         </div>
@@ -89,7 +90,7 @@ export default function Layout() {
             end={to === '/'}
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${isActive ? 'bg-emerald-800 text-white' : 'text-emerald-100 hover:bg-emerald-900'}`
+              `flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${isActive ? 'bg-white/15 text-white' : 'text-slate-200 hover:bg-white/10'}`
             }
           >
             <Icon />
@@ -97,11 +98,11 @@ export default function Layout() {
           </NavLink>
         ))}
       </nav>
-      <div className="border-t border-emerald-900 p-4 text-sm">
+      <div className="border-t border-white/10 p-4 text-sm">
         <p className="font-medium">{user?.name}</p>
-        <p className="text-emerald-300">{user?.role?.name}</p>
+        <p className="text-slate-300">{user?.role?.name}</p>
         <button
-          className="mt-3 inline-flex items-center gap-2 text-amber-300 hover:text-white"
+          className="text-accent mt-3 inline-flex items-center gap-2 hover:text-white"
           onClick={async () => {
             await logout()
             navigate('/login')
@@ -115,13 +116,13 @@ export default function Layout() {
 
   return (
     <div className="min-h-dvh bg-[#f4f1ea] text-slate-800">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-emerald-950 text-emerald-50 lg:flex">
+      <aside className="bg-brand fixed inset-y-0 left-0 hidden w-64 flex-col lg:flex">
         {nav}
       </aside>
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <button type="button" className="absolute inset-0 bg-emerald-950/50" onClick={() => setOpen(false)} aria-label="Close menu" />
-          <aside className="relative z-50 flex h-full w-[min(18rem,86vw)] flex-col bg-emerald-950 text-emerald-50 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+          <aside className="bg-brand relative z-50 flex h-full w-[min(18rem,86vw)] flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
             <button type="button" className="absolute right-3 top-3 min-h-11 min-w-11 text-white" onClick={() => setOpen(false)} aria-label="Close">
               <FiX size={20} />
             </button>
@@ -141,12 +142,22 @@ export default function Layout() {
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2 text-sm sm:gap-3">
+            <a
+              href="/School-SMS-User-Manual.pdf"
+              download="School-SMS-User-Manual.pdf"
+              className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 py-2 text-emerald-900 hover:bg-white sm:px-3"
+              title="Download the user manual as a PDF"
+              aria-label="Download user manual as PDF"
+            >
+              <FiDownload size={18} />
+              <span className="hidden text-xs font-medium sm:inline">Manual</span>
+            </a>
             <ThemeToggle />
             <span className="hidden rounded-full bg-white px-3 py-1 text-slate-500 ring-1 ring-stone-200 lg:inline">{now}</span>
             {unread > 0 && (
               <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-800">{unread} alerts</span>
             )}
-            <span className="hidden rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-900 md:inline">
+            <span className="hidden rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-950 md:inline">
               {user?.role?.name}
             </span>
           </div>

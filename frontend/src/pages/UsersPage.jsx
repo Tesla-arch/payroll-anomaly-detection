@@ -10,7 +10,7 @@ import { initials, portalRoles, roleHint } from '../data/portalRoles'
 function StatusBadge({ status }) {
   const on = status === 'active'
   return (
-    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${on ? 'bg-emerald-50 text-emerald-800' : 'bg-stone-100 text-slate-600'}`}>
+    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${on ? 'tone-success' : 'bg-stone-100 text-slate-600'}`}>
       {on ? 'Active' : 'Inactive'}
     </span>
   )
@@ -185,7 +185,7 @@ export default function UsersPage() {
                 primary: true,
                 cell: (row) => (
                   <span className="inline-flex items-center gap-2">
-                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-950 text-[11px] font-semibold text-amber-300">
+                    <span className="bg-brand text-accent grid h-8 w-8 shrink-0 place-items-center rounded-full text-[11px] font-semibold">
                       {initials(row.name)}
                     </span>
                     {row.name}
@@ -214,7 +214,7 @@ export default function UsersPage() {
             <>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
-                  <span className="grid h-12 w-12 place-items-center rounded-full bg-emerald-950 text-sm font-semibold text-amber-300">
+                  <span className="bg-brand text-accent grid h-12 w-12 place-items-center rounded-full text-sm font-semibold">
                     {initials(selected.name)}
                   </span>
                   <div>

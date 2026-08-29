@@ -36,11 +36,11 @@ export default function AuthShell({ children }) {
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${index === active ? 'login-slide-active opacity-100' : 'opacity-0'}`}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/45 to-emerald-950/20" />
+        <div className="absolute inset-0 hero-scrim" />
 
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4 sm:p-5 lg:p-8">
           <div className="flex min-w-0 items-center gap-3 text-white">
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-amber-400 font-bold text-emerald-950 shadow">
+            <div className="bg-accent grid h-11 w-11 shrink-0 place-items-center rounded-full font-bold">
               SMS
             </div>
             <div className="min-w-0">
@@ -51,7 +51,7 @@ export default function AuthShell({ children }) {
         </div>
 
         <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 lg:p-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">{slide.title}</p>
+          <p className="text-accent text-xs font-semibold uppercase tracking-[0.22em]">{slide.title}</p>
           <h1 className="mt-2 max-w-xl text-xl font-semibold leading-snug text-white sm:text-2xl lg:text-4xl">
             Staff payroll portal for Ghanaian basic schools
           </h1>
@@ -67,7 +67,7 @@ export default function AuthShell({ children }) {
                   type="button"
                   aria-label={item.title}
                   onClick={() => setActive(index)}
-                  className={`h-2 rounded-full transition-all ${index === active ? 'w-8 bg-amber-400' : 'w-2 bg-white/50 hover:bg-white'}`}
+                  className={`h-2 rounded-full transition-all ${index === active ? 'bg-accent w-8' : 'w-2 bg-white/50 hover:bg-white'}`}
                 />
               ))}
             </div>

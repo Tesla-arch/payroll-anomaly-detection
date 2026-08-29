@@ -21,7 +21,7 @@ const chartMetrics = [
 const statusTone = {
   draft: 'bg-amber-50 text-amber-800',
   approved: 'bg-sky-50 text-sky-800',
-  paid: 'bg-emerald-50 text-emerald-800',
+  paid: 'tone-success',
   cancelled: 'bg-stone-100 text-slate-500',
 }
 
@@ -129,7 +129,7 @@ export default function ReportsPage() {
   const attendance = school.attendance_today || {}
   const unmarked = Math.max(0, Number(school.active_staff || 0) - Number(attendance.marked || 0))
   const attendanceParts = [
-    { key: 'present', label: 'Present', value: Number(attendance.present || 0), color: 'bg-emerald-700' },
+    { key: 'present', label: 'Present', value: Number(attendance.present || 0), color: 'tone-success-solid' },
     { key: 'absent', label: 'Absent', value: Number(attendance.absent || 0), color: 'bg-red-600' },
     { key: 'on_leave', label: 'On leave', value: Number(attendance.on_leave || 0), color: 'bg-sky-600' },
     { key: 'unmarked', label: 'Unmarked', value: unmarked, color: 'bg-stone-300' },

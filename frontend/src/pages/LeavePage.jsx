@@ -17,7 +17,7 @@ const statusFilters = [
 const statusTone = {
   pending_hr: 'bg-amber-50 text-amber-800',
   pending_headteacher: 'bg-sky-50 text-sky-800',
-  approved: 'bg-emerald-50 text-emerald-800',
+  approved: 'tone-success',
   rejected: 'bg-rose-50 text-rose-800',
 }
 
@@ -103,7 +103,7 @@ export default function LeavePage() {
         </div>
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Approved</p>
-          <p className="mt-1 text-2xl font-semibold text-emerald-800">{counts.approved}</p>
+          <p className="text-success mt-1 text-2xl font-semibold">{counts.approved}</p>
         </div>
       </div>
 

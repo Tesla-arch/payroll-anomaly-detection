@@ -13,7 +13,7 @@ function ThemedToaster() {
       toastOptions={{
         className: '!max-w-[calc(100vw-1.5rem)]',
         style: isDark
-          ? { background: '#1a2820', color: '#e8eeea', border: '1px solid #2c4036' }
+          ? { background: '#171e28', color: '#e6ebf2', border: '1px solid #2c3848' }
           : undefined,
       }}
     />

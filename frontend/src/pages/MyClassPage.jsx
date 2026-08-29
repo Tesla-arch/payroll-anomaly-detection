@@ -20,7 +20,7 @@ const tabs = [
 
 function statusClass(status, active) {
   if (!active) return 'bg-stone-100 text-slate-600 hover:bg-stone-200'
-  if (status === 'present') return 'bg-emerald-800 text-white'
+  if (status === 'present') return 'tone-success-solid'
   if (status === 'late') return 'bg-amber-500 text-white'
   if (status === 'absent') return 'bg-red-700 text-white'
   return 'bg-sky-700 text-white'
@@ -151,7 +151,7 @@ export default function MyClassPage() {
         </div>
         <div className="card">
           <p className="text-sm text-slate-500">Present / late today</p>
-          <p className="mt-2 text-2xl font-semibold text-emerald-800">{(summary.present || 0)}</p>
+          <p className="text-success mt-2 text-2xl font-semibold">{(summary.present || 0)}</p>
         </div>
         <div className="card">
           <p className="text-sm text-slate-500">Absent</p>

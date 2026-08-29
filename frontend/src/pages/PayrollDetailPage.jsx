@@ -121,9 +121,9 @@ export default function PayrollDetailPage() {
             return (
               <div
                 key={step.id}
-                className={`flex flex-1 items-center gap-3 rounded-xl px-3 py-3 ${active ? 'bg-emerald-800 text-white' : done ? 'bg-emerald-50 text-emerald-950' : 'text-slate-400'}`}
+                className={`flex flex-1 items-center gap-3 rounded-xl px-3 py-3 ${active ? 'bg-emerald-800 text-white' : done ? 'tone-success' : 'text-slate-400'}`}
               >
-                <span className={`grid h-8 w-8 place-items-center rounded-full text-sm font-semibold ${active ? 'bg-amber-400 text-emerald-950' : done ? 'bg-emerald-700 text-white' : 'bg-stone-200 text-slate-600'}`}>
+                <span className={`grid h-8 w-8 place-items-center rounded-full text-sm font-semibold ${active ? 'bg-accent' : done ? 'tone-success-solid' : 'bg-stone-200 text-slate-600'}`}>
                   {index + 1}
                 </span>
                 <span className="text-sm font-semibold">{step.label}</span>
