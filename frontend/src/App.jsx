@@ -25,6 +25,7 @@ import ReportsPage from './pages/ReportsPage'
 import AuditPage from './pages/AuditPage'
 import UsersPage from './pages/UsersPage'
 import UserFormPage from './pages/UserFormPage'
+import HelpPage from './pages/HelpPage'
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
             }
           >
             <Route index element={<Dashboard />} />
+            <Route path="help" element={<HelpPage />} />
             <Route path="my-class" element={<MyClassPage />} />
             <Route path="classes" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'super_admin']}><ClassesPage /></ProtectedRoute>} />
             <Route path="staff" element={<StaffPage />} />

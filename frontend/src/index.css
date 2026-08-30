@@ -512,3 +512,23 @@ html.dark .text-sky-800,
 html.dark .text-sky-900 {
   color: #bae6fd;
 }
+
+.help-chat-pulse {
+  animation: help-chat-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes help-chat-glow {
+  0%,
+  100% {
+    box-shadow: 0 10px 24px rgb(15 23 42 / 0.28);
+  }
+  50% {
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .help-chat-pulse {
+    animation: none;
+  }
+}

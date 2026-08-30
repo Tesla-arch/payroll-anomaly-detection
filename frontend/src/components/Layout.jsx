@@ -8,6 +8,7 @@ import {
   FiClipboard,
   FiDownload,
   FiGrid,
+  FiHelpCircle,
   FiHome,
   FiLogOut,
   FiMail,
@@ -19,6 +20,7 @@ import {
 } from 'react-icons/fi'
 import { useAuth } from '../context/AuthContext'
 import ThemeToggle from './ThemeToggle'
+import HelpChat from './HelpChat'
 import api from '../api/client'
 
 const links = [
@@ -35,6 +37,7 @@ const links = [
   { to: '/reports', label: 'Reports', icon: FiBarChart2, roles: ['super_admin', 'headteacher', 'hr_officer', 'accountant', 'auditor'] },
   { to: '/audit', label: 'Audit trail', icon: FiShield, roles: ['super_admin', 'auditor', 'headteacher'] },
   { to: '/users', label: 'Users', icon: FiUsers, roles: ['super_admin'] },
+  { to: '/help', label: 'Help', icon: FiHelpCircle, roles: null },
 ]
 
 function clockLabel() {
@@ -166,6 +169,7 @@ export default function Layout() {
           <Outlet />
         </div>
       </main>
+      <HelpChat mode="app" />
     </div>
   )
 }

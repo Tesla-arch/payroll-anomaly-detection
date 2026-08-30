@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { authSlides } from '../data/authSlides'
 import ThemeToggle from './ThemeToggle'
+import HelpChat from './HelpChat'
 
 export default function AuthShell({ children }) {
   const [active, setActive] = useState(0)
@@ -87,6 +88,7 @@ export default function AuthShell({ children }) {
           {children}
         </div>
       </section>
+      <HelpChat mode="auth" />
     </div>
   )
 }
