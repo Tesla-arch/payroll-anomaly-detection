@@ -121,8 +121,9 @@ Password for officer and parent email logins: `password`. Staff sign in with sta
 
 | Staff ID | Email | Role |
 | EMP-1001 | teacher@school.gh | Teacher |
-| EMP-PAY-01 | payroll@school.gh | Payroll Officer |
 | EMP-ACC-01 | accounts@school.gh | Accountant |
+
+HR (`hr@school.gh`) prepares payroll, marks runs paid, and works open flags — there is no separate Payroll Officer desk.
 
 The seeder plants a July 2026 payroll run with deliberate anomalies so the dashboard is not empty.
 

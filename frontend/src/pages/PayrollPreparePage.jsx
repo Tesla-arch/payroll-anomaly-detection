@@ -70,10 +70,10 @@ export default function PayrollPreparePage() {
     }
   }
 
-  if (!hasRole('payroll_officer')) {
+  if (!hasRole('hr_officer')) {
     return (
       <div className="card max-w-lg">
-        <p className="text-slate-600">Only the Payroll Officer can prepare a monthly salary run.</p>
+        <p className="text-slate-600">Only HR can prepare a monthly salary run.</p>
         <Link to="/payroll" className="mt-4 inline-flex items-center gap-2 text-emerald-800">
           <FiArrowLeft /> Back to payroll
         </Link>

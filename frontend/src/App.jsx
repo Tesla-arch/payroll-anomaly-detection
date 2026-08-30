@@ -55,12 +55,12 @@ export default function App() {
             <Route path="attendance" element={<AttendancePage />} />
             <Route path="leave" element={<LeavePage />} />
             <Route path="leave/request" element={<LeaveRequestPage />} />
-            <Route path="payroll" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor']}><PayrollPage /></ProtectedRoute>} />
-            <Route path="payroll/prepare" element={<ProtectedRoute roles={['payroll_officer']}><PayrollPreparePage /></ProtectedRoute>} />
-            <Route path="payroll/:id" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor', 'hr_officer']}><PayrollDetailPage /></ProtectedRoute>} />
-            <Route path="anomalies" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor', 'hr_officer']}><AnomaliesPage /></ProtectedRoute>} />
-            <Route path="anomalies/:id" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor', 'hr_officer']}><AnomalyDetailPage /></ProtectedRoute>} />
-            <Route path="reports" element={<ProtectedRoute roles={['headteacher', 'payroll_officer', 'accountant', 'auditor']}><ReportsPage /></ProtectedRoute>} />
+            <Route path="payroll" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'accountant', 'auditor']}><PayrollPage /></ProtectedRoute>} />
+            <Route path="payroll/prepare" element={<ProtectedRoute roles={['hr_officer']}><PayrollPreparePage /></ProtectedRoute>} />
+            <Route path="payroll/:id" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'accountant', 'auditor']}><PayrollDetailPage /></ProtectedRoute>} />
+            <Route path="anomalies" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'accountant', 'auditor']}><AnomaliesPage /></ProtectedRoute>} />
+            <Route path="anomalies/:id" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'accountant', 'auditor']}><AnomalyDetailPage /></ProtectedRoute>} />
+            <Route path="reports" element={<ProtectedRoute roles={['headteacher', 'hr_officer', 'accountant', 'auditor']}><ReportsPage /></ProtectedRoute>} />
             <Route path="audit" element={<ProtectedRoute roles={['auditor', 'headteacher', 'super_admin']}><AuditPage /></ProtectedRoute>} />
             <Route path="users" element={<ProtectedRoute roles={['super_admin']}><UsersPage /></ProtectedRoute>} />
             <Route path="users/create" element={<ProtectedRoute roles={['super_admin']}><UserFormPage /></ProtectedRoute>} />

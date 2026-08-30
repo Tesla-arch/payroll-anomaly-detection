@@ -15,7 +15,7 @@ class PayrollFlowTest extends TestCase
 
     public function test_payroll_run_creates_lines_and_scans_anomalies(): void
     {
-        $officer = $this->userWithRole('payroll_officer');
+        $officer = $this->userWithRole('hr_officer');
         $staff = Staff::query()->create([
             'user_id' => $this->userWithRole('teacher')->id,
             'employee_id' => 'EMP-3001',
@@ -46,7 +46,7 @@ class PayrollFlowTest extends TestCase
 
     public function test_cannot_approve_with_open_critical_anomalies(): void
     {
-        $officer = $this->userWithRole('payroll_officer');
+        $officer = $this->userWithRole('hr_officer');
         $head = $this->userWithRole('headteacher');
 
         Staff::query()->create([
@@ -72,9 +72,9 @@ class PayrollFlowTest extends TestCase
             ->assertStatus(422);
     }
 
-    public function test_payroll_officer_can_remove_flagged_staff_from_a_draft_run(): void
+    public function test_hr_officer_can_remove_flagged_staff_from_a_draft_run(): void
     {
-        $officer = $this->actingAsRole('payroll_officer');
+        $officer = $this->actingAsRole('hr_officer');
 
         Staff::query()->create([
             'user_id' => null,
@@ -106,31 +106,31 @@ class PayrollFlowTest extends TestCase
         $this->postJson("/api/payroll-runs/{$run->id}/approve")->assertOk();
     }
 
-    public function test_hr_can_read_anomalies_but_cannot_remove_a_payroll_line(): void
+    public function test_accountant_can_read_anomalies_but_cannot_remove_a_payroll_line(): void
     {
-        $officer = $this->userWithRole('payroll_officer');
+        $officer = $this->userWithRole('hr_officer');
         Staff::query()->create([
             'user_id' => null,
-            'employee_id' => 'EMP-HR',
+            'employee_id' => 'EMP-ACC-VIEW',
             'salary' => 2000,
             'status' => 'active',
         ]);
         $run = app(PayrollRunService::class)->execute([
-            'run_name' => 'HR View',
+            'run_name' => 'Accountant View',
             'pay_period_start' => '2026-07-01',
             'pay_period_end' => '2026-07-31',
             'payment_date' => '2026-07-28',
             'staff_ids' => Staff::query()->pluck('id')->all(),
         ], $officer);
 
-        $this->actingAsRole('hr_officer');
+        $this->actingAsRole('accountant');
         $this->getJson('/api/anomalies/summary')->assertOk();
         $this->postJson('/api/payrolls/'.$run->payrolls()->first()->id.'/exclude')->assertForbidden();
     }
 
     public function test_cannot_remove_staff_from_an_approved_run(): void
     {
-        $officer = $this->actingAsRole('payroll_officer');
+        $officer = $this->actingAsRole('hr_officer');
         $teacher = $this->userWithRole('teacher');
         $staff = Staff::query()->create([
             'user_id' => $teacher->id,

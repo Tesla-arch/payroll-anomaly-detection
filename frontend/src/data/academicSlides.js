@@ -32,7 +32,7 @@ export const academicSlides = [
     to: '/attendance',
     metricKey: 'active_staff',
     metricLabel: 'Staff on duty',
-    roles: ['hr_officer', 'headteacher', 'teacher', 'payroll_officer'],
+    roles: ['hr_officer', 'headteacher', 'teacher'],
     hotspot: { top: '48%', left: '62%' },
   },
   {
@@ -44,7 +44,7 @@ export const academicSlides = [
     to: '/staff',
     metricKey: 'active_staff',
     metricLabel: 'Active staff',
-    roles: ['hr_officer', 'headteacher', 'payroll_officer', 'accountant', 'auditor'],
+    roles: ['hr_officer', 'headteacher', 'accountant', 'auditor'],
     hotspot: { top: '42%', left: '36%' },
   },
   {
@@ -56,7 +56,7 @@ export const academicSlides = [
     to: '/staff',
     metricKey: 'active_staff',
     metricLabel: 'Active staff',
-    roles: ['hr_officer', 'headteacher', 'payroll_officer', 'accountant', 'auditor'],
+    roles: ['hr_officer', 'headteacher', 'accountant', 'auditor'],
     hotspot: { top: '46%', left: '58%' },
   },
   {
@@ -80,7 +80,7 @@ export const academicSlides = [
     to: '/reports',
     metricKey: 'payroll_runs',
     metricLabel: 'Payroll runs',
-    roles: ['headteacher', 'payroll_officer', 'accountant', 'auditor'],
+    roles: ['headteacher', 'hr_officer', 'accountant', 'auditor'],
     hotspot: { top: '44%', left: '40%' },
   },
   {
@@ -99,12 +99,12 @@ export const academicSlides = [
     id: 'staff',
     src: '/slides/staff.jpg',
     title: 'Staff and offices',
-    caption: 'Headteacher, HR, payroll and audit desks working from one portal.',
+    caption: 'Headteacher, HR, accounts and audit desks working from one portal.',
     action: 'Investigate flags',
     to: '/anomalies',
     metricKey: 'open_anomalies',
     metricLabel: 'Open flags',
-    roles: ['headteacher', 'payroll_officer', 'accountant', 'auditor'],
+    roles: ['headteacher', 'hr_officer', 'accountant', 'auditor'],
     hotspot: { top: '48%', left: '54%' },
   },
 ]

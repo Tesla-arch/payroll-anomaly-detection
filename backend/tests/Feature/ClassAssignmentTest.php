@@ -71,8 +71,8 @@ class ClassAssignmentTest extends TestCase
     public function test_cannot_assign_non_teaching_or_inactive_staff(): void
     {
         $this->actingAsRole('hr_officer');
-        [, $payroll] = $this->staffWithPortal('payroll_officer', [], [
-            'job_title' => 'Payroll Officer',
+        [, $accountant] = $this->staffWithPortal('accountant', [], [
+            'job_title' => 'Accountant',
         ]);
         [, $inactive] = $this->staffWithPortal('teacher', [
             'first_name' => 'Yaw',
@@ -85,7 +85,7 @@ class ClassAssignmentTest extends TestCase
         $class = $this->classroom();
 
         $this->putJson("/api/classes/{$class->id}/teacher", [
-            'teacher_id' => $payroll->id,
+            'teacher_id' => $accountant->id,
         ])->assertUnprocessable()
             ->assertJsonValidationErrors(['teacher_id']);
 

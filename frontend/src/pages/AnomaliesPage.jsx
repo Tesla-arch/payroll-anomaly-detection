@@ -17,11 +17,10 @@ const statusFilters = [
 ]
 
 const roleDesk = {
-  payroll_officer: 'Work the open queue before asking the Headteacher to approve a salary run. Critical flags block payment.',
-  headteacher: 'Review critical and high flags. Resolve or send back to Payroll with notes before you approve payroll.',
+  hr_officer: 'Prepare salary runs, correct staff files, and clear open flags before the Headteacher approves payment.',
+  headteacher: 'Review critical and high flags. Resolve or send back to HR with notes before you approve payroll.',
   auditor: 'Inspect evidence and outcomes. You can resolve or mark a false positive; you cannot generate payroll.',
   accountant: 'View-only desk. You can read cases and evidence but cannot change their status.',
-  hr_officer: 'Correct the staff file, deactivate leavers, or send the case back to Payroll to drop them from this draft.',
   super_admin: 'Full investigation desk — filter, preview, acknowledge or resolve any payroll flag.',
 }
 
@@ -29,8 +28,8 @@ export default function AnomaliesPage() {
   const { role, hasRole } = useAuth()
   const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
-  const canAct = hasRole('payroll_officer', 'headteacher', 'auditor')
-  const canRescan = hasRole('payroll_officer')
+  const canAct = hasRole('hr_officer', 'headteacher', 'auditor')
+  const canRescan = hasRole('hr_officer')
 
   const status = params.get('status') || 'open'
   const severity = params.get('severity') || ''

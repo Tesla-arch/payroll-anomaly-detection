@@ -144,7 +144,7 @@ class StaffController extends Controller
     }
 
     /**
-     * Teachers, payroll officers and accountants receive a portal login keyed to the generated staff ID.
+     * Teachers and accountants receive a portal login keyed to the generated staff ID.
      *
      * @return array{employee_id: string, email: string, role: string}|null
      */
@@ -157,7 +157,7 @@ class StaffController extends Controller
         $slug = $request->input('portal_role', 'teacher');
         if (! in_array($slug, Role::STAFF_PORTAL_SLUGS, true)) {
             throw ValidationException::withMessages([
-                'portal_role' => ['Choose Teacher, Payroll Officer or Accountant for this staff login.'],
+                'portal_role' => ['Choose Teacher or Accountant for this staff login.'],
             ]);
         }
 

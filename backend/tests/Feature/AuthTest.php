@@ -35,26 +35,26 @@ class AuthTest extends TestCase
             'email' => 'teacher@school.gh',
             'password' => 'password',
         ])->assertStatus(422)
-            ->assertJsonPath('errors.email.0', 'Teachers, payroll officers and accountants sign in with their staff ID and the email on their employment file.');
+            ->assertJsonPath('errors.email.0', 'Teachers and accountants sign in with their staff ID and the email on their employment file.');
     }
 
     public function test_staff_login_with_employee_id_and_email(): void
     {
-        [, $staff] = $this->staffWithPortal('payroll_officer', [
-            'email' => 'payroll@school.gh',
+        [, $staff] = $this->staffWithPortal('accountant', [
+            'email' => 'accounts@school.gh',
             'password' => 'password',
         ], [
-            'employee_id' => 'EMP-PAY-01',
-            'email' => 'payroll@school.gh',
+            'employee_id' => 'EMP-ACC-01',
+            'email' => 'accounts@school.gh',
         ]);
 
         $this->postJson('/api/auth/login/staff', [
-            'employee_id' => 'emp-pay-01',
-            'email' => 'PAYROLL@school.gh',
+            'employee_id' => 'emp-acc-01',
+            'email' => 'ACCOUNTS@school.gh',
         ])->assertOk()
-            ->assertJsonPath('user.email', 'payroll@school.gh')
+            ->assertJsonPath('user.email', 'accounts@school.gh')
             ->assertJsonPath('user.employee_id', $staff->employee_id)
-            ->assertJsonPath('user.role.slug', 'payroll_officer');
+            ->assertJsonPath('user.role.slug', 'accountant');
     }
 
     public function test_staff_login_rejects_mismatched_email(): void

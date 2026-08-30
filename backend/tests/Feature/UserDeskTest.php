@@ -55,11 +55,11 @@ class UserDeskTest extends TestCase
             'email' => 'kwesi@school.gh',
             'phone' => '0241111111',
             'password' => 'password',
-            'role_id' => $roles['payroll_officer']->id,
+            'role_id' => $roles['accountant']->id,
         ])
             ->assertCreated()
             ->assertJsonPath('email', 'kwesi@school.gh')
-            ->assertJsonPath('role.slug', 'payroll_officer');
+            ->assertJsonPath('role.slug', 'accountant');
     }
 
     public function test_super_admin_cannot_deactivate_own_account(): void

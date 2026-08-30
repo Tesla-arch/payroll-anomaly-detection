@@ -34,7 +34,7 @@ class AuthController extends Controller
                 'hint' => match ($role->slug) {
                     'super_admin' => 'Full school portal, including user accounts.',
                     'headteacher' => 'Approves leave and payroll for the school.',
-                    'hr_officer' => 'Staff files, attendance and parent register.',
+                    'hr_officer' => 'Staff files, attendance, payroll preparation and the parent register.',
                     'auditor' => 'Audit trail and payroll flags — no pay changes.',
                     default => 'School officer account.',
                 },
@@ -69,7 +69,7 @@ class AuthController extends Controller
 
         if ($user->role?->usesStaffIdLogin() && $user->staff) {
             throw ValidationException::withMessages([
-                'email' => ['Teachers, payroll officers and accountants sign in with their staff ID and the email on their employment file.'],
+                'email' => ['Teachers and accountants sign in with their staff ID and the email on their employment file.'],
             ]);
         }
 

@@ -118,7 +118,7 @@ class PayrollAnomalyDetectionService
     {
         $users = User::query()
             ->whereHas('role', fn ($q) => $q->whereIn('slug', [
-                'super_admin', 'headteacher', 'payroll_officer', 'hr_officer', 'accountant', 'auditor',
+                'super_admin', 'headteacher', 'hr_officer', 'accountant', 'auditor',
             ]))
             ->get();
 

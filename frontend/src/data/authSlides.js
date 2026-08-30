@@ -27,6 +27,6 @@ export const authSlides = [
   {
     src: '/slides/staff.jpg',
     title: 'School staff',
-    caption: 'Headteachers, HR, payroll officers and auditors working from one portal.',
+    caption: 'Headteachers, HR, accountants and auditors working from one portal.',
   },
 ]

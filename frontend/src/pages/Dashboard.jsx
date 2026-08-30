@@ -261,9 +261,9 @@ export default function Dashboard() {
   }, [severity])
 
   const actions = [
-    hasRole('payroll_officer') && { to: '/payroll/prepare', label: 'Prepare payroll', icon: FiBarChart2 },
-    hasRole('payroll_officer', 'auditor', 'headteacher') && { to: '/anomalies', label: 'Investigate flags', icon: FiAlertTriangle },
-    hasRole('hr_officer', 'headteacher', 'teacher', 'payroll_officer') && { to: '/attendance', label: 'Staff attendance', icon: FiCalendar },
+    hasRole('hr_officer') && { to: '/payroll/prepare', label: 'Prepare payroll', icon: FiBarChart2 },
+    hasRole('hr_officer', 'auditor', 'headteacher') && { to: '/anomalies', label: 'Investigate flags', icon: FiAlertTriangle },
+    hasRole('hr_officer', 'headteacher', 'teacher') && { to: '/attendance', label: 'Staff attendance', icon: FiCalendar },
     hasRole('hr_officer') && { to: '/staff', label: 'Manage staff', icon: FiUserCheck },
     hasRole('hr_officer', 'headteacher', 'super_admin') && { to: '/classes', label: 'Assign class teachers', icon: FiGrid },
     hasRole('hr_officer') && { to: '/anomalies', label: 'Fix flagged staff', icon: FiAlertTriangle },
@@ -283,11 +283,11 @@ export default function Dashboard() {
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {[
-          hasRole('hr_officer', 'headteacher', 'payroll_officer', 'accountant', 'auditor') && { label: 'Active staff', value: stats.active_staff, hint: `${stats.staff || 0} on register`, to: '/staff', icon: FiUserCheck },
+          hasRole('hr_officer', 'headteacher', 'accountant', 'auditor') && { label: 'Active staff', value: stats.active_staff, hint: `${stats.staff || 0} on register`, to: '/staff', icon: FiUserCheck },
           hasRole('hr_officer', 'headteacher', 'teacher', 'parent') && { label: 'Students', value: stats.students, hint: 'Basic school roll', to: '/students', icon: FiUsers },
           hasRole('hr_officer', 'headteacher', 'teacher') && { label: 'Parents', value: stats.parents, hint: 'Registered emails', to: '/parents', icon: FiMail },
-          hasRole('payroll_officer', 'headteacher', 'accountant', 'auditor') && { label: 'Open flags', value: stats.open_anomalies, hint: 'Awaiting review', to: '/anomalies?status=open', icon: FiAlertTriangle, warn: stats.open_anomalies > 0 },
-          hasRole('payroll_officer', 'headteacher', 'accountant', 'auditor') && { label: 'Critical', value: stats.critical_anomalies, hint: 'Blocks approval', to: '/anomalies?status=open&severity=critical', icon: FiShield, danger: stats.critical_anomalies > 0 },
+          hasRole('hr_officer', 'headteacher', 'accountant', 'auditor') && { label: 'Open flags', value: stats.open_anomalies, hint: 'Awaiting review', to: '/anomalies?status=open', icon: FiAlertTriangle, warn: stats.open_anomalies > 0 },
+          hasRole('hr_officer', 'headteacher', 'accountant', 'auditor') && { label: 'Critical', value: stats.critical_anomalies, hint: 'Blocks approval', to: '/anomalies?status=open&severity=critical', icon: FiShield, danger: stats.critical_anomalies > 0 },
           hasRole('hr_officer', 'headteacher', 'teacher') && { label: 'Leave queue', value: stats.pending_leave, hint: 'HR / Headteacher', to: '/leave', icon: FiClipboard },
         ].filter(Boolean).map((card) => (
           <Link

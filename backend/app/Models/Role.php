@@ -13,7 +13,7 @@ class Role extends Model
     public const SELF_REGISTER_SLUGS = ['super_admin', 'headteacher', 'hr_officer', 'auditor'];
 
     /** Employees who sign in with the staff ID issued at employment, plus their file email. */
-    public const STAFF_PORTAL_SLUGS = ['teacher', 'payroll_officer', 'accountant'];
+    public const STAFF_PORTAL_SLUGS = ['teacher', 'accountant'];
 
     public function users(): HasMany
     {

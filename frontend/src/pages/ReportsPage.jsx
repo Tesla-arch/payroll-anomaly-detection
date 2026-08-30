@@ -26,7 +26,7 @@ const statusTone = {
 }
 
 const roleDesk = {
-  payroll_officer: 'Compare months, SSNIT and net payable before you prepare the next salary run.',
+  hr_officer: 'Compare months, SSNIT and net payable before you prepare the next salary run.',
   headteacher: 'Check critical flags against net pay before you approve a draft run.',
   accountant: 'Use SSNIT employee / employer totals and net payable for the school books. This desk is view-only.',
   auditor: 'Track open versus closed flags across salary runs. You cannot change payroll from here.',
@@ -461,7 +461,7 @@ export default function ReportsPage() {
                     <Link to={`/anomalies?run=${selected.id}&status=open`} className="rounded-lg border border-stone-300 px-4 py-2 text-sm">
                       Open flags
                     </Link>
-                    {hasRole('payroll_officer') && (
+                    {hasRole('hr_officer') && (
                       <Link to="/payroll/prepare" className="rounded-lg border border-stone-300 px-4 py-2 text-sm">Prepare next</Link>
                     )}
                   </div>

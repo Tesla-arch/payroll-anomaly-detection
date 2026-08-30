@@ -19,8 +19,8 @@ export default function AnomalyFixActions({ item, onChanged }) {
   const staffId = item.staff_id || item.staff?.id
   const payrollId = item.payroll_id || payroll?.id
   const canEditStaff = hasRole('hr_officer')
-  const canExclude = hasRole('payroll_officer', 'headteacher')
-  const canRecalc = hasRole('payroll_officer')
+  const canExclude = hasRole('hr_officer', 'headteacher')
+  const canRecalc = hasRole('hr_officer')
 
   const exclude = async () => {
     if (!payrollId) return toast.error('This flag is not linked to a salary line.')

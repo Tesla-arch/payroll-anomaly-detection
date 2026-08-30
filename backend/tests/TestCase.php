@@ -20,7 +20,6 @@ abstract class TestCase extends BaseTestCase
             'super_admin' => 'Super Admin',
             'headteacher' => 'Headteacher',
             'hr_officer' => 'HR Officer',
-            'payroll_officer' => 'Payroll Officer',
             'accountant' => 'Accountant',
             'teacher' => 'Teacher',
             'auditor' => 'Auditor',

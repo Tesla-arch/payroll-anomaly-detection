@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext'
 const fallbackRoles = [
   { slug: 'super_admin', name: 'Administrator', hint: 'Full school portal, including user accounts.' },
   { slug: 'headteacher', name: 'Headteacher / Headmaster', hint: 'Approves leave and payroll for the school.' },
-  { slug: 'hr_officer', name: 'HR Officer', hint: 'Staff files, attendance and parent register.' },
+  { slug: 'hr_officer', name: 'HR Officer', hint: 'Staff files, attendance, payroll preparation and the parent register.' },
   { slug: 'auditor', name: 'Auditor', hint: 'Audit trail and payroll flags — no pay changes.' },
 ]
 
@@ -194,6 +194,11 @@ export default function Register() {
           <Link to="/login" className="font-medium text-emerald-800 hover:underline">Sign in with email</Link>
           {' · '}
           <Link to="/login?desk=staff" className="font-medium text-emerald-800 hover:underline">Staff ID login</Link>
+        </p>
+        <p className="mt-2 text-center text-sm">
+          <a href="/School-SMS-User-Manual.pdf" download="School-SMS-User-Manual.pdf" className="font-medium text-emerald-800 hover:underline">
+            Download the user manual (PDF)
+          </a>
         </p>
         <p className="mt-2 text-center text-xs text-slate-400">
           Parents cannot register here. HR adds the household on the parent register, then the parent signs in with that email.

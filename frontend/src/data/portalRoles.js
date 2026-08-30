@@ -1,8 +1,7 @@
 export const portalRoles = [
   { slug: 'super_admin', label: 'Super Admin', hint: 'Full portal, including this users desk.' },
   { slug: 'headteacher', label: 'Headteacher', hint: 'Approves payroll and leave for the school.' },
-  { slug: 'hr_officer', label: 'HR Officer', hint: 'Staff files, attendance and the parent register.' },
-  { slug: 'payroll_officer', label: 'Payroll Officer', hint: 'Prepares salary runs and works open flags.' },
+  { slug: 'hr_officer', label: 'HR Officer', hint: 'Staff files, attendance, payroll preparation and the parent register.' },
   { slug: 'accountant', label: 'Accountant', hint: 'Read-only payroll, flags and reports.' },
   { slug: 'auditor', label: 'Auditor', hint: 'Assurance desk — audit trail and flags, no pay changes.' },
   { slug: 'teacher', label: 'Teacher', hint: 'Class, attendance, leave and parent messages.' },

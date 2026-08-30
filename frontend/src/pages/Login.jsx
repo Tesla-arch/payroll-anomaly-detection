@@ -15,7 +15,6 @@ const officerDemos = [
 
 const staffDemos = [
   ['EMP-1001', 'teacher@school.gh', 'Teacher'],
-  ['EMP-PAY-01', 'payroll@school.gh', 'Payroll Officer'],
   ['EMP-ACC-01', 'accounts@school.gh', 'Accountant'],
 ]
 
@@ -68,7 +67,7 @@ export default function Login() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">Role-based access</p>
         <h2 className="mt-2 text-2xl font-semibold text-emerald-950 sm:text-3xl">Sign in</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">
-          Parents, administrators, HR, auditors and headteachers sign in with email and password. Teachers, payroll officers and accountants use the staff ID issued at employment and the email on their file — no password.
+          Parents, administrators, HR, auditors and headteachers sign in with email and password. Teachers and accountants use the staff ID issued at employment and the email on their file — no password.
         </p>
 
         <div className="mt-6 grid grid-cols-2 gap-1 rounded-2xl bg-stone-100 p-1">
@@ -152,6 +151,13 @@ export default function Login() {
         <button className="btn-primary mt-6 w-full py-2.5 text-base" disabled={busy}>
           {busy ? 'Signing in…' : 'Continue to portal'}
         </button>
+        <a
+          href="/School-SMS-User-Manual.pdf"
+          download="School-SMS-User-Manual.pdf"
+          className="mt-3 block text-center text-sm font-medium text-emerald-800 hover:underline"
+        >
+          Download the user manual (PDF)
+        </a>
 
         {mode === 'officer' ? (
           <p className="mt-4 text-center text-sm text-slate-500">

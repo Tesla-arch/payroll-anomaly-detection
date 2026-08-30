@@ -23,7 +23,7 @@ export default function AnomalyDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { hasRole } = useAuth()
-  const canAct = hasRole('payroll_officer', 'headteacher', 'auditor')
+  const canAct = hasRole('hr_officer', 'headteacher', 'auditor')
   const canFixStaff = hasRole('hr_officer')
   const [item, setItem] = useState(null)
   const [status, setStatus] = useState('resolved')

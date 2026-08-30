@@ -91,7 +91,7 @@ export default function PayrollDetailPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {hasRole('payroll_officer') && run.status === 'draft' && (
+          {hasRole('hr_officer') && run.status === 'draft' && (
             <button className="rounded-lg border border-stone-300 px-4 py-2 text-sm" disabled={busy} onClick={() => act('cancel', 'Run cancelled')}>
               Cancel draft
             </button>
@@ -105,7 +105,7 @@ export default function PayrollDetailPage() {
               {openCritical > 0 ? 'Clear critical flags first' : 'Approve for payment'}
             </button>
           )}
-          {hasRole('payroll_officer') && run.status === 'approved' && (
+          {hasRole('hr_officer') && run.status === 'approved' && (
             <button className="btn-primary" disabled={busy || openCritical > 0} onClick={() => act('paid', 'Marked as paid')}>
               Mark paid
             </button>
@@ -141,14 +141,14 @@ export default function PayrollDetailPage() {
           {openCritical} critical flag{openCritical === 1 ? '' : 's'} still open. The Headteacher cannot approve until they are resolved.
         </div>
       )}
-      {hasRole('accountant') && !hasRole('payroll_officer') && !hasRole('headteacher') && (
+      {hasRole('accountant') && !hasRole('hr_officer') && !hasRole('headteacher') && (
         <div className="rounded-2xl bg-sky-50 px-4 py-3 text-sm text-sky-900">
           Accountant view — you can inspect the schedule and download slips. You cannot approve or mark paid.
         </div>
       )}
-      {hasRole('auditor') && !hasRole('payroll_officer') && !hasRole('headteacher') && (
+      {hasRole('auditor') && !hasRole('hr_officer') && !hasRole('headteacher') && (
         <div className="rounded-2xl bg-stone-50 px-4 py-3 text-sm text-slate-700">
-          Auditor view — inspect figures and flags. Status changes stay with Payroll and the Headteacher.
+          Auditor view — inspect figures and flags. Status changes stay with HR and the Headteacher.
         </div>
       )}
 
@@ -218,7 +218,7 @@ export default function PayrollDetailPage() {
                     {hasRole('hr_officer') && row.staff_id && (
                       <Link to={`/staff/${row.staff_id}/edit`} className="text-sm text-emerald-800">Edit staff file</Link>
                     )}
-                    {hasRole('payroll_officer') && run.status === 'draft' && row.status !== 'excluded' && (
+                    {hasRole('hr_officer') && run.status === 'draft' && row.status !== 'excluded' && (
                       <button
                         type="button"
                         className="text-sm text-emerald-800"
@@ -239,7 +239,7 @@ export default function PayrollDetailPage() {
                         Recalculate slip
                       </button>
                     )}
-                    {hasRole('payroll_officer', 'headteacher') && run.status === 'draft' && row.status !== 'excluded' && (
+                    {hasRole('hr_officer', 'headteacher') && run.status === 'draft' && row.status !== 'excluded' && (
                       <button
                         type="button"
                         className="text-sm text-red-700"
@@ -261,7 +261,7 @@ export default function PayrollDetailPage() {
                         Remove from this run
                       </button>
                     )}
-                    {hasRole('payroll_officer', 'headteacher') && run.status === 'draft' && row.status === 'excluded' && (
+                    {hasRole('hr_officer', 'headteacher') && run.status === 'draft' && row.status === 'excluded' && (
                       <button
                         type="button"
                         className="text-sm text-emerald-800"

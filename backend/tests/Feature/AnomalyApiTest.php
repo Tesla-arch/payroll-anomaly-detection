@@ -11,9 +11,9 @@ class AnomalyApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_payroll_officer_can_read_anomaly_summary(): void
+    public function test_hr_officer_can_read_anomaly_summary(): void
     {
-        $this->actingAsRole('payroll_officer');
+        $this->actingAsRole('hr_officer');
 
         $this->getJson('/api/anomalies/summary')
             ->assertOk()

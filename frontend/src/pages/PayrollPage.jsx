@@ -21,7 +21,7 @@ const statusTone = {
 }
 
 const roleDesk = {
-  payroll_officer: 'You prepare the monthly salary list, generate the run, and mark it paid after the Headteacher signs.',
+  hr_officer: 'You prepare the monthly salary list, generate the run, and mark it paid after the Headteacher signs.',
   headteacher: 'You review draft runs and approve them only when critical flags are cleared.',
   accountant: 'View-only desk. Check SSNIT, net pay and payment dates — you cannot generate or approve a run.',
   auditor: 'Inspect runs, flags and payment history. You cannot change payroll status.',
@@ -39,7 +39,7 @@ function ghs(value) {
 export default function PayrollPage() {
   const { role, hasRole } = useAuth()
   const navigate = useNavigate()
-  const canPrepare = hasRole('payroll_officer')
+  const canPrepare = hasRole('hr_officer')
   const [runs, setRuns] = useState([])
   const [filter, setFilter] = useState('all')
 

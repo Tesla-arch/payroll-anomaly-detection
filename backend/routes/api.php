@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/roles', [UserController::class, 'roles']);
     });
 
-    Route::middleware('role:super_admin,headteacher,hr_officer,payroll_officer,accountant,auditor')->group(function () {
+    Route::middleware('role:super_admin,headteacher,hr_officer,accountant,auditor')->group(function () {
         Route::get('/staff', [StaffController::class, 'index']);
         Route::get('/staff/next-id', [StaffController::class, 'nextId']);
         Route::get('/staff/{staff}', [StaffController::class, 'show']);
@@ -109,7 +109,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/parents/{parent}', [ParentController::class, 'update']);
     });
 
-    Route::middleware('role:super_admin,hr_officer,teacher,headteacher,payroll_officer')->group(function () {
+    Route::middleware('role:super_admin,hr_officer,teacher,headteacher')->group(function () {
         Route::get('/attendance', [AttendanceController::class, 'index']);
         Route::get('/attendance/roll', [AttendanceController::class, 'roll']);
         Route::get('/attendance/summary', [AttendanceController::class, 'summary']);
@@ -123,7 +123,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:super_admin,hr_officer')->post('/leave-requests/{leaveRequest}/review', [LeaveRequestController::class, 'review']);
     Route::middleware('role:super_admin,headteacher')->post('/leave-requests/{leaveRequest}/approve', [LeaveRequestController::class, 'approve']);
 
-    Route::middleware('role:super_admin,headteacher,payroll_officer,accountant,auditor')->group(function () {
+    Route::middleware('role:super_admin,headteacher,hr_officer,accountant,auditor')->group(function () {
         Route::get('/payroll-runs', [PayrollRunController::class, 'index']);
         Route::get('/payroll-runs/{payrollRun}', [PayrollRunController::class, 'show']);
         Route::get('/payrolls/{payroll}/payslip', [PayrollRunController::class, 'payslip']);
@@ -132,20 +132,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/reports/anomalies', [ReportController::class, 'anomalyTrends']);
     });
 
-    Route::middleware('role:super_admin,headteacher,payroll_officer,accountant,auditor,hr_officer')->group(function () {
+    Route::middleware('role:super_admin,headteacher,hr_officer,accountant,auditor')->group(function () {
         Route::get('/anomalies/summary', [AnomalyController::class, 'summary']);
         Route::get('/anomalies', [AnomalyController::class, 'index']);
         Route::get('/anomalies/{payrollAnomaly}', [AnomalyController::class, 'show']);
     });
 
-    Route::middleware('role:super_admin,hr_officer')->get('/payroll-runs/{payrollRun}', [PayrollRunController::class, 'show']);
-
-    Route::middleware('role:super_admin,payroll_officer,headteacher')->group(function () {
+    Route::middleware('role:super_admin,hr_officer,headteacher')->group(function () {
         Route::post('/payrolls/{payroll}/exclude', [PayrollRunController::class, 'exclude']);
         Route::post('/payrolls/{payroll}/restore', [PayrollRunController::class, 'restore']);
     });
 
-    Route::middleware('role:super_admin,payroll_officer')->group(function () {
+    Route::middleware('role:super_admin,hr_officer')->group(function () {
         Route::post('/payroll-runs', [PayrollRunController::class, 'store']);
         Route::post('/payroll-runs/{payrollRun}/cancel', [PayrollRunController::class, 'cancel']);
         Route::post('/payroll-runs/{payrollRun}/rescan', [AnomalyController::class, 'rescan']);
@@ -155,7 +153,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:super_admin,headteacher')->post('/payroll-runs/{payrollRun}/approve', [PayrollRunController::class, 'approve']);
 
-    Route::middleware('role:super_admin,payroll_officer,auditor,headteacher')->post('/anomalies/{payrollAnomaly}/resolve', [AnomalyController::class, 'resolve']);
+    Route::middleware('role:super_admin,hr_officer,auditor,headteacher')->post('/anomalies/{payrollAnomaly}/resolve', [AnomalyController::class, 'resolve']);
 
     Route::middleware('role:super_admin,auditor,headteacher')->group(function () {
         Route::get('/audit-logs/summary', [AuditLogController::class, 'summary']);

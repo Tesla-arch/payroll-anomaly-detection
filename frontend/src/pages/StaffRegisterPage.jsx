@@ -353,9 +353,9 @@ export default function StaffRegisterPage() {
                   <input className="input bg-stone-50 font-medium tracking-wide" value={form.employee_id || 'Generating…'} readOnly />
                 </Field>
                 {!editing && (
-                <Field label="Portal desk" hint="Teachers, payroll officers and accountants cannot self-register.">
-                  <div className="grid grid-cols-1 gap-2">
-                    {[['teacher', 'Teacher'], ['payroll_officer', 'Payroll Officer'], ['accountant', 'Accountant']].map(([value, label]) => (
+                <Field label="Portal desk" hint="Teachers and accountants cannot self-register. HR uses an officer email login.">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    {[['teacher', 'Teacher'], ['accountant', 'Accountant']].map(([value, label]) => (
                       <button
                         key={value}
                         type="button"

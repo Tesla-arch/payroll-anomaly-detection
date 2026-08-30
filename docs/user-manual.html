@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>School Management System — User Manual</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm 20mm; }
+    :root {
+      --emerald: #064e3b;
+      --emerald-mid: #047857;
+      --amber: #f59e0b;
+      --ink: #1e293b;
+      --muted: #64748b;
+      --line: #e7e5e4;
+      --paper: #f4f1ea;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      font: 10.5pt/1.45 "Segoe UI", Calibri, Arial, sans-serif;
+      background: #fff;
+    }
+    h1, h2, h3, h4 { font-family: Georgia, "Times New Roman", serif; color: var(--emerald); page-break-after: avoid; }
+    h2 { font-size: 16.5pt; margin: 0 0 8pt; border-bottom: 2px solid var(--amber); padding-bottom: 4pt; }
+    h3 { font-size: 12.5pt; margin: 14pt 0 6pt; }
+    h4 { font-size: 11pt; margin: 10pt 0 4pt; color: #065f46; }
+    p { margin: 0 0 8pt; }
+    ul, ol { margin: 0 0 10pt; padding-left: 18pt; }
+    li { margin-bottom: 3pt; }
+    a { color: var(--emerald-mid); text-decoration: none; }
+    .cover {
+      page-break-after: always;
+      min-height: 250mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #022c22 0%, #064e3b 55%, #065f46 100%);
+      color: #ecfdf5;
+      margin: -18mm -16mm 0;
+      padding: 28mm 22mm 24mm;
+    }
+    .cover .badge {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--amber); color: #022c22;
+      font-weight: 800; font-size: 16pt; letter-spacing: .04em;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cover .kicker { letter-spacing: .28em; text-transform: uppercase; font-size: 9pt; color: #fcd34d; margin-top: 18pt; }
+    .cover h1 { color: #fff; font-size: 28pt; line-height: 1.15; margin: 10pt 0 12pt; border: 0; }
+    .cover .lead { font-size: 12pt; max-width: 140mm; color: #d1fae5; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; font-size: 10pt; border-top: 1px solid rgba(255,255,255,.2); padding-top: 14pt; }
+    .cover .meta span { display: block; color: #a7f3d0; font-size: 8.5pt; letter-spacing: .12em; text-transform: uppercase; }
+    .toc { page-break-after: always; }
+    .toc ol { columns: 2; column-gap: 16pt; padding-left: 18pt; }
+    .toc li { break-inside: avoid; margin-bottom: 5pt; }
+    .section { page-break-before: always; }
+    .section.first { page-break-before: auto; }
+    table { width: 100%; border-collapse: collapse; margin: 0 0 12pt; font-size: 9.5pt; }
+    th, td { border: 1px solid var(--line); padding: 5pt 7pt; vertical-align: top; text-align: left; }
+    th { background: #ecfdf5; color: var(--emerald); font-weight: 650; }
+    tr:nth-child(even) td { background: #fafaf9; }
+    .req { color: #b91c1c; font-weight: 700; }
+    .opt { color: var(--muted); }
+    .callout {
+      background: #ecfdf5; border-left: 4px solid var(--emerald-mid);
+      padding: 8pt 10pt; margin: 0 0 10pt; border-radius: 0 6pt 6pt 0;
+    }
+    .warn {
+      background: #fff7ed; border-left: 4px solid #c2410c;
+      padding: 8pt 10pt; margin: 0 0 10pt; border-radius: 0 6pt 6pt 0;
+    }
+    .note {
+      background: #f8fafc; border-left: 4px solid #64748b;
+      padding: 8pt 10pt; margin: 0 0 10pt; border-radius: 0 6pt 6pt 0;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; }
+    .card { border: 1px solid var(--line); border-radius: 8pt; padding: 8pt 10pt; background: #fff; break-inside: avoid; }
+    .card h4 { margin-top: 0; }
+    .step { counter-increment: steps; }
+    .steps { counter-reset: steps; }
+    .footer-note { font-size: 8.5pt; color: var(--muted); margin-top: 16pt; }
+    .role-pill { display: inline-block; background: #d1fae5; color: #065f46; border-radius: 999px; padding: 1pt 7pt; font-size: 8pt; font-weight: 650; margin: 0 2pt 2pt 0; }
+    caption { caption-side: top; text-align: left; font-weight: 650; color: var(--emerald); margin-bottom: 4pt; }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <div>
+    <div class="badge">SMS</div>
+    <p class="kicker">Ghana basic schools</p>
+    <h1>School Management System<br>Payroll &amp; Anomaly Portal</h1>
+    <p class="lead">Complete user manual for every screen and official form in the system — sign-in, staff and pupil files, attendance, leave, payroll, anomaly investigation, reports and audit.</p>
+  </div>
+  <div class="meta">
+    <div><span>Document</span>User Manual · Version 1.0</div>
+    <div><span>Audience</span>Officers, staff, teachers and parents</div>
+    <div><span>Date</span>August 2026</div>
+    <div><span>Scope</span>Entire portal, form by form</div>
+  </div>
+</div>
+
+<div class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li>What this system does</li>
+    <li>How to sign in</li>
+    <li>Roles and menus</li>
+    <li>Demo accounts</li>
+    <li>Dashboard and navigation</li>
+    <li>Officer registration form</li>
+    <li>Staff register and employment form</li>
+    <li>Pupil admission form</li>
+    <li>Student assessment form</li>
+    <li>Classrooms and tutors</li>
+    <li>My class (teachers)</li>
+    <li>Parent register and messages</li>
+    <li>Staff attendance register</li>
+    <li>Leave application form</li>
+    <li>Leave approval</li>
+    <li>Prepare monthly payroll form</li>
+    <li>Salary run and payslips</li>
+    <li>Anomaly investigation form</li>
+    <li>Reports</li>
+    <li>Audit trail</li>
+    <li>Portal users form</li>
+    <li>Payroll rules and detection catalogue</li>
+    <li>Typical monthly workflow</li>
+    <li>Troubleshooting</li>
+  </ol>
+  <div class="callout">
+    <strong>How to use this manual.</strong> Each chapter matches a menu in the portal. Required fields are marked <span class="req">Required</span>. Optional fields may be left blank but should be filled when the information is on the Ghana Card, GES file or birth certificate.
+  </div>
+</div>
+
+<section class="section first">
+  <h2>1. What this system does</h2>
+  <p>The School Management System is a web portal for Ghanaian basic schools. It keeps one employment file per staff member, one admission file per pupil, daily attendance, two-step leave approval, monthly salary runs, and an explainable anomaly desk that blocks payment when something looks wrong.</p>
+  <ul>
+    <li>Staff, students, parent emails, attendance, class-teacher assignment, and leave (HR then Headteacher).</li>
+    <li>Payroll using 5.5% employee SSNIT, staff loans and unpaid absence. <strong>PAYE is not deducted.</strong></li>
+    <li>Automatic scan after every payroll run, with evidence, risk score, narrative and a recommended action.</li>
+    <li>A draft cannot be approved or marked paid while <strong>critical</strong> anomalies are still open.</li>
+  </ul>
+  <div class="note">
+    Open the app at <strong>http://localhost:5173</strong> after starting the API (<code>php artisan serve</code> in <code>backend</code>) and the UI (<code>npm run dev</code> in <code>frontend</code>). On Codespaces use forwarded port 5173.
+  </div>
+</section>
+
+<section class="section">
+  <h2>2. How to sign in</h2>
+  <p>The sign-in page has two desks. Choose the tab that matches how you were enrolled.</p>
+
+  <h3>Email tab (officers and parents)</h3>
+  <p>Administrators, Headteachers, HR, auditors and parents sign in with email and password.</p>
+  <table>
+    <caption>Sign-in form — Email tab</caption>
+    <tr><th>Field</th><th>Required</th><th>What to enter</th></tr>
+    <tr><td>Email</td><td class="req">Required</td><td>School or household email, e.g. name@school.gh</td></tr>
+    <tr><td>Password</td><td class="req">Required</td><td>Your password. Use the eye icon to show or hide it.</td></tr>
+    <tr><td>Continue to portal</td><td>—</td><td>Submits the form.</td></tr>
+  </table>
+  <p>First-time officers use <strong>Create an officer account</strong>. Parents do not self-register; HR adds them on the parent register, then they sign in here with that email.</p>
+
+  <h3>Staff ID tab (teachers, payroll, accounts)</h3>
+  <p>Teachers and Accountants do not use a password. HR issues a staff ID when the employment file is saved.</p>
+  <table>
+    <caption>Sign-in form — Staff ID tab</caption>
+    <tr><th>Field</th><th>Required</th><th>What to enter</th></tr>
+    <tr><td>Staff ID</td><td class="req">Required</td><td>The generated ID, e.g. SMS-2026-0001 or EMP-1001</td></tr>
+    <tr><td>Employment email</td><td class="req">Required</td><td>The email captured on the staff file</td></tr>
+    <tr><td>Continue to portal</td><td>—</td><td>Submits the form. No password is asked.</td></tr>
+  </table>
+  <div class="warn">Staff cannot self-register. If login fails, ask HR to confirm the staff ID and employment email on the file.</div>
+</section>
+
+<section class="section">
+  <h2>3. Roles and menus</h2>
+  <p>The left menu only shows desks you are allowed to open. Your name, role and <strong>Sign out</strong> sit at the bottom of the sidebar. On a phone, open the menu with the button at the top left.</p>
+  <table>
+    <caption>Who can open each menu</caption>
+    <tr><th>Menu</th><th>Who sees it</th></tr>
+    <tr><td>Dashboard</td><td>Everyone signed in</td></tr>
+    <tr><td>My class</td><td>Teacher, Administrator</td></tr>
+    <tr><td>Classes</td><td>Headteacher, HR, Administrator</td></tr>
+    <tr><td>Staff</td><td>Headteacher, HR, Payroll, Accountant, Auditor, Administrator</td></tr>
+    <tr><td>Students</td><td>Headteacher, HR, Teacher, Parent, Administrator</td></tr>
+    <tr><td>Parents</td><td>Headteacher, HR, Teacher, Administrator</td></tr>
+    <tr><td>Attendance</td><td>HR, Headteacher, Teacher, Payroll, Administrator</td></tr>
+    <tr><td>Leave</td><td>HR, Headteacher, Teacher, Administrator</td></tr>
+    <tr><td>Payroll</td><td>Headteacher, Payroll, Accountant, Auditor, Administrator</td></tr>
+    <tr><td>Anomalies</td><td>Headteacher, Payroll, Accountant, Auditor, HR, Administrator</td></tr>
+    <tr><td>Reports</td><td>Headteacher, Payroll, Accountant, Auditor, Administrator</td></tr>
+    <tr><td>Audit trail</td><td>Auditor, Headteacher, Administrator</td></tr>
+    <tr><td>Users</td><td>Administrator only</td></tr>
+  </table>
+  <p>Use the sun/moon control in the header to switch light and dark theme. Unread alerts appear as a red badge.</p>
+</section>
+
+<section class="section">
+  <h2>4. Demo accounts</h2>
+  <p>Password for officer and parent email logins: <strong>password</strong>. Staff sign in with staff ID and employment email only.</p>
+  <table>
+    <caption>Officer / parent email logins</caption>
+    <tr><th>Email</th><th>Role</th></tr>
+    <tr><td>admin@school.gh</td><td>Administrator</td></tr>
+    <tr><td>head@school.gh</td><td>Headteacher</td></tr>
+    <tr><td>hr@school.gh</td><td>HR Officer</td></tr>
+    <tr><td>auditor@school.gh</td><td>Auditor</td></tr>
+    <tr><td>parent@school.gh</td><td>Parent</td></tr>
+    <tr><td>parent2@school.gh</td><td>Parent (second household)</td></tr>
+  </table>
+  <table>
+    <caption>Staff ID logins (no password)</caption>
+    <tr><th>Staff ID</th><th>Email</th><th>Role</th></tr>
+    <tr><td>EMP-1001</td><td>teacher@school.gh</td><td>Teacher</td></tr>
+        <tr><td>EMP-ACC-01</td><td>accounts@school.gh</td><td>Accountant</td></tr>
+  </table>
+  <div class="note">The seeder plants a July 2026 payroll run with deliberate flags so the dashboard is not empty.</div>
+</section>
+
+<section class="section">
+  <h2>5. Dashboard and navigation</h2>
+  <p>After sign-in you land on the operations dashboard. It greets you by time of day and shows school health for payroll.</p>
+  <ul>
+    <li><strong>Hold payroll</strong> — one or more critical flags are still open. Do not approve salaries.</li>
+    <li><strong>Review recommended</strong> — open flags remain, but they are not critical.</li>
+    <li><strong>Clear to proceed</strong> — no open payroll flags.</li>
+  </ul>
+  <p>Campus slides and shortcuts take you to classes, staff, students, parents, attendance, leave, payroll, anomalies, reports and audit, according to your role. Click a KPI card to open the related desk.</p>
+</section>
+
+<section class="section">
+  <h2>6. Officer registration form</h2>
+  <p><span class="role-pill">Public</span> Path: <strong>/register</strong>. Administrators, HR, auditors and Headteachers / Headmasters may create their own account. Teachers and other staff are enrolled by HR.</p>
+  <table>
+    <caption>Create an account</caption>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Desk</td><td class="req">Required</td><td>Administrator, Headteacher / Headmaster, HR Officer, or Auditor</td></tr>
+    <tr><td>First name</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Surname</td><td class="req">Required</td><td></td></tr>
+    <tr><td>School email</td><td class="req">Required</td><td>Used to sign in</td></tr>
+    <tr><td>Phone</td><td class="req">Required</td><td>Ghana mobile, e.g. 024XXXXXXX</td></tr>
+    <tr><td>Password</td><td class="req">Required</td><td>At least 8 characters</td></tr>
+    <tr><td>Confirm password</td><td class="req">Required</td><td>Must match password</td></tr>
+    <tr><td>Security code</td><td class="req">Required</td><td>Type the five characters from the picture. Use <em>New code</em> if it is hard to read.</td></tr>
+  </table>
+  <p>Submit with <strong>Register and open portal</strong>. Parents cannot use this form.</p>
+</section>
+
+<section class="section">
+  <h2>7. Staff register and employment form</h2>
+  <p><span class="role-pill">HR Officer</span> Path: <strong>Staff → Register staff</strong> (or Edit on a row). Only HR can create or update employment files. Other desks can search the register but cannot save changes.</p>
+
+  <h3>Staff list</h3>
+  <ul>
+    <li>Search by name, employee ID or department.</li>
+    <li><strong>Register staff</strong> opens the five-step GES-style file.</li>
+    <li><strong>Edit</strong> reopens the same form with existing values.</li>
+    <li><strong>Deactivate</strong> stops the person being picked up on the next payroll prepare. Remove them from any open draft separately.</li>
+  </ul>
+
+  <h3>Step 1 — Personal details</h3>
+  <p>As on the Ghana Card and GES personal file. Required to continue: first name and surname.</p>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Options / notes</th></tr>
+    <tr><td>Title</td><td>Default Mr</td><td>Mr, Mrs, Miss, Ms, Rev, Dr</td></tr>
+    <tr><td>Gender</td><td class="req">Required</td><td>Female or Male</td></tr>
+    <tr><td>First name</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Middle name</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Surname</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Date of birth</td><td class="opt">Optional</td><td>Date picker</td></tr>
+    <tr><td>Nationality</td><td>Default Ghanaian</td><td></td></tr>
+    <tr><td>Marital status</td><td></td><td>Single, Married, Divorced, Widowed</td></tr>
+    <tr><td>Hometown</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Region of origin</td><td></td><td>All 16 regions of Ghana</td></tr>
+  </table>
+
+  <h3>Step 2 — Contact and identification</h3>
+  <p>Required on a new file: staff email (combined with the generated staff ID for portal sign-in).</p>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Ghana Card number</td><td class="opt">Optional</td><td>Format GHA-XXXXXXXXX-X</td></tr>
+    <tr><td>Staff email</td><td class="req">Required (new)</td><td>name@school.gh</td></tr>
+    <tr><td>Mobile number</td><td class="opt">Optional</td><td>024XXXXXXX</td></tr>
+    <tr><td>Alternate phone</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Residential address</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Digital address (GhanaPost GPS)</td><td class="opt">Optional</td><td>e.g. GA-123-4567</td></tr>
+  </table>
+
+  <h3>Step 3 — Appointment and posting</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Staff / employee ID</td><td class="req">Required</td><td>Generated automatically. Read-only. Used with email to sign in.</td></tr>
+    <tr><td>Portal desk</td><td class="req">Required (new)</td><td>Teacher or Accountant. Hidden when editing.</td></tr>
+    <tr><td>Rank</td><td></td><td>Headteacher, Assistant Headteacher, Senior Teacher, Teacher, KG Attendant, Clerk, Accountant, Storekeeper, Security, Cleaner</td></tr>
+    <tr><td>Job title</td><td></td><td>Free text, default Class Teacher</td></tr>
+    <tr><td>Department / unit</td><td></td><td>Kindergarten, Lower Primary, Upper Primary, JHS, Administration, Accounts, Ancillary</td></tr>
+    <tr><td>Employment type</td><td></td><td>GES Permanent, Contract, National Service, PTA, Volunteer, Intern</td></tr>
+    <tr><td>Current posting</td><td></td><td>Default: This basic school</td></tr>
+    <tr><td>Date of first appointment</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Date assumed duty</td><td class="opt">Optional</td><td>Also used as hire date if hire date is blank</td></tr>
+  </table>
+
+  <h3>Step 4 — Payroll, SSNIT and banking</h3>
+  <p>Required to continue: basic monthly salary. Selecting a salary grade fills basic salary; you can still edit it.</p>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Highest academic qualification</td><td></td><td>WASSCE through PhD / Other</td></tr>
+    <tr><td>Professional qualification</td><td></td><td>Certificate A, Diploma, PGDE, or None</td></tr>
+    <tr><td>Subject specialization</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Years of experience</td><td class="opt">Optional</td><td>Whole number</td></tr>
+    <tr><td>Salary grade</td><td class="opt">Optional</td><td>Loads basic from the grade table</td></tr>
+    <tr><td>Basic monthly salary (GHS)</td><td class="req">Required</td><td></td></tr>
+    <tr><td>SSNIT number</td><td class="opt">Recommended</td><td>e.g. CXXXXXXXXXXX. Missing details can raise flags later.</td></tr>
+    <tr><td>GRA TIN</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Bank name</td><td class="opt">Recommended</td><td>GCB, Ecobank, Absa, Stanbic, Fidelity, CalBank, Zenith, ADB, NIB, Republic, Other</td></tr>
+    <tr><td>Bank branch</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Account name</td><td class="opt">Optional</td><td>Defaults to the staff name if blank</td></tr>
+    <tr><td>Account number</td><td class="opt">Recommended</td><td>Missing bank name or account raises Bank_Details_Missing</td></tr>
+  </table>
+
+  <h3>Step 5 — Next of kin and review</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Next of kin full name</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Relationship</td><td class="opt">Optional</td><td>Spouse, Parent, Sibling, Child, Guardian, Other</td></tr>
+    <tr><td>Next of kin phone</td><td class="opt">Optional</td><td></td></tr>
+  </table>
+  <p>The summary card shows name, staff ID, login email, portal desk, posting, salary, SSNIT and bank. Buttons: <strong>Back</strong>, <strong>Cancel</strong>, <strong>Continue</strong>, then <strong>Register staff</strong> or <strong>Save staff record</strong>.</p>
+  <div class="callout">After a successful register, tell the staff member their generated ID and the email on the file. They sign in on the Staff ID tab with those two values.</div>
+</section>
+
+<section class="section">
+  <h2>8. Pupil admission form</h2>
+  <p><span class="role-pill">HR Officer</span> <span class="role-pill">Teacher</span> Path: <strong>Students →</strong> admit / edit. Required to finish: first name, surname, class and guardian name. New pupils are admitted as active.</p>
+
+  <h3>Step 1 — Pupil bio-data</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Gender</td><td class="req">Required</td><td>Female or Male</td></tr>
+    <tr><td>Date of birth</td><td class="opt">Optional</td><td>Age is calculated on the side card</td></tr>
+    <tr><td>First name / Middle name / Surname</td><td class="req">First + surname</td><td></td></tr>
+    <tr><td>Place of birth</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Nationality</td><td>Default Ghanaian</td><td></td></tr>
+    <tr><td>Religion</td><td></td><td>Christianity, Islam, Traditional, Other</td></tr>
+    <tr><td>Hometown / Region of origin</td><td class="opt">Optional</td><td>16 regions</td></tr>
+    <tr><td>Birth certificate number</td><td class="opt">Optional</td><td>Or NHIS number if that is what you have</td></tr>
+  </table>
+
+  <h3>Step 2 — Admission details</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Admission number</td><td class="req">Required</td><td>Generated automatically. Read-only.</td></tr>
+    <tr><td>Date of admission</td><td></td><td>Defaults to today</td></tr>
+    <tr><td>Class seeking admission</td><td class="req">Required</td><td>Pick a Grade or JHS class under Lower Primary, Upper Primary or Junior High</td></tr>
+    <tr><td>Previous school</td><td class="opt">Optional</td><td>Leave blank if this is the first school</td></tr>
+  </table>
+
+  <h3>Step 3 — Parent / guardian</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Guardian full name</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Relationship</td><td></td><td>Mother, Father, Guardian, Grandparent, Uncle, Aunt, Sibling, Other</td></tr>
+    <tr><td>Occupation</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Mobile number</td><td class="opt">Optional</td><td>Also stored as the pupil contact number</td></tr>
+    <tr><td>Residential address</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Digital address</td><td class="opt">Optional</td><td>GhanaPost GPS</td></tr>
+    <tr><td>Guardian address</td><td class="opt">Optional</td><td>Only if different from the pupil’s residence</td></tr>
+    <tr><td>Emergency contact name / phone</td><td class="opt">Optional</td><td></td></tr>
+  </table>
+
+  <h3>Step 4 — Health notes and review</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Blood group</td><td class="opt">Optional</td><td>A+, A−, B+, B−, AB+, AB−, O+, O−, or Not stated</td></tr>
+    <tr><td>NHIS number</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Allergies</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Special educational needs</td><td class="opt">Optional</td><td></td></tr>
+  </table>
+  <p>Finish with <strong>Admit pupil</strong> or <strong>Save admission file</strong>.</p>
+</section>
+
+<section class="section">
+  <h2>9. Student assessment form</h2>
+  <p>Path: <strong>Students →</strong> open a pupil → assessment. Only the assigned class tutor can edit scores. Everyone else (including parents looking at their ward) has a view-only report.</p>
+  <table>
+    <caption>Term continuous assessment</caption>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Academic year</td><td class="req">Required</td><td>Select from years on file</td></tr>
+    <tr><td>Term</td><td class="req">Required</td><td>Term 1, 2 or 3</td></tr>
+    <tr><td>Subject</td><td>—</td><td>Click a subject from the GES list for that class level</td></tr>
+    <tr><td>Classwork</td><td class="opt">0–100</td><td>Weight 30%</td></tr>
+    <tr><td>Assignment</td><td class="opt">0–100</td><td>Weight 25%</td></tr>
+    <tr><td>Project</td><td class="opt">0–100</td><td>Weight 25%</td></tr>
+    <tr><td>Homework</td><td class="opt">0–100</td><td>Weight 20%</td></tr>
+    <tr><td>Subject remark</td><td class="opt">Optional</td><td>Short comment for that subject</td></tr>
+    <tr><td>Class tutor’s term comment</td><td class="opt">Optional</td><td>Shown on the PDF report</td></tr>
+  </table>
+  <p>Buttons: <strong>Save scores</strong> (tutor only) and <strong>Download PDF report</strong> (anyone who can open the page).</p>
+</section>
+
+<section class="section">
+  <h2>10. Classrooms and tutors</h2>
+  <p><span class="role-pill">Headteacher</span> <span class="role-pill">HR Officer</span> Path: <strong>Classes</strong>.</p>
+  <ol>
+    <li>Each Grade and JHS card shows the current tutor, or that none is assigned.</li>
+    <li>Click <strong>Assign teacher</strong>, search by name, staff ID, title or department, then tap a name.</li>
+    <li>Teachers then see that room under <strong>My class</strong>.</li>
+    <li><strong>Clear</strong> removes the tutor without deleting the classroom.</li>
+  </ol>
+</section>
+
+<section class="section">
+  <h2>11. My class (teachers)</h2>
+  <p><span class="role-pill">Teacher</span> Path: <strong>My class</strong>. If several rooms are assigned to you, pick the class first.</p>
+  <h3>Class register tab</h3>
+  <p>Read-only roll of pupils in the selected class, with admission numbers.</p>
+  <h3>Daily attendance tab</h3>
+  <table>
+    <tr><th>Field / control</th><th>Notes</th></tr>
+    <tr><td>Date</td><td>School day to mark</td></tr>
+    <tr><td>Status per pupil</td><td>Present, Late, Absent, Excused</td></tr>
+    <tr><td>Mark all</td><td>Applies one status to the whole class</td></tr>
+    <tr><td>Save</td><td>Writes the day’s register. At least one pupil must be marked.</td></tr>
+  </table>
+  <h3>Assessments tab</h3>
+  <p>Shortcuts into each pupil’s term assessment form.</p>
+</section>
+
+<section class="section">
+  <h2>12. Parent register and messages</h2>
+  <p><span class="role-pill">HR</span> <span class="role-pill">Headteacher</span> <span class="role-pill">Teacher</span> Path: <strong>Parents</strong>. Tabs: Directory, Compose, Sent.</p>
+
+  <h3>Register / edit parent form (Directory)</h3>
+  <p>HR and Headteacher can create and edit. Teachers can compose messages but not always manage the file.</p>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>First name</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Last name</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Registered email</td><td class="req">Required</td><td>Used on the Email sign-in tab</td></tr>
+    <tr><td>WhatsApp number</td><td class="opt">Recommended</td><td>Ghana mobile, e.g. 0241234567</td></tr>
+    <tr><td>Portal password</td><td class="req">Required on create</td><td>At least 8 characters. Default in demo is password. Leave blank when editing to keep the current password.</td></tr>
+    <tr><td>Status</td><td>When editing</td><td>Active or Inactive</td></tr>
+    <tr><td>Wards</td><td class="opt">Recommended</td><td>Tick pupils in this household. A pupil already linked to another parent cannot be selected.</td></tr>
+  </table>
+
+  <h3>Compose message form</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Type</td><td class="req">Required</td><td>Notice, Meeting, or Broadcast to all</td></tr>
+    <tr><td>Subject</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Body</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Meeting date and time</td><td>If type is Meeting</td><td></td></tr>
+    <tr><td>Meeting venue</td><td>If type is Meeting</td><td>Default: School compound</td></tr>
+    <tr><td>Recipients</td><td>If not Broadcast</td><td>Tick households, or start from “Message this parent”</td></tr>
+    <tr><td>Channels</td><td class="req">At least one</td><td>Email and/or WhatsApp</td></tr>
+  </table>
+  <div class="note">Demo mail is written to the API log unless SMTP is configured. Parents see in-app notices after sign-in (try parent@school.gh).</div>
+</section>
+
+<section class="section">
+  <h2>13. Staff attendance register</h2>
+  <p><span class="role-pill">HR</span> <span class="role-pill">Headteacher</span> <span class="role-pill">Teacher</span> <span class="role-pill">Payroll</span> Path: <strong>Attendance</strong>.</p>
+  <table>
+    <tr><th>Field / control</th><th>Notes</th></tr>
+    <tr><td>Date</td><td>The school day. Changing the date reloads the roll.</td></tr>
+    <tr><td>Search</td><td>Name, staff ID, department or title</td></tr>
+    <tr><td>Filter</td><td>All, unmarked, a status, or a department</td></tr>
+    <tr><td>Status</td><td>Present, Late, Absent, On leave</td></tr>
+    <tr><td>Check-in / check-out time</td><td>Present defaults check-in to 07:45. Late uses the current time. Absent and On leave clear times.</td></tr>
+    <tr><td>Mark all present</td><td>Marks everyone present (07:45–14:30) except staff already on approved leave</td></tr>
+    <tr><td>Clock myself in</td><td>Staff-linked accounts only. Sets your row to Present with the current time; you still must Save.</td></tr>
+    <tr><td>Save the register</td><td>At least one person must be marked</td></tr>
+  </table>
+  <div class="warn">Unpaid absence after approved leave is deducted on payroll. Paying someone with no present/late mark and no approved leave raises <strong>Paid without attendance</strong>.</div>
+</section>
+
+<section class="section">
+  <h2>14. Leave application form</h2>
+  <p><span class="role-pill">Teacher / staff with a file</span> <span class="role-pill">HR can apply for others</span> Path: <strong>Leave → Request leave</strong>.</p>
+
+  <h3>Section A — Applicant</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Apply for</td><td>HR only</td><td>Pick any active staff member. Teachers see their own file.</td></tr>
+    <tr><td>Name, Employee ID, Department, Job title</td><td>Read-only</td><td>From the employment file</td></tr>
+  </table>
+
+  <h3>Section B — Leave particulars</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Leave type</td><td class="req">Required</td><td>See catalogue below. Each card shows days left this year.</td></tr>
+    <tr><td>First day of leave</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Last day of leave</td><td class="req">Required</td><td></td></tr>
+  </table>
+  <p>The form counts working days (Mon–Fri) or calendar days according to the type. It will not submit if the request exceeds the yearly remainder or the maximum per request, or if weekend-only dates are chosen for working-day types.</p>
+  <table>
+    <caption>Leave types (school policy)</caption>
+    <tr><th>Type</th><th>Days / year</th><th>Max per request</th><th>Count</th><th>Reason required?</th></tr>
+    <tr><td>Annual leave</td><td>28</td><td>28</td><td>Working</td><td>No</td></tr>
+    <tr><td>Casual leave</td><td>7</td><td>3</td><td>Working</td><td>Yes</td></tr>
+    <tr><td>Sick leave</td><td>30</td><td>30</td><td>Calendar</td><td>Yes</td></tr>
+    <tr><td>Maternity leave</td><td>84</td><td>84</td><td>Calendar</td><td>Yes</td></tr>
+    <tr><td>Paternity leave</td><td>5</td><td>5</td><td>Working</td><td>No</td></tr>
+    <tr><td>Compassionate / bereavement</td><td>5</td><td>5</td><td>Working</td><td>Yes</td></tr>
+    <tr><td>Study / examination leave</td><td>15</td><td>10</td><td>Working</td><td>Yes</td></tr>
+    <tr><td>Official / duty leave</td><td>10</td><td>10</td><td>Working</td><td>Yes</td></tr>
+    <tr><td>Leave without pay</td><td>30</td><td>30</td><td>Calendar</td><td>Yes — affects payroll</td></tr>
+  </table>
+
+  <h3>Section C — Reason and handover</h3>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Reason for leave</td><td>If the type requires a note</td><td></td></tr>
+    <tr><td>Phone while away</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Address while away</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Relieving officer / handover to</td><td class="opt">Optional</td><td>Colleague covering</td></tr>
+    <tr><td>Duties handed over</td><td class="opt">Optional</td><td>Classes, registers, keys, office tasks</td></tr>
+    <tr><td>Declaration checkbox</td><td class="req">Required</td><td>You declare the particulars are true and you will resume on the next working day after leave ends.</td></tr>
+  </table>
+  <p>Submit with <strong>Submit leave request</strong>. The request goes to HR first, then to the Headteacher. Approved leave is used on the attendance register and the payroll scan.</p>
+</section>
+
+<section class="section">
+  <h2>15. Leave approval</h2>
+  <p>Path: <strong>Leave</strong>. Filter: All, Awaiting HR, Awaiting Headteacher, Approved, Rejected.</p>
+  <ol>
+    <li>Staff (or HR on their behalf) submit the form. Status: <strong>Awaiting HR</strong>.</li>
+    <li>HR forwards or rejects. Forwarded status: <strong>Awaiting Headteacher</strong>.</li>
+    <li>Headteacher approves or rejects. Approved leave suppresses the “paid without attendance” flag for that period.</li>
+  </ol>
+</section>
+
+<section class="section">
+  <h2>16. Prepare monthly payroll form</h2>
+  <p><span class="role-pill">HR only</span> Path: <strong>Payroll → Prepare payroll</strong>.</p>
+  <table>
+    <caption>Section A — Pay period</caption>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>First day of period</td><td class="req">Required</td><td>Choosing a date fills last day and run name for that calendar month</td></tr>
+    <tr><td>Last day of period</td><td class="req">Required</td><td>You may still edit it</td></tr>
+    <tr><td>Payment date</td><td class="req">Required</td><td>Pay day</td></tr>
+    <tr><td>Run name</td><td class="req">Required</td><td>e.g. August 2026 staff payroll</td></tr>
+  </table>
+  <p>Section B explains what the run will do:</p>
+  <ul>
+    <li><strong>Earnings</strong> — basic salary plus posted allowances for every active staff member.</li>
+    <li><strong>SSNIT employee 5.5%</strong> — first-tier on capped insurable basic (2026 cap GHS 69,000). Employer 13% is recorded, not deducted from net.</li>
+    <li><strong>Loans and absence</strong> — active staff-loan recovery and unpaid / absent days after approved leave.</li>
+    <li><strong>No PAYE</strong> — income tax is not taken. Net = gross − SSNIT − loans − absence.</li>
+  </ul>
+  <p>Tick: <em>Attendance and approved leave for this period have been closed. The anomaly scan will run automatically.</em> Then <strong>Generate salary run</strong>.</p>
+</section>
+
+<section class="section">
+  <h2>17. Salary run and payslips</h2>
+  <p>Path: <strong>Payroll →</strong> open a run. Status flow: Prepared (draft) → Headteacher signed (approved) → Paid.</p>
+  <table>
+    <tr><th>Action</th><th>Who</th><th>When</th></tr>
+    <tr><td>Cancel draft</td><td>HR Officer</td><td>While status is draft</td></tr>
+    <tr><td>Approve for payment</td><td>Headteacher</td><td>Draft, and no open critical flags</td></tr>
+    <tr><td>Mark paid</td><td>HR Officer</td><td>After approval, still no open critical flags</td></tr>
+    <tr><td>Download payslip PDF</td><td>Payroll, Headteacher, Accountant, Auditor, HR</td><td>From a staff line on the schedule</td></tr>
+  </table>
+  <p>Search the salary schedule, click a line for the slip (basic, allowances, SSNIT, loans, absence, net — no PAYE). Accountant and auditor views are inspect-only.</p>
+  <div class="warn">If the red banner shows open critical flags, the Headteacher button reads <strong>Clear critical flags first</strong> and approval is blocked.</div>
+</section>
+
+<section class="section">
+  <h2>18. Anomaly investigation form</h2>
+  <p>Path: <strong>Anomalies</strong> then open a case. Filter by status (Open, Acknowledged, Resolved, False positive, All), severity, rule, run and search.</p>
+  <p>Each case shows what fired, recommended action, staff on the flag, evidence, related cases, risk score, confidence, and whether the case blocks approval.</p>
+
+  <h3>Fix actions (left of the case)</h3>
+  <ul>
+    <li><strong>HR</strong> — edit the staff file, deactivate a leaver, or open attendance.</li>
+    <li><strong>Payroll</strong> — recalculate this slip from the current file, or remove the person from this draft.</li>
+    <li>Removing someone from a draft closes their flags so the Headteacher can approve.</li>
+  </ul>
+
+  <h3>Investigation outcome form</h3>
+  <p><span class="role-pill">Payroll</span> <span class="role-pill">Headteacher</span> <span class="role-pill">Auditor</span> Accountants can read only. HR corrects the file; Payroll records the outcome.</p>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>Acknowledge</td><td>Choose one outcome</td><td>Seen. Follow up before the next pay day.</td></tr>
+    <tr><td>Resolve</td><td>Choose one outcome</td><td>The record is corrected. Safe to keep this staff on the run.</td></tr>
+    <tr><td>False positive</td><td>Choose one outcome</td><td>The rule fired but the pay is legitimate.</td></tr>
+    <tr><td>Notes</td><td class="req">Required</td><td>What you checked: attendance register, leave file, HR record…</td></tr>
+    <tr><td>Save outcome</td><td>—</td><td>Written to the audit trail. Resolving a critical flag is what lets the Headteacher approve.</td></tr>
+  </table>
+</section>
+
+<section class="section">
+  <h2>19. Reports</h2>
+  <p><span class="role-pill">Headteacher</span> <span class="role-pill">Payroll</span> <span class="role-pill">Accountant</span> <span class="role-pill">Auditor</span> Path: <strong>Reports</strong>.</p>
+  <ul>
+    <li><strong>Salary</strong> — compare runs. Switch the chart metric: Net pay, Gross, SSNIT 5.5%, Open flags. Click a run to open it.</li>
+    <li><strong>Flags</strong> — open versus closed anomalies by rule and severity.</li>
+    <li><strong>School</strong> — roll snapshot by department / class.</li>
+    <li><strong>Download CSV</strong> — exports the active tab.</li>
+  </ul>
+</section>
+
+<section class="section">
+  <h2>20. Audit trail</h2>
+  <p><span class="role-pill">Auditor</span> <span class="role-pill">Headteacher</span> <span class="role-pill">Administrator</span> Path: <strong>Audit trail</strong>.</p>
+  <table>
+    <tr><th>Filter</th><th>What it does</th></tr>
+    <tr><td>Module</td><td>Payroll, staff, leave, parents, anomalies, and other desks</td></tr>
+    <tr><td>Action / user / date range / search</td><td>Narrow the log</td></tr>
+    <tr><td>Sensitive</td><td>Highlight events that touch pay or personal files</td></tr>
+  </table>
+  <p>Click a KPI or a 14-day bar to pin a view. Select an event to open the related payroll run, staff file or flag. <strong>Download CSV</strong> exports the current filter. Nobody can change payroll from this desk.</p>
+</section>
+
+<section class="section">
+  <h2>21. Portal users form</h2>
+  <p><span class="role-pill">Administrator only</span> Path: <strong>Users → Create user</strong> or Edit.</p>
+  <table>
+    <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    <tr><td>First name</td><td class="req">Required</td><td></td></tr>
+    <tr><td>Surname</td><td class="req">Required</td><td></td></tr>
+    <tr><td>School email</td><td class="req">Required</td><td>Used to sign in</td></tr>
+    <tr><td>Phone</td><td class="opt">Optional</td><td></td></tr>
+    <tr><td>Password</td><td class="req">Required on create</td><td>At least 8 characters. When editing, leave blank to keep the current password.</td></tr>
+    <tr><td>Status</td><td></td><td>Active or Inactive. You cannot deactivate your own account.</td></tr>
+    <tr><td>Desk</td><td class="req">Required</td><td>Administrator, Headteacher, HR Officer, Accountant, Auditor, Teacher, Parent</td></tr>
+  </table>
+  <p>Teachers and accountants are normally created from the staff employment form, not here. Parents are created on the parent register.</p>
+</section>
+
+<section class="section">
+  <h2>22. Payroll rules and detection catalogue</h2>
+  <p>The engine is rule-based, not a trained model, so every flag can be explained to a Headteacher and an auditor. A scan runs after every generate, recalculate or related change.</p>
+  <table>
+    <tr><th>Code</th><th>What it catches</th><th>Typical fix</th></tr>
+    <tr><td>Ghost_No_User_Account</td><td>Salary without a linked user account</td><td>HR links a login; Payroll recalculates</td></tr>
+    <tr><td>Ghost_Inactive_Staff</td><td>Inactive employee still on the run</td><td>Confirm status or remove from draft</td></tr>
+    <tr><td>Payment_Without_Attendance</td><td>Pay with no attendance (approved leave suppresses this)</td><td>Mark the register or drop the line</td></tr>
+    <tr><td>Duplicate_Period_Payment</td><td>Two payments for the same period</td><td>Remove the extra salary line</td></tr>
+    <tr><td>Unusually_High_Salary</td><td>Gross above 1.5× grade/basic</td><td>Correct salary/grade; recalculate</td></tr>
+    <tr><td>Ssnit_Mismatch</td><td>Employee SSNIT not 5.5% of capped basic</td><td>Correct salary; recalculate</td></tr>
+    <tr><td>Bank_Details_Missing</td><td>Missing bank name or account</td><td>Capture banking or hold the person</td></tr>
+    <tr><td>Loan_Over_Deduction</td><td>Deduction above outstanding loan</td><td>Cap recovery; recalculate</td></tr>
+    <tr><td>Unauthorized_Allowance</td><td>Unauthorised or over-cap allowance</td><td>Remove or authorize; recalculate</td></tr>
+  </table>
+  <p>Ghana config lives in backend payroll settings: employee SSNIT 5.5%, employer 13%, 2026 insurable cap GHS 69,000. School-level payroll does not deduct PAYE.</p>
+</section>
+
+<section class="section">
+  <h2>23. Typical monthly workflow</h2>
+  <ol class="steps">
+    <li>HR keeps staff files current (salary, bank, status, SSNIT). Teachers mark class attendance; HR/Headteacher close the staff register.</li>
+    <li>Staff request leave. HR forwards; Headteacher approves before pay day.</li>
+    <li>HR prepares the month, confirms attendance and leave are closed, generates the run.</li>
+    <li>Open <strong>Anomalies</strong>. Work every critical case: fix the file, recalculate, or remove from draft. Save an outcome with notes.</li>
+    <li>Headteacher opens the run. If critical flags remain, approval is blocked. When clear, <strong>Approve for payment</strong>.</li>
+    <li>HR <strong>Mark paid</strong> and download payslips. Accountant uses Reports for SSNIT and net totals. Auditor uses Audit trail.</li>
+  </ol>
+</section>
+
+<section class="section">
+  <h2>24. Troubleshooting</h2>
+  <table>
+    <tr><th>Problem</th><th>What to try</th></tr>
+    <tr><td>Login failed (staff)</td><td>Use Staff ID tab, not Email. Match the generated ID and employment email exactly. Staff have no password.</td></tr>
+    <tr><td>Login failed (officer)</td><td>Email tab plus password. Demo password is password. Parents must be registered by HR first.</td></tr>
+    <tr><td>Cannot register staff</td><td>Sign in as HR. First name, surname, email, staff ID and basic salary are required.</td></tr>
+    <tr><td>Cannot prepare payroll</td><td>Only HR can. Tick the attendance/leave closed box.</td></tr>
+    <tr><td>Cannot approve payroll</td><td>Open critical flags. Resolve them or remove the people from the draft.</td></tr>
+    <tr><td>Leave rejected by the form</td><td>Check remaining days, max per request, working vs calendar days, and the declaration checkbox.</td></tr>
+    <tr><td>My class is empty</td><td>Ask Headteacher or HR to assign you as class tutor under Classes.</td></tr>
+    <tr><td>Cannot edit assessments</td><td>Only the assigned class tutor can save scores.</td></tr>
+    <tr><td>Parent did not get mail</td><td>Demo writes to the API log unless SMTP is set. They still see in-app notices after sign-in.</td></tr>
+    <tr><td>Menu item missing</td><td>Your desk does not include that module. See the roles table in chapter 3.</td></tr>
+  </table>
+  <p class="footer-note">School Management System — Payroll &amp; anomaly portal · User Manual v1.0 · August 2026 · For Ghana basic schools. This document describes the forms and workflows in the Laravel + React application.</p>
+</section>
+
+</body>
+</html>
