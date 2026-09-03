@@ -1,0 +1,893 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2140" height="1760" viewBox="0 0 2140 1760">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="40.0" y="36.0" fill="#1A1A1A" font-size="28" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">School SMS — Logical Data Model</text>
+<text x="40.0" y="68.0" fill="#555555" font-size="15" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Entity-relationship overview of application tables (primary keys, foreign keys, uniqueness). Crow’s foot = many · circle = optional. Suitable for landscape Word / print.</text>
+<path d="M40.0,88.0 L2100.0,88.0" fill="none" stroke="#D0D0D0" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="50.0" y="105.0" width="300.0" height="34.0" rx="6" fill="#1B365D" stroke="#1B365D" stroke-width="0"/>
+<text x="200.0" y="122.0" fill="#FFFFFF" font-size="14" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Identity &amp; alerts</text>
+<rect x="420.0" y="105.0" width="320.0" height="34.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="580.0" y="122.0" fill="#FFFFFF" font-size="14" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">HR &amp; compensation</text>
+<rect x="820.0" y="105.0" width="320.0" height="34.0" rx="6" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="0"/>
+<text x="980.0" y="122.0" fill="#FFFFFF" font-size="14" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Attendance · leave · payroll</text>
+<rect x="1220.0" y="105.0" width="320.0" height="34.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1380.0" y="122.0" fill="#FFFFFF" font-size="14" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Academics &amp; audit</text>
+<rect x="1680.0" y="105.0" width="340.0" height="34.0" rx="6" fill="#3D2B56" stroke="#3D2B56" stroke-width="0"/>
+<text x="1850.0" y="122.0" fill="#FFFFFF" font-size="14" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Assessment &amp; messaging</text>
+<path d="M200.0,290.0 L200.0,287.0 L200.0,287.0 L200.0,284.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M192.0,281.0 L208.0,281.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M192.0,287.0 L208.0,287.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,297.0 L208.4,309.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,297.0 L200.0,309.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,297.0 L191.6,309.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="200.0" cy="290.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M376.0,365.0 L385.0,365.0 L385.0,451.0 L394.0,451.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M361.0,373.0 L361.0,357.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="371.0" cy="365.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M409.0,443.0 L409.0,459.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="399.0" cy="451.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M200.0,560.0 L200.0,552.0 L200.0,552.0 L200.0,544.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M192.0,545.0 L208.0,545.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="200.0" cy="555.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M200.0,557.0 L208.4,569.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,557.0 L200.0,569.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,557.0 L191.6,569.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="200.0" cy="550.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M200.0,560.0 L200.0,652.0 L200.0,652.0 L200.0,744.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M192.0,545.0 L208.0,545.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="200.0" cy="555.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M200.0,757.0 L208.4,769.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,757.0 L200.0,769.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M200.0,757.0 L191.6,769.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="200.0" cy="750.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M580.0,348.0 L580.0,346.0 L580.0,346.0 L580.0,344.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,333.0 L588.0,333.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="580.0" cy="343.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M580.0,357.0 L588.4,369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,357.0 L580.0,369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,357.0 L571.6,369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="580.0" cy="350.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M580.0,744.0 L580.0,844.0 L580.0,844.0 L580.0,944.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,735.0 L588.0,735.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,741.0 L588.0,741.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,957.0 L588.4,969.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,957.0 L580.0,969.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,957.0 L571.6,969.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="580.0" cy="950.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M580.0,962.0 L580.0,953.0 L580.0,953.0 L580.0,944.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,953.0 L588.0,953.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,959.0 L588.0,959.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,957.0 L588.4,969.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,957.0 L580.0,969.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,957.0 L571.6,969.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="580.0" cy="950.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M580.0,744.0 L580.0,944.0 L580.0,944.0 L580.0,1144.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,735.0 L588.0,735.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M572.0,741.0 L588.0,741.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,1157.0 L588.4,1169.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,1157.0 L580.0,1169.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M580.0,1157.0 L571.6,1169.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="580.0" cy="1150.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M760.0,425.0 L777.0,425.0 L777.0,231.0 L794.0,231.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M751.0,433.0 L751.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M757.0,433.0 L757.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,231.0 L819.0,222.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,231.0 L819.0,231.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,231.0 L819.0,239.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="800.0" cy="231.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M760.0,425.0 L777.0,425.0 L777.0,481.0 L794.0,481.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M751.0,433.0 L751.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M757.0,433.0 L757.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,481.0 L819.0,472.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,481.0 L819.0,481.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,481.0 L819.0,489.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="800.0" cy="481.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M760.0,425.0 L777.0,425.0 L777.0,1117.0 L794.0,1117.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M751.0,433.0 L751.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M757.0,433.0 L757.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,1117.0 L819.0,1108.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,1117.0 L819.0,1117.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M807.0,1117.0 L819.0,1125.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="800.0" cy="1117.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M980.0,986.0 L980.0,988.0 L980.0,988.0 L980.0,990.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M972.0,977.0 L988.0,977.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M972.0,983.0 L988.0,983.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,997.0 L988.4,1009.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,997.0 L980.0,1009.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,997.0 L971.6,1009.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M987.0,992.0 L973.0,992.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,1364.0 L980.0,1354.0 L980.0,1354.0 L980.0,1344.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M972.0,1349.0 L988.0,1349.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="980.0" cy="1359.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M980.0,1357.0 L988.4,1369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,1357.0 L980.0,1369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,1357.0 L971.6,1369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="980.0" cy="1350.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M980.0,986.0 L980.0,1165.0 L980.0,1165.0 L980.0,1344.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M972.0,977.0 L988.0,977.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M972.0,983.0 L988.0,983.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,1357.0 L988.4,1369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,1357.0 L980.0,1369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M980.0,1357.0 L971.6,1369.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="980.0" cy="1350.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1380.0,374.0 L1380.0,374.0 L1380.0,374.0 L1380.0,374.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1372.0,359.0 L1388.0,359.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1380.0" cy="369.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1380.0,387.0 L1388.4,399.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1380.0,387.0 L1380.0,399.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1380.0,387.0 L1371.6,399.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1380.0" cy="380.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M766.0,425.0 L980.0,425.0 L980.0,335.0 L1194.0,335.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M751.0,433.0 L751.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="761.0" cy="425.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1207.0,335.0 L1219.0,326.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,335.0 L1219.0,335.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,335.0 L1219.0,343.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1200.0" cy="335.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<text x="980.0" y="370.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">class tutor</text>
+<path d="M1380.0,902.0 L1380.0,903.0 L1380.0,903.0 L1380.0,904.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1372.0,893.0 L1388.0,893.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1372.0,899.0 L1388.0,899.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1388.0,919.0 L1372.0,919.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1380.0" cy="909.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M760.0,425.0 L977.0,425.0 L977.0,1011.0 L1194.0,1011.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M751.0,433.0 L751.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M757.0,433.0 L757.0,417.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,1011.0 L1219.0,1002.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,1011.0 L1219.0,1011.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,1011.0 L1219.0,1019.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1200.0" cy="1011.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1380.0,696.0 L1380.0,880.0 L1380.0,880.0 L1380.0,1064.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1372.0,687.0 L1388.0,687.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1372.0,693.0 L1388.0,693.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1380.0,1077.0 L1388.4,1089.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1380.0,1077.0 L1380.0,1089.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1380.0,1077.0 L1371.6,1089.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1380.0" cy="1070.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1560.0,455.0 L1607.0,455.0 L1607.0,231.0 L1654.0,231.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1551.0,463.0 L1551.0,447.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1557.0,463.0 L1557.0,447.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,231.0 L1679.0,222.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,231.0 L1679.0,231.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,231.0 L1679.0,239.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1660.0" cy="231.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1560.0,455.0 L1607.0,455.0 L1607.0,591.0 L1654.0,591.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1551.0,463.0 L1551.0,447.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1557.0,463.0 L1557.0,447.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,591.0 L1679.0,582.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,591.0 L1679.0,591.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,591.0 L1679.0,599.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1660.0" cy="591.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1560.0,765.0 L1607.0,765.0 L1607.0,257.0 L1654.0,257.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1551.0,773.0 L1551.0,757.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1557.0,773.0 L1557.0,757.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,257.0 L1679.0,248.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,257.0 L1679.0,257.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,257.0 L1679.0,265.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1660.0" cy="257.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1850.0,1020.0 L1850.0,1025.0 L1850.0,1025.0 L1850.0,1030.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1842.0,1011.0 L1858.0,1011.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1842.0,1017.0 L1858.0,1017.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1850.0,1037.0 L1858.4,1049.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1850.0,1037.0 L1850.0,1049.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1850.0,1037.0 L1841.6,1049.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1857.0,1032.0 L1843.0,1032.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M376.0,365.0 L785.0,365.0 L785.0,611.0 L1194.0,611.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M361.0,373.0 L361.0,357.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="371.0" cy="365.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1207.0,611.0 L1219.0,602.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,611.0 L1219.0,611.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,611.0 L1219.0,619.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1200.0" cy="611.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<text x="785.0" y="478.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">parent</text>
+<path d="M370.0,365.0 L1012.0,365.0 L1012.0,831.0 L1654.0,831.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M361.0,373.0 L361.0,357.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M367.0,373.0 L367.0,357.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,831.0 L1679.0,822.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,831.0 L1679.0,831.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1667.0,831.0 L1679.0,839.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1660.0" cy="831.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<text x="1012.0" y="588.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">sender</text>
+<path d="M376.0,365.0 L785.0,365.0 L785.0,1411.0 L1194.0,1411.0" fill="none" stroke="#333333" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M361.0,373.0 L361.0,357.0" fill="none" stroke="#333333" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="371.0" cy="365.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<path d="M1207.0,1411.0 L1219.0,1402.6" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,1411.0 L1219.0,1411.0" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1207.0,1411.0 L1219.0,1419.4" fill="none" stroke="#333333" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1200.0" cy="1411.0" r="4.0" fill="#FFFFFF" stroke="#333333" stroke-width="1.5"/>
+<rect x="50.0" y="150.0" width="300.0" height="120.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="150.0" width="300.0" height="42.0" rx="6" fill="#1B365D" stroke="#1B365D" stroke-width="1"/>
+<rect x="50.0" y="184.0" width="300.0" height="8.0" rx="0" fill="#1B365D" stroke="#1B365D" stroke-width="0"/>
+<text x="64.0" y="171.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">roles</text>
+<rect x="51.0" y="192.0" width="298.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="62.0" y="205.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="92.0" y="205.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="338.0" y="205.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="51.0" y="218.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="231.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">name</text>
+<text x="338.0" y="231.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="244.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="257.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="92.0" y="257.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">slug</text>
+<text x="338.0" y="257.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="50.0" y="150.0" width="300.0" height="120.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="310.0" width="300.0" height="224.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="310.0" width="300.0" height="42.0" rx="6" fill="#1B365D" stroke="#1B365D" stroke-width="1"/>
+<rect x="50.0" y="344.0" width="300.0" height="8.0" rx="0" fill="#1B365D" stroke="#1B365D" stroke-width="0"/>
+<text x="64.0" y="331.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">users</text>
+<rect x="51.0" y="352.0" width="298.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="62.0" y="365.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="92.0" y="365.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="338.0" y="365.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="51.0" y="378.0" width="298.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="62.0" y="391.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="92.0" y="391.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">role_id</text>
+<text x="338.0" y="391.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="51.0" y="404.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="417.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">first_name</text>
+<text x="338.0" y="417.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="430.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="443.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">last_name</text>
+<text x="338.0" y="443.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="456.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="469.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="92.0" y="469.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">email</text>
+<text x="338.0" y="469.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="482.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="495.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">phone</text>
+<text x="338.0" y="495.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="508.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="521.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="338.0" y="521.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="50.0" y="310.0" width="300.0" height="224.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="570.0" width="300.0" height="146.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="570.0" width="300.0" height="42.0" rx="6" fill="#1B365D" stroke="#1B365D" stroke-width="1"/>
+<rect x="50.0" y="604.0" width="300.0" height="8.0" rx="0" fill="#1B365D" stroke="#1B365D" stroke-width="0"/>
+<text x="64.0" y="591.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">sessions</text>
+<rect x="51.0" y="612.0" width="298.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="62.0" y="625.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="92.0" y="625.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="338.0" y="625.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="638.0" width="298.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="62.0" y="651.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="92.0" y="651.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">user_id</text>
+<text x="338.0" y="651.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="51.0" y="664.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="677.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">ip_address</text>
+<text x="338.0" y="677.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar(45)</text>
+<rect x="51.0" y="690.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="703.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">last_activity</text>
+<text x="338.0" y="703.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">int</text>
+<rect x="50.0" y="570.0" width="300.0" height="146.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="770.0" width="300.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="770.0" width="300.0" height="42.0" rx="6" fill="#374151" stroke="#374151" stroke-width="1"/>
+<rect x="50.0" y="804.0" width="300.0" height="8.0" rx="0" fill="#374151" stroke="#374151" stroke-width="0"/>
+<text x="64.0" y="791.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">notifications</text>
+<rect x="51.0" y="812.0" width="298.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="62.0" y="825.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="92.0" y="825.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="338.0" y="825.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="51.0" y="838.0" width="298.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="62.0" y="851.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="92.0" y="851.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">user_id</text>
+<text x="338.0" y="851.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="51.0" y="864.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="877.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">type</text>
+<text x="338.0" y="877.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="890.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="903.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">title</text>
+<text x="338.0" y="903.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="916.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="929.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">severity</text>
+<text x="338.0" y="929.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="51.0" y="942.0" width="298.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="62.0" y="955.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">is_read</text>
+<text x="338.0" y="955.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bool</text>
+<rect x="50.0" y="770.0" width="300.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="150.0" width="320.0" height="172.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="150.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="420.0" y="184.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="434.0" y="171.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">salary_grades</text>
+<rect x="421.0" y="192.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="432.0" y="205.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="462.0" y="205.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="728.0" y="205.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="218.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="231.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="462.0" y="231.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">code</text>
+<text x="728.0" y="231.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="244.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="257.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">name</text>
+<text x="728.0" y="257.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="270.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="283.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">basic_salary</text>
+<text x="728.0" y="283.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="421.0" y="296.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="309.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">max_allowance_total</text>
+<text x="728.0" y="309.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="420.0" y="150.0" width="320.0" height="172.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="370.0" width="320.0" height="354.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="370.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="420.0" y="404.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="434.0" y="391.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">staff</text>
+<rect x="421.0" y="412.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="432.0" y="425.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="462.0" y="425.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="728.0" y="425.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="438.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="432.0" y="451.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="462.0" y="451.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">user_id</text>
+<text x="728.0" y="451.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="464.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="432.0" y="477.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="462.0" y="477.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">salary_grade_id</text>
+<text x="728.0" y="477.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="490.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="503.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="462.0" y="503.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">employee_id</text>
+<text x="728.0" y="503.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="516.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="529.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">first_name</text>
+<text x="728.0" y="529.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="542.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="555.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">last_name</text>
+<text x="728.0" y="555.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="568.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="581.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">job_title</text>
+<text x="728.0" y="581.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="594.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="607.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">department</text>
+<text x="728.0" y="607.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="620.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="633.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">salary</text>
+<text x="728.0" y="633.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="421.0" y="646.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="659.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">ssnit_number</text>
+<text x="728.0" y="659.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="672.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="685.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">bank_account</text>
+<text x="728.0" y="685.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="698.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="711.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="728.0" y="711.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="420.0" y="370.0" width="320.0" height="354.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="770.0" width="320.0" height="172.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="770.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="420.0" y="804.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="434.0" y="791.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">allowance_types</text>
+<rect x="421.0" y="812.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="432.0" y="825.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="462.0" y="825.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="728.0" y="825.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="838.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="851.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">name</text>
+<text x="728.0" y="851.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="864.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="877.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="462.0" y="877.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">code</text>
+<text x="728.0" y="877.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="421.0" y="890.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="903.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">is_taxable</text>
+<text x="728.0" y="903.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bool</text>
+<rect x="421.0" y="916.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="929.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">requires_authorization</text>
+<text x="728.0" y="929.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bool</text>
+<rect x="420.0" y="770.0" width="320.0" height="172.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="970.0" width="320.0" height="172.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="970.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="420.0" y="1004.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="434.0" y="991.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">staff_allowances</text>
+<rect x="421.0" y="1012.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="432.0" y="1025.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="462.0" y="1025.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="728.0" y="1025.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="1038.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="432.0" y="1051.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="462.0" y="1051.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="728.0" y="1051.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="1064.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="432.0" y="1077.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="462.0" y="1077.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">allowance_type_id</text>
+<text x="728.0" y="1077.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="1090.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="1103.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">amount</text>
+<text x="728.0" y="1103.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="421.0" y="1116.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="1129.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">is_authorized</text>
+<text x="728.0" y="1129.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bool</text>
+<rect x="420.0" y="970.0" width="320.0" height="172.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="1170.0" width="320.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="420.0" y="1170.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="420.0" y="1204.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="434.0" y="1191.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">loans</text>
+<rect x="421.0" y="1212.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="432.0" y="1225.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="462.0" y="1225.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="728.0" y="1225.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="1238.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="432.0" y="1251.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="462.0" y="1251.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="728.0" y="1251.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="421.0" y="1264.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="1277.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">principal</text>
+<text x="728.0" y="1277.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="421.0" y="1290.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="1303.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">outstanding_balance</text>
+<text x="728.0" y="1303.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="421.0" y="1316.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="1329.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">monthly_deduction</text>
+<text x="728.0" y="1329.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="421.0" y="1342.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="432.0" y="1355.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="728.0" y="1355.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="420.0" y="1170.0" width="320.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="150.0" width="320.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="150.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="820.0" y="184.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="834.0" y="171.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">staff_attendances</text>
+<rect x="821.0" y="192.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="832.0" y="205.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="862.0" y="205.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1128.0" y="205.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="218.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="231.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="231.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="1128.0" y="231.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="244.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="257.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="862.0" y="257.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">date</text>
+<text x="1128.0" y="257.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="821.0" y="270.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="283.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1128.0" y="283.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="296.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="309.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">penalty_amount</text>
+<text x="1128.0" y="309.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="322.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="335.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payroll_processed</text>
+<text x="1128.0" y="335.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bool</text>
+<rect x="820.0" y="150.0" width="320.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="400.0" width="320.0" height="250.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="400.0" width="320.0" height="42.0" rx="6" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1"/>
+<rect x="820.0" y="434.0" width="320.0" height="8.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="834.0" y="421.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">leave_requests</text>
+<rect x="821.0" y="442.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="832.0" y="455.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="862.0" y="455.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1128.0" y="455.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="468.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="481.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="481.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="1128.0" y="481.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="494.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="507.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">leave_type</text>
+<text x="1128.0" y="507.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="520.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="533.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">start_date</text>
+<text x="1128.0" y="533.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="821.0" y="546.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="559.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">end_date</text>
+<text x="1128.0" y="559.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="821.0" y="572.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="585.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1128.0" y="585.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="598.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="611.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="611.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">reviewed_by</text>
+<text x="1128.0" y="611.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="624.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="637.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="637.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">approved_by</text>
+<text x="1128.0" y="637.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="820.0" y="400.0" width="320.0" height="250.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="690.0" width="320.0" height="276.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="690.0" width="320.0" height="42.0" rx="6" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="1"/>
+<rect x="820.0" y="724.0" width="320.0" height="8.0" rx="0" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="0"/>
+<text x="834.0" y="711.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">payroll_runs</text>
+<rect x="821.0" y="732.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="832.0" y="745.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="862.0" y="745.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1128.0" y="745.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="758.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="771.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">run_name</text>
+<text x="1128.0" y="771.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="784.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="797.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">pay_period_start</text>
+<text x="1128.0" y="797.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="821.0" y="810.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="823.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">pay_period_end</text>
+<text x="1128.0" y="823.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="821.0" y="836.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="849.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payment_date</text>
+<text x="1128.0" y="849.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="821.0" y="862.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="875.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1128.0" y="875.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="888.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="901.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">total_net</text>
+<text x="1128.0" y="901.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="914.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="927.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="927.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">created_by</text>
+<text x="1128.0" y="927.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="940.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="953.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="953.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">approved_by</text>
+<text x="1128.0" y="953.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="820.0" y="690.0" width="320.0" height="276.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="1010.0" width="320.0" height="328.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="1010.0" width="320.0" height="42.0" rx="6" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="1"/>
+<rect x="820.0" y="1044.0" width="320.0" height="8.0" rx="0" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="0"/>
+<text x="834.0" y="1031.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">payrolls</text>
+<rect x="821.0" y="1052.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="832.0" y="1065.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="862.0" y="1065.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1128.0" y="1065.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1078.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="1091.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="1091.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payroll_run_id</text>
+<text x="1128.0" y="1091.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1104.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="1117.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="1117.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="1128.0" y="1117.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1130.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1143.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">basic_salary</text>
+<text x="1128.0" y="1143.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1156.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1169.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">allowances</text>
+<text x="1128.0" y="1169.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1182.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1195.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">income_tax</text>
+<text x="1128.0" y="1195.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1208.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1221.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">ssnit_contribution</text>
+<text x="1128.0" y="1221.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1234.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1247.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">loan_deductions</text>
+<text x="1128.0" y="1247.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1260.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1273.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">absence_penalties</text>
+<text x="1128.0" y="1273.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1286.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1299.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">net_salary</text>
+<text x="1128.0" y="1299.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="821.0" y="1312.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1325.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1128.0" y="1325.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="820.0" y="1010.0" width="320.0" height="328.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="1370.0" width="320.0" height="276.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="820.0" y="1370.0" width="320.0" height="42.0" rx="6" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="1"/>
+<rect x="820.0" y="1404.0" width="320.0" height="8.0" rx="0" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="0"/>
+<text x="834.0" y="1391.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">payroll_anomalies</text>
+<rect x="821.0" y="1412.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="832.0" y="1425.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="862.0" y="1425.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1128.0" y="1425.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1438.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1451.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">scan_batch_id</text>
+<text x="1128.0" y="1451.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">uuid</text>
+<rect x="821.0" y="1464.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="1477.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="1477.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payroll_run_id</text>
+<text x="1128.0" y="1477.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1490.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="1503.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="1503.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payroll_id</text>
+<text x="1128.0" y="1503.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1516.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="1529.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="1529.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="1128.0" y="1529.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="821.0" y="1542.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1555.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">rule_code</text>
+<text x="1128.0" y="1555.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="1568.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1581.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">severity</text>
+<text x="1128.0" y="1581.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="1594.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="832.0" y="1607.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1128.0" y="1607.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="821.0" y="1620.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="832.0" y="1633.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="862.0" y="1633.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">resolved_by</text>
+<text x="1128.0" y="1633.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="820.0" y="1370.0" width="320.0" height="276.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="150.0" width="320.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="150.0" width="320.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1220.0" y="184.0" width="320.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1234.0" y="171.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">school_classes</text>
+<rect x="1221.0" y="192.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1232.0" y="205.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1262.0" y="205.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1528.0" y="205.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="218.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="231.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">name</text>
+<text x="1528.0" y="231.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="244.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="257.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">level</text>
+<text x="1528.0" y="257.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="270.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="283.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">sort_order</text>
+<text x="1528.0" y="283.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">smallint</text>
+<rect x="1221.0" y="296.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="309.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">capacity</text>
+<text x="1528.0" y="309.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">int</text>
+<rect x="1221.0" y="322.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="335.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="335.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">teacher_id</text>
+<text x="1528.0" y="335.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1220.0" y="150.0" width="320.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="400.0" width="320.0" height="276.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="400.0" width="320.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1220.0" y="434.0" width="320.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1234.0" y="421.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">students</text>
+<rect x="1221.0" y="442.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1232.0" y="455.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1262.0" y="455.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1528.0" y="455.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="468.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="481.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="1262.0" y="481.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">admission_number</text>
+<text x="1528.0" y="481.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="494.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="507.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">first_name</text>
+<text x="1528.0" y="507.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="520.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="533.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">last_name</text>
+<text x="1528.0" y="533.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="546.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="559.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">gender</text>
+<text x="1528.0" y="559.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="572.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="585.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="585.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">class_id</text>
+<text x="1528.0" y="585.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="598.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="611.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="611.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">parent_id</text>
+<text x="1528.0" y="611.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="624.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="637.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">guardian_name</text>
+<text x="1528.0" y="637.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="650.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="663.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1528.0" y="663.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1220.0" y="400.0" width="320.0" height="276.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="710.0" width="320.0" height="172.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="710.0" width="320.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1220.0" y="744.0" width="320.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1234.0" y="731.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">subjects</text>
+<rect x="1221.0" y="752.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1232.0" y="765.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1262.0" y="765.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1528.0" y="765.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="778.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="791.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">name</text>
+<text x="1528.0" y="791.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="804.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="817.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="1262.0" y="817.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">code</text>
+<text x="1528.0" y="817.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar(20)</text>
+<rect x="1221.0" y="830.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="843.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">levels</text>
+<text x="1528.0" y="843.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">json</text>
+<rect x="1221.0" y="856.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="869.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">sort_order</text>
+<text x="1528.0" y="869.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">smallint</text>
+<rect x="1220.0" y="710.0" width="320.0" height="172.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="930.0" width="320.0" height="120.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="930.0" width="320.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1220.0" y="964.0" width="320.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1234.0" y="951.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">staff_subject</text>
+<rect x="1221.0" y="972.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1232.0" y="985.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1262.0" y="985.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1528.0" y="985.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="998.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="1011.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="1011.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_id</text>
+<text x="1528.0" y="1011.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1024.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="1037.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="1037.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">subject_id</text>
+<text x="1528.0" y="1037.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1220.0" y="930.0" width="320.0" height="120.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="1090.0" width="320.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="1090.0" width="320.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1220.0" y="1124.0" width="320.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1234.0" y="1111.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">student_attendances</text>
+<rect x="1221.0" y="1132.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1232.0" y="1145.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1262.0" y="1145.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1528.0" y="1145.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1158.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="1171.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="1171.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">student_id</text>
+<text x="1528.0" y="1171.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1184.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="1197.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="1197.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">class_id</text>
+<text x="1528.0" y="1197.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1210.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="1223.0" fill="#0E4D4A" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="1262.0" y="1223.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">date</text>
+<text x="1528.0" y="1223.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">date</text>
+<rect x="1221.0" y="1236.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="1249.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="1528.0" y="1249.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="1262.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="1275.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="1275.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">recorded_by</text>
+<text x="1528.0" y="1275.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1220.0" y="1090.0" width="320.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="1330.0" width="320.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1220.0" y="1330.0" width="320.0" height="42.0" rx="6" fill="#374151" stroke="#374151" stroke-width="1"/>
+<rect x="1220.0" y="1364.0" width="320.0" height="8.0" rx="0" fill="#374151" stroke="#374151" stroke-width="0"/>
+<text x="1234.0" y="1351.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">audit_logs</text>
+<rect x="1221.0" y="1372.0" width="318.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1232.0" y="1385.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1262.0" y="1385.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="1528.0" y="1385.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1398.0" width="318.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1232.0" y="1411.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1262.0" y="1411.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">user_id</text>
+<text x="1528.0" y="1411.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1424.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="1437.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">action</text>
+<text x="1528.0" y="1437.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="1450.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="1463.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">auditable_type</text>
+<text x="1528.0" y="1463.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1221.0" y="1476.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="1489.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">auditable_id</text>
+<text x="1528.0" y="1489.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1221.0" y="1502.0" width="318.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1232.0" y="1515.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">ip_address</text>
+<text x="1528.0" y="1515.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar(45)</text>
+<rect x="1220.0" y="1330.0" width="320.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="150.0" width="340.0" height="302.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="150.0" width="340.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1680.0" y="184.0" width="340.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1694.0" y="171.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">student_assessments</text>
+<rect x="1681.0" y="192.0" width="338.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1692.0" y="205.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1722.0" y="205.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="2008.0" y="205.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="218.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="231.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="231.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">student_id</text>
+<text x="2008.0" y="231.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="244.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="257.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="257.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">subject_id</text>
+<text x="2008.0" y="257.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="270.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="283.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">academic_year</text>
+<text x="2008.0" y="283.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar(12)</text>
+<rect x="1681.0" y="296.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="309.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">term</text>
+<text x="2008.0" y="309.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">tinyint</text>
+<rect x="1681.0" y="322.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="335.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">classwork</text>
+<text x="2008.0" y="335.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="1681.0" y="348.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="361.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">project</text>
+<text x="2008.0" y="361.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="1681.0" y="374.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="387.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">assignment</text>
+<text x="2008.0" y="387.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="1681.0" y="400.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="413.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">homework</text>
+<text x="2008.0" y="413.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">decimal</text>
+<rect x="1681.0" y="426.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="439.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="439.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">recorded_by</text>
+<text x="2008.0" y="439.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1680.0" y="150.0" width="340.0" height="302.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="510.0" width="340.0" height="198.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="510.0" width="340.0" height="42.0" rx="6" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="1"/>
+<rect x="1680.0" y="544.0" width="340.0" height="8.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1694.0" y="531.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">student_term_reports</text>
+<rect x="1681.0" y="552.0" width="338.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1692.0" y="565.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1722.0" y="565.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="2008.0" y="565.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="578.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="591.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="591.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">student_id</text>
+<text x="2008.0" y="591.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="604.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="617.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">academic_year</text>
+<text x="2008.0" y="617.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar(12)</text>
+<rect x="1681.0" y="630.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="643.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">term</text>
+<text x="2008.0" y="643.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">tinyint</text>
+<rect x="1681.0" y="656.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="669.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">teacher_comment</text>
+<text x="2008.0" y="669.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">text</text>
+<rect x="1681.0" y="682.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="695.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="695.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">recorded_by</text>
+<text x="2008.0" y="695.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1680.0" y="510.0" width="340.0" height="198.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="750.0" width="340.0" height="250.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="750.0" width="340.0" height="42.0" rx="6" fill="#3D2B56" stroke="#3D2B56" stroke-width="1"/>
+<rect x="1680.0" y="784.0" width="340.0" height="8.0" rx="0" fill="#3D2B56" stroke="#3D2B56" stroke-width="0"/>
+<text x="1694.0" y="771.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">parent_messages</text>
+<rect x="1681.0" y="792.0" width="338.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1692.0" y="805.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1722.0" y="805.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="2008.0" y="805.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="818.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="831.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="831.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">sender_id</text>
+<text x="2008.0" y="831.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="844.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="857.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">type</text>
+<text x="2008.0" y="857.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="870.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="883.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">subject</text>
+<text x="2008.0" y="883.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="896.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="909.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">body</text>
+<text x="2008.0" y="909.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">text</text>
+<rect x="1681.0" y="922.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="935.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">is_broadcast</text>
+<text x="2008.0" y="935.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bool</text>
+<rect x="1681.0" y="948.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="961.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">channels</text>
+<text x="2008.0" y="961.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">json</text>
+<rect x="1681.0" y="974.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="987.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">sent_count</text>
+<text x="2008.0" y="987.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">int</text>
+<rect x="1680.0" y="750.0" width="340.0" height="250.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="1050.0" width="340.0" height="276.0" rx="6" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="1680.0" y="1050.0" width="340.0" height="42.0" rx="6" fill="#3D2B56" stroke="#3D2B56" stroke-width="1"/>
+<rect x="1680.0" y="1084.0" width="340.0" height="8.0" rx="0" fill="#3D2B56" stroke="#3D2B56" stroke-width="0"/>
+<text x="1694.0" y="1071.0" fill="#FFFFFF" font-size="16" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">parent_message_recipients</text>
+<rect x="1681.0" y="1092.0" width="338.0" height="26.0" rx="0" fill="#FFF4D6" stroke="#FFF4D6" stroke-width="0"/>
+<text x="1692.0" y="1105.0" fill="#6B3F1D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="1722.0" y="1105.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">id</text>
+<text x="2008.0" y="1105.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="1118.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="1131.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="1131.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">parent_message_id</text>
+<text x="2008.0" y="1131.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="1144.0" width="338.0" height="26.0" rx="0" fill="#E8F1FA" stroke="#E8F1FA" stroke-width="0"/>
+<text x="1692.0" y="1157.0" fill="#1B365D" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="1722.0" y="1157.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">parent_id</text>
+<text x="2008.0" y="1157.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">bigint</text>
+<rect x="1681.0" y="1170.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="1183.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">email</text>
+<text x="2008.0" y="1183.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="1196.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="1209.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">phone</text>
+<text x="2008.0" y="1209.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="1222.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="1235.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">status</text>
+<text x="2008.0" y="1235.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="1248.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="1261.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">email_status</text>
+<text x="2008.0" y="1261.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="1274.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="1287.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">whatsapp_status</text>
+<text x="2008.0" y="1287.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">varchar</text>
+<rect x="1681.0" y="1300.0" width="338.0" height="26.0" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="1692.0" y="1313.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">sent_at</text>
+<text x="2008.0" y="1313.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">timestamp</text>
+<rect x="1680.0" y="1050.0" width="340.0" height="276.0" rx="6" fill="none" stroke="#B0B0B0" stroke-width="1.4"/>
+<rect x="50.0" y="1660.0" width="900.0" height="72.0" rx="8" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1.2"/>
+<text x="66.0" y="1678.0" fill="#555555" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Notation</text>
+<text x="66.0" y="1708.0" fill="#6B3F1D" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">PK</text>
+<text x="87.2" y="1708.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Primary key</text>
+<text x="176.0" y="1708.0" fill="#1B365D" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">FK</text>
+<text x="197.2" y="1708.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Foreign key</text>
+<text x="286.0" y="1708.0" fill="#0E4D4A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">UK</text>
+<text x="307.2" y="1708.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Unique key</text>
+<text x="396.0" y="1708.0" fill="#333333" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Crow’s foot</text>
+<text x="476.6" y="1708.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">many</text>
+<text x="526.0" y="1708.0" fill="#333333" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Circle</text>
+<text x="573.6" y="1708.0" fill="#1A1A1A" font-size="13" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">optional (0..)</text>
+<text x="2100.0" y="1724.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">Source: Laravel migrations · School SMS  ·  Insert in Word: Insert → Pictures → This Device (use landscape page)</text>
+<text x="50.0" y="1724.0" fill="#555555" font-size="12" font-family="Calibri, Segoe UI, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Figure: Logical data model (enlarged for documentation)</text>
+</svg>

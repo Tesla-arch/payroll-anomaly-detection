@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="800" viewBox="0 0 1140 800">
+<rect width="100%" height="100%" fill="#F7F5F0"/>
+<text x="28.0" y="28.0" fill="#1F2937" font-size="22" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">School SMS — academics flow</text>
+<text x="28.0" y="52.0" fill="#6B7280" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Admissions, class staffing, My class attendance, scores and parent report access.</text>
+<path d="M28.0,70.0 L1112.0,70.0" fill="none" stroke="#E5E1D8" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M520.0,138.0 L520.0,154.0 L520.0,154.0 L520.0,170.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="520.0,170.0 516.5,161.7 523.5,161.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M410.0,210.0 L180.0,210.0 L180.0,280.0 L180.0,300.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="180.0,300.0 176.5,291.7 183.5,291.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<rect x="152.0" y="233.0" width="56.0" height="22.0" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="180.0" y="245.0" fill="#6B3F1D" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Enrol</text>
+<path d="M520.0,250.0 L520.0,275.0 L440.0,275.0 L440.0,300.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="440.0,300.0 436.5,291.7 443.5,291.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<rect x="452.0" y="263.0" width="56.0" height="22.0" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="480.0" y="275.0" fill="#6B3F1D" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Staffing</text>
+<path d="M630.0,210.0 L720.0,210.0 L720.0,280.0 L720.0,300.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="720.0,300.0 716.5,291.7 723.5,291.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<rect x="692.0" y="233.0" width="56.0" height="22.0" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="720.0" y="245.0" fill="#6B3F1D" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Teach</text>
+<path d="M630.0,210.0 L960.0,210.0 L960.0,280.0 L960.0,300.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="960.0,300.0 956.5,291.7 963.5,291.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<rect x="932.0" y="233.0" width="56.0" height="22.0" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="960.0" y="245.0" fill="#6B3F1D" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Assess</text>
+<path d="M720.0,356.0 L720.0,388.0 L710.0,388.0 L710.0,420.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="710.0,420.0 706.5,411.7 713.5,411.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M960.0,356.0 L960.0,388.0 L960.0,388.0 L960.0,420.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="960.0,420.0 956.5,411.7 963.5,411.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M960.0,476.0 L960.0,508.0 L960.0,508.0 L960.0,540.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="960.0,540.0 956.5,531.7 963.5,531.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M180.0,356.0 L180.0,684.0 L420.0,684.0 L420.0,684.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="420.0,684.0 411.7,687.5 411.7,680.5" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M440.0,356.0 L440.0,508.0 L510.0,508.0 L510.0,660.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="510.0,660.0 506.5,651.7 513.5,651.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M710.0,476.0 L710.0,568.0 L510.0,568.0 L510.0,660.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="510.0,660.0 506.5,651.7 513.5,651.7" fill="#374151" stroke="#374151" stroke-width="1"/>
+<path d="M960.0,596.0 L960.0,684.0 L600.0,684.0 L600.0,684.0" fill="none" stroke="#374151" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="600.0,684.0 591.7,687.5 591.7,680.5" fill="#374151" stroke="#374151" stroke-width="1"/>
+<ellipse cx="520.0" cy="114.0" rx="100.0" ry="24.0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="1.5"/>
+<text x="520.0" y="114.0" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Academic work begins</text>
+<polygon points="520.0,170.0 630.0,210.0 520.0,250.0 410.0,210.0" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="1.5"/>
+<text x="520.0" y="210.0" fill="#FFFFFF" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Task?</text>
+<rect x="80.0" y="300.0" width="200.0" height="56.0" rx="10" fill="#1B365D" stroke="#1B365D" stroke-width="1.5"/>
+<text x="180.0" y="320.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Admit / update</text>
+<text x="180.0" y="335.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">student</text>
+<rect x="320.0" y="300.0" width="240.0" height="56.0" rx="10" fill="#1B365D" stroke="#1B365D" stroke-width="1.5"/>
+<text x="440.0" y="320.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Assign class tutor</text>
+<text x="440.0" y="335.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">or JHS subject teacher</text>
+<rect x="620.0" y="300.0" width="200.0" height="56.0" rx="10" fill="#1B365D" stroke="#1B365D" stroke-width="1.5"/>
+<text x="720.0" y="320.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Teacher opens</text>
+<text x="720.0" y="335.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">My class</text>
+<rect x="860.0" y="300.0" width="200.0" height="56.0" rx="10" fill="#1B365D" stroke="#1B365D" stroke-width="1.5"/>
+<text x="960.0" y="320.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Enter assessment</text>
+<text x="960.0" y="335.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">scores / comments</text>
+<polygon points="638.0,420.0 800.0,420.0 782.0,476.0 620.0,476.0" fill="#3D2D56" stroke="#3D2D56" stroke-width="1.5"/>
+<text x="710.0" y="440.5" fill="#FFFFFF" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Mark pupil</text>
+<text x="710.0" y="455.5" fill="#FFFFFF" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">attendance</text>
+<polygon points="878.0,420.0 1060.0,420.0 1042.0,476.0 860.0,476.0" fill="#3D2D56" stroke="#3D2D56" stroke-width="1.5"/>
+<text x="960.0" y="440.5" fill="#FFFFFF" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">View / download</text>
+<text x="960.0" y="455.5" fill="#FFFFFF" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">assessment PDF</text>
+<rect x="860.0" y="540.0" width="200.0" height="56.0" rx="10" fill="#1B365D" stroke="#1B365D" stroke-width="1.5"/>
+<text x="960.0" y="560.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Parent views</text>
+<text x="960.0" y="575.5" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">ward report</text>
+<ellipse cx="510.0" cy="684.0" rx="90.0" ry="24.0" fill="#374151" stroke="#374151" stroke-width="1.5"/>
+<text x="510.0" y="684.0" fill="#FFFFFF" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="middle" dominant-baseline="central">Records saved</text>
+<rect x="28.0" y="722.0" width="620.0" height="58.0" rx="6" fill="#FFFFFF" stroke="#C4C0B8" stroke-width="1"/>
+<text x="42.0" y="738.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Notation</text>
+<rect x="42.0" y="756.0" width="14.0" height="14.0" rx="3" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="64.0" y="763.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Start / end</text>
+<rect x="187.0" y="756.0" width="14.0" height="14.0" rx="3" fill="#1B365D" stroke="#1B365D" stroke-width="0"/>
+<text x="209.0" y="763.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Process</text>
+<rect x="332.0" y="756.0" width="14.0" height="14.0" rx="3" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="0"/>
+<text x="354.0" y="763.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Decision</text>
+<rect x="477.0" y="756.0" width="14.0" height="14.0" rx="3" fill="#3D2D56" stroke="#3D2D56" stroke-width="0"/>
+<text x="499.0" y="763.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Input / output</text>
+<text x="28.0" y="700.0" fill="#6B7280" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">Primary: one class tutor. JHS: one teacher per subject across JHS 1–3.</text>
+<text x="1112.0" y="772.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">School SMS · process flowcharts</text>
+</svg>

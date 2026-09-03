@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1380" height="780" viewBox="0 0 1380 780">
+<rect width="100%" height="100%" fill="#F6F4EF"/>
+<text x="28.0" y="28.0" fill="#1F2937" font-size="22" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">School SMS — domain map</text>
+<text x="28.0" y="52.0" fill="#6B7280" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">How the six data areas connect. Use the ER diagrams below for keys and columns.</text>
+<path d="M28.0,68.0 L1352.0,68.0" fill="none" stroke="#E5E1D8" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="40.0" y="100.0" width="280.0" height="230.0" rx="8" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+<rect x="40.0" y="100.0" width="8.0" height="230.0" rx="0" fill="#1B365D" stroke="#1B365D" stroke-width="0"/>
+<text x="64.0" y="124.0" fill="#1B365D" font-size="16" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Identity</text>
+<text x="64.0" y="152.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">roles</text>
+<text x="64.0" y="174.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">users</text>
+<text x="64.0" y="196.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">sessions</text>
+<text x="64.0" y="218.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">personal_access_tokens</text>
+<rect x="360.0" y="100.0" width="300.0" height="230.0" rx="8" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+<rect x="360.0" y="100.0" width="8.0" height="230.0" rx="0" fill="#0E4D4A" stroke="#0E4D4A" stroke-width="0"/>
+<text x="384.0" y="124.0" fill="#0E4D4A" font-size="16" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">HR &amp; compensation</text>
+<text x="384.0" y="152.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff</text>
+<text x="384.0" y="174.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">salary_grades</text>
+<text x="384.0" y="196.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">allowance_types</text>
+<text x="384.0" y="218.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_allowances</text>
+<text x="384.0" y="240.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">loans</text>
+<rect x="700.0" y="100.0" width="300.0" height="230.0" rx="8" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+<rect x="700.0" y="100.0" width="8.0" height="230.0" rx="0" fill="#6B3F1D" stroke="#6B3F1D" stroke-width="0"/>
+<text x="724.0" y="124.0" fill="#6B3F1D" font-size="16" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Payroll</text>
+<text x="724.0" y="152.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payroll_runs</text>
+<text x="724.0" y="174.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payrolls</text>
+<text x="724.0" y="196.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">payroll_anomalies</text>
+<text x="724.0" y="218.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_attendances</text>
+<text x="724.0" y="240.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">leave_requests</text>
+<rect x="1040.0" y="100.0" width="300.0" height="230.0" rx="8" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+<rect x="1040.0" y="100.0" width="8.0" height="230.0" rx="0" fill="#1B4D3E" stroke="#1B4D3E" stroke-width="0"/>
+<text x="1064.0" y="124.0" fill="#1B4D3E" font-size="16" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Academics</text>
+<text x="1064.0" y="152.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">school_classes</text>
+<text x="1064.0" y="174.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">students</text>
+<text x="1064.0" y="196.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">subjects</text>
+<text x="1064.0" y="218.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">staff_subject</text>
+<text x="1064.0" y="240.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">assessments</text>
+<text x="1064.0" y="262.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">student_attendances</text>
+<rect x="360.0" y="400.0" width="300.0" height="180.0" rx="8" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+<rect x="360.0" y="400.0" width="8.0" height="180.0" rx="0" fill="#3D2B56" stroke="#3D2B56" stroke-width="0"/>
+<text x="384.0" y="424.0" fill="#3D2B56" font-size="16" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Home–school messaging</text>
+<text x="384.0" y="452.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">parent_messages</text>
+<text x="384.0" y="474.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">parent_message_recipients</text>
+<rect x="700.0" y="400.0" width="300.0" height="180.0" rx="8" fill="#FFFFFF" stroke="#D6D3CD" stroke-width="1"/>
+<rect x="700.0" y="400.0" width="8.0" height="180.0" rx="0" fill="#374151" stroke="#374151" stroke-width="0"/>
+<text x="724.0" y="424.0" fill="#374151" font-size="16" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">Governance</text>
+<text x="724.0" y="452.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">audit_logs</text>
+<text x="724.0" y="474.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">notifications</text>
+<path d="M320.0,180.0 L360.0,180.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="360.0,180.0 351.7,183.5 351.7,176.5" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<text x="340.0" y="170.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">authenticates</text>
+<path d="M660.0,180.0 L700.0,180.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="700.0,180.0 691.7,183.5 691.7,176.5" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<text x="680.0" y="170.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">pays</text>
+<path d="M1000.0,180.0 L1040.0,180.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="1040.0,180.0 1031.7,183.5 1031.7,176.5" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<text x="1020.0" y="170.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">teaches</text>
+<path d="M180.0,330.0 L180.0,490.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="180.0,490.0 176.5,481.7 183.5,481.7" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<path d="M180.0,490.0 L360.0,490.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="200.0" y="478.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">parent accounts</text>
+<path d="M510.0,330.0 L510.0,400.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="510.0,400.0 506.5,391.7 513.5,391.7" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<text x="510.0" y="355.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">notices</text>
+<path d="M850.0,330.0 L850.0,400.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="850.0,400.0 846.5,391.7 853.5,391.7" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<text x="850.0" y="355.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="middle" dominant-baseline="central">records</text>
+<path d="M660.0,490.0 L700.0,490.0" fill="none" stroke="#4B5563" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="700.0,490.0 691.7,493.5 691.7,486.5" fill="#4B5563" stroke="#4B5563" stroke-width="1"/>
+<text x="28.0" y="620.0" fill="#1F2937" font-size="13" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="600" text-anchor="start" dominant-baseline="central">How to read this map</text>
+<text x="28.0" y="646.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">1.  Identity is the hub: every officer, teacher, parent and auditor is a user with one role.</text>
+<text x="28.0" y="666.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">2.  Staff is the HR master record. It may link to a user (officers) or stand alone for staff-ID login (teachers, accountants).</text>
+<text x="28.0" y="686.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">3.  Payroll runs generate one slip per staff member and scan payroll_anomalies before Headteacher approval.</text>
+<text x="28.0" y="706.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">4.  Primary classes have one tutor (school_classes.teacher_id). Junior High teachers are assigned per subject via staff_subject.</text>
+<text x="28.0" y="726.0" fill="#1F2937" font-size="12" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="start" dominant-baseline="central">5.  Parents (users) link to students and receive parent_messages by email and WhatsApp.</text>
+<text x="1352.0" y="752.0" fill="#6B7280" font-size="11" font-family="Segoe UI, Calibri, Arial, sans-serif" font-weight="400" text-anchor="end" dominant-baseline="central">Source: Laravel migrations in backend/database/migrations · School SMS</text>
+</svg>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>School SMS — database diagrams</title>
+  <style>
+    body { font-family: Segoe UI, Calibri, sans-serif; background: #F6F4EF; color: #1F2937; margin: 0; }
+    main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    .lead { color: #6B7280; margin-bottom: 28px; }
+    .card { background: #fff; border: 1px solid #E5E1D8; border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+    .card h2 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0 0 12px; color: #4B5563; }
+    .actions a { display: inline-block; margin-right: 12px; margin-bottom: 12px; color: #1B365D; font-weight: 600; }
+    img { width: 100%; border: 1px solid #E5E1D8; border-radius: 6px; background: #F6F4EF; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>School SMS database diagrams</h1>
+    <p class="lead">Entity-relationship diagrams generated from the Laravel migrations.
+    PNG is best for slides and Word; SVG stays sharp when you zoom or print.</p>
+    
+            <article class="card">
+              <h2>Domain map</h2>
+              <p>Six subject areas and the main links between them.</p>
+              <div class="actions">
+                <a href="01-domain-map.png" download>Download PNG</a>
+                <a href="01-domain-map.svg" download>Download SVG</a>
+              </div>
+              <a href="01-domain-map.svg" target="_blank"><img src="01-domain-map.svg" alt="Domain map"></a>
+            </article>
+            <article class="card">
+              <h2>Logical overview</h2>
+              <p>Every application table and its foreign keys, in one diagram.</p>
+              <div class="actions">
+                <a href="02-logical-overview.png" download>Download PNG</a>
+                <a href="02-logical-overview.svg" download>Download SVG</a>
+              </div>
+              <a href="02-logical-overview.svg" target="_blank"><img src="02-logical-overview.svg" alt="Logical overview"></a>
+            </article>
+            <article class="card" style="border-color:#1B365D;">
+              <h2>Logical data model (Word / print)</h2>
+              <p>Enlarged ER diagram with domain bands, richer columns, 300&nbsp;DPI PNG and a ready landscape Word file.</p>
+              <div class="actions">
+                <a href="02-logical-overview-word.docx" download>Download Word (.docx)</a>
+                <a href="02-logical-overview-word.png" download>Download PNG (300 DPI)</a>
+                <a href="02-logical-overview-word.svg" download>Download SVG</a>
+              </div>
+              <a href="02-logical-overview-word.svg" target="_blank"><img src="02-logical-overview-word.svg" alt="Logical data model Word"></a>
+            </article>
+            <article class="card">
+              <h2>Identity and access</h2>
+              <p>Users, roles, staff login, parent accounts and tokens.</p>
+              <div class="actions">
+                <a href="03-identity-access.png" download>Download PNG</a>
+                <a href="03-identity-access.svg" download>Download SVG</a>
+              </div>
+              <a href="03-identity-access.svg" target="_blank"><img src="03-identity-access.svg" alt="Identity and access"></a>
+            </article>
+            <article class="card">
+              <h2>HR, leave and payroll</h2>
+              <p>Compensation, attendance, leave, runs, slips and anomalies.</p>
+              <div class="actions">
+                <a href="04-hr-payroll.png" download>Download PNG</a>
+                <a href="04-hr-payroll.svg" download>Download SVG</a>
+              </div>
+              <a href="04-hr-payroll.svg" target="_blank"><img src="04-hr-payroll.svg" alt="HR, leave and payroll"></a>
+            </article>
+            <article class="card">
+              <h2>Classes, students and assessment</h2>
+              <p>Rooms, roll, subjects, scores, reports and attendance.</p>
+              <div class="actions">
+                <a href="05-academics.png" download>Download PNG</a>
+                <a href="05-academics.svg" download>Download SVG</a>
+              </div>
+              <a href="05-academics.svg" target="_blank"><img src="05-academics.svg" alt="Classes, students and assessment"></a>
+            </article>
+            <article class="card">
+              <h2>Messaging, audit and notifications</h2>
+              <p>Parent notices, in-app alerts and audit logs.</p>
+              <div class="actions">
+                <a href="06-messaging-governance.png" download>Download PNG</a>
+                <a href="06-messaging-governance.svg" download>Download SVG</a>
+              </div>
+              <a href="06-messaging-governance.svg" target="_blank"><img src="06-messaging-governance.svg" alt="Messaging, audit and notifications"></a>
+            </article>
+  </main>
+</body>
+</html>
