@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { FiPlus, FiSearch } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
@@ -9,12 +9,47 @@ export default function StudentsPage() {
   const { hasRole } = useAuth()
   const canEdit = hasRole('hr_officer', 'teacher')
   const navigate = useNavigate()
+  const [params, setParams] = useSearchParams()
+  const classId = params.get('class') || ''
   const [rows, setRows] = useState([])
-  const [search, setSearch] = useState('')
+  const [meta, setMeta] = useState({ total: 0 })
+  const [classes, setClasses] = useState([])
+  const [search, setSearch] = useState(params.get('q') || '')
+  const [query, setQuery] = useState(search)
+
+  const setFilter = (patch) => {
+    const next = new URLSearchParams(params)
+    Object.entries(patch).forEach(([key, value]) => {
+      if (value === '' || value == null) next.delete(key)
+      else next.set(key, String(value))
+    })
+    setParams(next, { replace: true })
+  }
 
   useEffect(() => {
-    api.get('/students', { params: { search } }).then(({ data }) => setRows(data.data || data))
-  }, [search])
+    api.get('/classes').then(({ data }) => setClasses(data)).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    api.get('/students', {
+      params: {
+        search: search || undefined,
+        class_id: classId || undefined,
+        per_page: 60,
+      },
+    }).then(({ data }) => {
+      setRows(data.data || data)
+      setMeta({ total: data.total ?? (data.data || data).length })
+    })
+  }, [search, classId])
+
+  useEffect(() => { setQuery(search) }, [search])
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (query !== search) setFilter({ q: query })
+    }, 400)
+    return () => clearTimeout(timer)
+  }, [query])
 
   return (
     <div className="space-y-5">
@@ -31,13 +66,45 @@ export default function StudentsPage() {
         )}
       </div>
 
-      <div className="card">
-        <div className="mb-4">
-          <div className="relative w-full max-w-sm">
-            <FiSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input className="input pl-9" placeholder="Search name or admission number" value={search} onChange={(e) => setSearch(e.target.value)} />
-          </div>
+      <div className="card space-y-4">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setFilter({ class: '' })}
+            className={`rounded-full px-3 py-1.5 text-sm ${!classId ? 'bg-emerald-800 text-white' : 'bg-stone-100 text-slate-600 hover:bg-stone-200'}`}
+          >
+            All classes{meta.total && !classId ? ` ${meta.total}` : ''}
+          </button>
+          {classes.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setFilter({ class: String(classId) === String(item.id) ? '' : String(item.id) })}
+              className={`rounded-full px-3 py-1.5 text-sm ${String(classId) === String(item.id) ? 'bg-emerald-800 text-white' : 'bg-stone-100 text-slate-600 hover:bg-stone-200'}`}
+            >
+              {item.name}
+              {item.students_count != null ? (
+                <span className={`ml-2 text-xs ${String(classId) === String(item.id) ? 'text-emerald-100' : 'text-slate-400'}`}>
+                  {item.students_count}
+                </span>
+              ) : null}
+            </button>
+          ))}
         </div>
+        <div className="relative w-full max-w-sm">
+          <FiSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            className="input pl-9"
+            placeholder="Search name or admission number"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={(event) => event.key === 'Enter' && setFilter({ q: query })}
+          />
+        </div>
+      </div>
+
+      <div className="card">
+        <p className="mb-4 text-sm text-slate-500">{meta.total || rows.length} pupil{(meta.total || rows.length) === 1 ? '' : 's'} in this view</p>
         <DataTable
           rows={rows}
           empty="No student records found."
@@ -81,3 +148,4 @@ export default function StudentsPage() {
     </div>
   )
 }
+

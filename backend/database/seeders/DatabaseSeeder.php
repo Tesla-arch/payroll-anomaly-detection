@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         if (Role::query()->exists()) {
             SchoolClass::syncCatalogue();
             Subject::syncCatalogue();
+            $this->call(ClassRollSeeder::class);
 
             return;
         }
@@ -355,6 +356,8 @@ class DatabaseSeeder extends Seeder
             'parent_id' => $users['parent']->id,
             'status' => 'active',
         ]);
+
+        $this->call(ClassRollSeeder::class);
     }
 
     protected function attendanceAndLeave(array $staff): void

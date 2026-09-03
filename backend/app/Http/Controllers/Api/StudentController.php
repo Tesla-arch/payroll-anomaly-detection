@@ -28,7 +28,11 @@ class StudentController extends Controller
             });
         }
 
-        return response()->json($query->orderBy('last_name')->paginate(20));
+        if ($request->filled('class_id')) {
+            $query->where('class_id', $request->integer('class_id'));
+        }
+
+        return response()->json($query->orderBy('last_name')->paginate($request->integer('per_page', 50)));
     }
 
     public function nextId(): JsonResponse
