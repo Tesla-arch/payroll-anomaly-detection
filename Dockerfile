@@ -8,6 +8,8 @@ RUN npm run build
 
 FROM composer:2 AS vendor
 WORKDIR /app
+# Bump when seeders/app code must not reuse a stale COPY layer on Render.
+ARG CACHE_BUST=2026-09-03-classroll-nofaker
 COPY backend/composer.json backend/composer.lock ./
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 COPY backend/ ./

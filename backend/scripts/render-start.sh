@@ -35,11 +35,12 @@ fi
 
 # Never wipe on boot. Postgres keeps staff, students, parents and officers
 # after the free web service sleeps. Seed only fills an empty database.
+# Do not abort boot if seeding fails (e.g. stale image still calling fake()).
 if [ "${RESET_DATABASE:-false}" = "true" ]; then
-  php artisan migrate:fresh --force --seed
+  php artisan migrate:fresh --force --seed || echo "WARNING: migrate:fresh --seed failed; continuing startup"
 else
   php artisan migrate --force
-  php artisan db:seed --force
+  php artisan db:seed --force || echo "WARNING: db:seed failed; continuing startup"
 fi
 
 php artisan config:cache
