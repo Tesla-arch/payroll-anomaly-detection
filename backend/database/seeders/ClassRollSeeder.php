@@ -76,46 +76,50 @@ class ClassRollSeeder extends Seeder
 
     private function enrol(SchoolClass $class, array $parentIds): Student
     {
-        $female = fake()->boolean();
-        $first = fake()->randomElement($female ? self::FEMALE_FIRST : self::MALE_FIRST);
-        $last = fake()->randomElement(self::LAST);
-        $guardianFirst = fake()->randomElement($female ? self::MALE_FIRST : self::FEMALE_FIRST);
-        $guardianLast = fake()->randomElement(self::LAST);
+        $female = $this->chance(50);
+        $first = $this->pick($female ? self::FEMALE_FIRST : self::MALE_FIRST);
+        $last = $this->pick(self::LAST);
+        $guardianFirst = $this->pick($female ? self::MALE_FIRST : self::FEMALE_FIRST);
+        $guardianLast = $this->pick(self::LAST);
         $guardian = trim($guardianFirst.' '.$guardianLast);
-        $phone = '0'.fake()->randomElement(['24', '20', '54', '55', '26', '27']).fake()->numerify('#######');
-        $town = fake()->randomElement(self::TOWNS);
+        $phone = '0'.$this->pick(['24', '20', '54', '55', '26', '27']).$this->digits(7);
+        $town = $this->pick(self::TOWNS);
         $birthYear = $this->birthYear($class->name);
 
         return Student::query()->create([
             'admission_number' => Student::nextAdmissionNumber(),
             'first_name' => $first,
-            'middle_name' => fake()->randomElement(self::MIDDLE),
+            'middle_name' => $this->pick(self::MIDDLE),
             'last_name' => $last,
             'gender' => $female ? 'female' : 'male',
-            'date_of_birth' => sprintf('%d-%02d-%02d', $birthYear, fake()->numberBetween(1, 12), fake()->numberBetween(1, 28)),
-            'place_of_birth' => fake()->randomElement(self::HOMETOWNS),
+            'date_of_birth' => sprintf('%d-%02d-%02d', $birthYear, random_int(1, 12), random_int(1, 28)),
+            'place_of_birth' => $this->pick(self::HOMETOWNS),
             'nationality' => 'Ghanaian',
-            'hometown' => fake()->randomElement(self::HOMETOWNS),
-            'region' => fake()->randomElement(self::REGIONS),
-            'religion' => fake()->randomElement(['Christian', 'Muslim', 'Christian', 'Christian']),
-            'birth_certificate_number' => 'BC-'.fake()->numerify('########'),
-            'previous_school' => fake()->optional(0.35)->randomElement(['Local KG', 'Community primary', 'Private nursery']),
-            'admission_date' => sprintf('%d-09-%02d', $birthYear + 6, fake()->numberBetween(1, 15)),
+            'hometown' => $this->pick(self::HOMETOWNS),
+            'region' => $this->pick(self::REGIONS),
+            'religion' => $this->pick(['Christian', 'Muslim', 'Christian', 'Christian']),
+            'birth_certificate_number' => 'BC-'.$this->digits(8),
+            'previous_school' => $this->chance(35)
+                ? $this->pick(['Local KG', 'Community primary', 'Private nursery'])
+                : null,
+            'admission_date' => sprintf('%d-09-%02d', $birthYear + 6, random_int(1, 15)),
             'phone_number' => $phone,
             'residential_address' => $town,
-            'digital_address' => 'GA-'.fake()->numerify('###').'-'.fake()->numerify('####'),
+            'digital_address' => 'GA-'.$this->digits(3).'-'.$this->digits(4),
             'class_id' => $class->id,
-            'parent_id' => $parentIds && fake()->boolean(40) ? fake()->randomElement($parentIds) : null,
+            'parent_id' => $parentIds && $this->chance(40) ? $this->pick($parentIds) : null,
             'guardian_name' => $guardian,
-            'guardian_relationship' => fake()->randomElement(self::RELATIONSHIPS),
-            'guardian_occupation' => fake()->randomElement(self::OCCUPATIONS),
+            'guardian_relationship' => $this->pick(self::RELATIONSHIPS),
+            'guardian_occupation' => $this->pick(self::OCCUPATIONS),
             'guardian_phone' => $phone,
             'guardian_address' => $town,
             'emergency_contact_name' => $guardian,
             'emergency_contact_phone' => $phone,
-            'blood_group' => fake()->randomElement(['O+', 'A+', 'B+', 'O+', 'AB+', 'O-']),
-            'nhis_number' => fake()->numerify('##########'),
-            'allergies' => fake()->optional(0.12)->randomElement(['Groundnut', 'Dust', 'None recorded']),
+            'blood_group' => $this->pick(['O+', 'A+', 'B+', 'O+', 'AB+', 'O-']),
+            'nhis_number' => $this->digits(10),
+            'allergies' => $this->chance(12)
+                ? $this->pick(['Groundnut', 'Dust', 'None recorded'])
+                : null,
             'special_needs' => null,
             'status' => 'active',
         ]);
@@ -135,5 +139,26 @@ class ClassRollSeeder extends Seeder
             'JHS 3' => 2011,
             default => 2016,
         };
+    }
+
+    /** @param  list<mixed>  $items */
+    private function pick(array $items): mixed
+    {
+        return $items[array_rand($items)];
+    }
+
+    private function chance(int $percent): bool
+    {
+        return random_int(1, 100) <= $percent;
+    }
+
+    private function digits(int $length): string
+    {
+        $out = '';
+        for ($i = 0; $i < $length; $i++) {
+            $out .= (string) random_int(0, 9);
+        }
+
+        return $out;
     }
 }
