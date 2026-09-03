@@ -66,13 +66,13 @@ class DatabaseSeeder extends Seeder
 
     protected function users(array $roles): array
     {
-        $make = function (string $slug, string $first, string $last, string $email) use ($roles) {
+        $make = function (string $slug, string $first, string $last, string $email, string $phone = '0240000000') use ($roles) {
             return User::query()->create([
                 'role_id' => $roles[$slug]->id,
                 'first_name' => $first,
                 'last_name' => $last,
                 'email' => $email,
-                'phone' => '0240000000',
+                'phone' => $phone,
                 'password' => 'password',
                 'status' => 'active',
             ]);
@@ -87,6 +87,9 @@ class DatabaseSeeder extends Seeder
             'auditor' => $make('auditor', 'Nana', 'Adjei', 'auditor@school.gh'),
             'parent' => $make('parent', 'Kwesi', 'Appiah', 'parent@school.gh'),
             'parent2' => $make('parent', 'Akua', 'Owusu', 'parent2@school.gh'),
+            'parent3' => $make('parent', 'Sunu', 'Jennifer', 'sunu.jennifer@school.gh', '0551833479'),
+            'parent4' => $make('parent', 'Victor', 'Kwo', 'victor.kwo@school.gh', '0591723646'),
+            'parent5' => $make('parent', 'Gasika', 'Wilfred', 'gasika.wilfred@school.gh', '0547036728'),
             'inactiveUser' => $make('teacher', 'Ghost', 'Inactive', 'inactive@school.gh'),
             'leaveUser' => $make('teacher', 'Akua', 'Frimpong', 'leave@school.gh'),
             'highUser' => $make('teacher', 'Kojo', 'Ampofo', 'high@school.gh'),
@@ -354,6 +357,45 @@ class DatabaseSeeder extends Seeder
             'residential_address' => 'East Legon, Accra',
             'class_id' => $jhs1?->id,
             'parent_id' => $users['parent']->id,
+            'status' => 'active',
+        ]);
+
+        // Sunu Jennifer's children
+        Student::query()->create([
+            'admission_number' => 'ADM-2024-004',
+            'first_name' => 'Edem',
+            'last_name' => 'Jennifer',
+            'gender' => 'male',
+            'date_of_birth' => '2017-01-20',
+            'residential_address' => 'Tema, Accra',
+            'class_id' => $grade3?->id,
+            'parent_id' => $users['parent3']->id,
+            'status' => 'active',
+        ]);
+
+        // Victor Kwo's child
+        Student::query()->create([
+            'admission_number' => 'ADM-2024-005',
+            'first_name' => 'Nana',
+            'last_name' => 'Kwo',
+            'gender' => 'female',
+            'date_of_birth' => '2015-07-14',
+            'residential_address' => 'Kasoa',
+            'class_id' => $grade5?->id,
+            'parent_id' => $users['parent4']->id,
+            'status' => 'active',
+        ]);
+
+        // Gasika Wilfred's child
+        Student::query()->create([
+            'admission_number' => 'ADM-2024-006',
+            'first_name' => 'Kofi',
+            'last_name' => 'Wilfred',
+            'gender' => 'male',
+            'date_of_birth' => '2013-11-05',
+            'residential_address' => 'Spintex, Accra',
+            'class_id' => $jhs1?->id,
+            'parent_id' => $users['parent5']->id,
             'status' => 'active',
         ]);
 
