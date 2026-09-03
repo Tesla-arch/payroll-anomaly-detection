@@ -25,4 +25,16 @@ class GhanaPhone
 
         return strlen($digits) === 9 ? '233'.$digits : null;
     }
+
+    public static function display(?string $raw): ?string
+    {
+        $e164 = self::toWhatsApp($raw);
+
+        return $e164 ? '0'.substr($e164, 3) : null;
+    }
+
+    public static function schoolAccount(): ?string
+    {
+        return self::toWhatsApp(config('services.whatsapp.from_number'));
+    }
 }

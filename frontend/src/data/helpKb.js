@@ -632,7 +632,7 @@ export const helpArticles = [
       [
         'Register a parent with name, email (used on the Email sign-in tab), password on create, and tick wards in the household.',
         'Compose a Notice, Meeting, or Broadcast to all. Meeting needs date, time and venue.',
-        'Pick Email and/or WhatsApp. Demo mail is written to the API log unless SMTP is configured.',
+        'Pick Email and/or WhatsApp. WhatsApp messages send from the school account 0591723646. Demo mail is written to the API log unless SMTP is configured.',
       ],
       'Parents see in-app notices after sign-in. Try parent@school.gh on the Email tab.',
     ],

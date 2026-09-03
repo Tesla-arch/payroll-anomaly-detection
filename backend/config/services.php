@@ -40,6 +40,7 @@ return [
         'token' => env('WHATSAPP_TOKEN'),
         'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
         'version' => env('WHATSAPP_API_VERSION', 'v21.0'),
+        'from_number' => env('WHATSAPP_FROM_NUMBER', '0591723646'),
     ],
 
 ];

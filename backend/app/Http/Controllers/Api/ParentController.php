@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\User;
 use App\Services\ParentMessageService;
 use App\Support\Auditor;
+use App\Support\GhanaPhone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -53,6 +54,7 @@ class ParentController extends Controller
                 'with_phone' => User::query()->parents()->where('status', 'active')->whereNotNull('phone')->where('phone', '!=', '')->count(),
                 'unlinked_students' => Student::query()->whereNull('parent_id')->count(),
                 'messages' => ParentMessage::query()->count(),
+                'whatsapp_from' => GhanaPhone::display(config('services.whatsapp.from_number')),
             ],
             'students' => Student::query()
                 ->with(['schoolClass', 'parent'])

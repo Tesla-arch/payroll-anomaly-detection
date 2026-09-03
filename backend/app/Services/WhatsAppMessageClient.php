@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Support\GhanaPhone;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
@@ -17,6 +18,8 @@ class WhatsAppMessageClient
         }
 
         Log::channel('whatsapp')->info('whatsapp.message', [
+            'from' => GhanaPhone::schoolAccount(),
+            'from_display' => GhanaPhone::display(config('services.whatsapp.from_number')),
             'to' => $to,
             'body' => $body,
         ]);

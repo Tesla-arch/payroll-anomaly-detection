@@ -233,7 +233,7 @@ export default function ParentsPage() {
         {roleDesk[role] || roleDesk.teacher}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Parents</p>
           <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.parents ?? parents.length}</p>
@@ -245,6 +245,11 @@ export default function ParentsPage() {
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Reachable on WhatsApp</p>
           <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.with_phone ?? withPhone.length}</p>
+        </div>
+        <div className="card">
+          <p className="text-xs uppercase tracking-wide text-slate-400">School WhatsApp</p>
+          <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.whatsapp_from || '0591723646'}</p>
+          <p className="mt-1 text-xs text-slate-400">Notices send from this account</p>
         </div>
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Pupils without a parent account</p>
@@ -463,7 +468,7 @@ export default function ParentsPage() {
               required
             />
             <p className="text-xs text-slate-400">
-              Email goes to the address on file. WhatsApp uses the registered Ghana mobile (024… becomes +233…). With the demo mailer and WhatsApp log driver, copies are written to the API log; connect SMTP and a Meta WhatsApp Cloud token for live delivery.
+              Email goes to the address on file. WhatsApp is sent from the school account {stats.whatsapp_from || '0591723646'} to each parent’s registered Ghana mobile (024… becomes +233…). With the demo mailer and WhatsApp log driver, copies are written to the API log; connect SMTP and a Meta WhatsApp Cloud token for live delivery.
             </p>
             <button className="btn-primary inline-flex items-center gap-2" disabled={busy}>
               <FiSend /> {busy ? 'Sending…' : `Send to ${recipientPreview}`}

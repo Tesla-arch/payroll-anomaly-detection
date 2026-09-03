@@ -55,9 +55,9 @@ Roles: `super_admin`, `headteacher`, `hr_officer` manage the register. Teachers 
 - `POST /parents` — `{ first_name, last_name, email, phone?, password?, student_ids? }` (HR / Headteacher)
 - `PUT /parents/{id}` — update file and ward links
 - `GET /parent-messages` — recent notices (parents see only their own)
-- `POST /parent-messages` — `{ type: notice|meeting|broadcast, subject, body, meeting_at?, meeting_venue?, parent_ids? }`
+- `POST /parent-messages` — `{ type: notice|meeting|broadcast, subject, body, meeting_at?, meeting_venue?, parent_ids?, channels? }`
 
-`broadcast` emails every active parent. `meeting` requires `meeting_at`. Mail uses the parent user’s registered email.
+`broadcast` emails every active parent. `meeting` requires `meeting_at`. Mail uses the parent user’s registered email. WhatsApp messages send from the school account `0591723646` (`WHATSAPP_FROM_NUMBER`).
 
 ## Classrooms and class teachers
 

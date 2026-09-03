@@ -12,7 +12,9 @@ class GhanaPhoneTest extends TestCase
         $this->assertSame('233241111111', GhanaPhone::toWhatsApp('0241111111'));
         $this->assertSame('233241111111', GhanaPhone::toWhatsApp('+233 24 111 1111'));
         $this->assertSame('233241111111', GhanaPhone::toWhatsApp('233241111111'));
-        $this->assertSame('233541234567', GhanaPhone::toWhatsApp('0541234567'));
+        $this->assertSame('233591723646', GhanaPhone::toWhatsApp('0591723646'));
+        $this->assertSame('0591723646', GhanaPhone::display('0591723646'));
+        $this->assertSame('0591723646', GhanaPhone::display('+233 59 172 3646'));
     }
 
     public function test_blank_or_short_numbers_are_rejected(): void

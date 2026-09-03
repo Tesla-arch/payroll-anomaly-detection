@@ -181,6 +181,15 @@ class ParentModuleTest extends TestCase
         Mail::assertNothingSent();
     }
 
+    public function test_parent_desk_reports_the_school_whatsapp_account(): void
+    {
+        $this->actingAsRole('hr_officer');
+
+        $this->getJson('/api/parents')
+            ->assertOk()
+            ->assertJsonPath('stats.whatsapp_from', '0591723646');
+    }
+
     public function test_whatsapp_channel_fails_without_a_phone_number(): void
     {
         Mail::fake();
@@ -236,7 +245,8 @@ class ParentModuleTest extends TestCase
             return str_contains($request->url(), '/123456/messages')
                 && $request['to'] === '233541234567'
                 && $request['messaging_product'] === 'whatsapp'
-                && str_contains((string) $request['text']['body'], 'School closed tomorrow.');
+                && str_contains((string) $request['text']['body'], 'School closed tomorrow.')
+                && str_contains((string) $request['text']['body'], '0591723646');
         });
     }
 

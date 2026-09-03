@@ -149,7 +149,10 @@ class ParentMessageService
         $lines[] = $notice->subject;
         $lines[] = $notice->body;
         $lines[] = '';
-        $lines[] = 'Please contact the school office if you need a follow-up.';
+        $from = GhanaPhone::display(config('services.whatsapp.from_number'));
+        $lines[] = $from
+            ? 'Sent from the school WhatsApp '.$from.'. Please contact the school office if you need a follow-up.'
+            : 'Please contact the school office if you need a follow-up.';
 
         return implode("\n", $lines);
     }
