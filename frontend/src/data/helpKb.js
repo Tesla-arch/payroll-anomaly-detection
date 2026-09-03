@@ -632,8 +632,8 @@ export const helpArticles = [
       [
         'Register a parent with name, email (used on the Email sign-in tab), password on create, and tick wards in the household.',
         'Compose a Notice, Meeting, or Broadcast to all. Meeting needs date, time and venue.',
-        'Pick Email and/or WhatsApp. WhatsApp is meant to leave from the school account 0591723646. Until that phone is linked (Green API), the desk records the notice and you open each parent in WhatsApp from Sent.',
-        'Demo mail is written to the API log unless SMTP is configured.',
+        'Pick Email and/or WhatsApp. Email leaves from victorqwao855@gmail.com once Gmail SMTP is configured. WhatsApp is meant to leave from 0591723646.',
+        'Until WhatsApp is linked (Green API), open each parent from Sent. Until the mailbox password is set, email cannot leave the school address.',
       ],
       'Parents see in-app notices after sign-in. Try parent@school.gh on the Email tab.',
     ],

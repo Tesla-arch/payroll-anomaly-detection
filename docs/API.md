@@ -57,7 +57,7 @@ Roles: `super_admin`, `headteacher`, `hr_officer` manage the register. Teachers 
 - `GET /parent-messages` — recent notices (parents see only their own)
 - `POST /parent-messages` — `{ type: notice|meeting|broadcast, subject, body, meeting_at?, meeting_venue?, parent_ids?, channels? }`
 
-`broadcast` emails every active parent. `meeting` requires `meeting_at`. Mail uses the parent user’s registered email. WhatsApp messages send from `WHATSAPP_FROM_NUMBER` (default `0591723646`). `GET /parents` reports `stats.whatsapp_live`. Live delivery needs `WHATSAPP_DRIVER=green_api` (scan QR with the school phone) or `cloud` with a Meta token. With `log`, notices are recorded and the desk offers a `wa.me` open-in-WhatsApp link.
+`broadcast` emails every active parent. `meeting` requires `meeting_at`. Mail uses the parent user’s registered email and is sent From `MAIL_FROM_ADDRESS` (school account `victorqwao855@gmail.com` via Gmail SMTP). WhatsApp messages send from `WHATSAPP_FROM_NUMBER` (default `0591723646`). `GET /parents` reports `stats.mail_live` and `stats.whatsapp_live`. Live WhatsApp needs `WHATSAPP_DRIVER=green_api` (scan QR with the school phone) or `cloud` with a Meta token.
 
 ## Classrooms and class teachers
 

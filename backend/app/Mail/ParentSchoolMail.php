@@ -30,7 +30,10 @@ class ParentSchoolMail extends Mailable
 
         return new Envelope(
             subject: $prefix.$this->notice->subject,
-            from: new Address('school@school.gh', 'School Management System'),
+            from: new Address(
+                (string) config('mail.from.address'),
+                (string) config('mail.from.name'),
+            ),
         );
     }
 

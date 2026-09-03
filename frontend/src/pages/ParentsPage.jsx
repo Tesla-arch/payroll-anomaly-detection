@@ -65,13 +65,13 @@ function parentWhatsAppText(notice, parent) {
   return lines.filter((line) => line !== undefined).join('\n')
 }
 
-function whatsappStatusClass(status) {
+function deliveryStatusClass(status) {
   if (status === 'sent') return 'text-success'
   if (status === 'logged') return 'text-amber-700'
   return 'text-red-700'
 }
 
-function whatsappStatusLabel(status) {
+function deliveryStatusLabel(status) {
   if (status === 'logged') return 'recorded — not delivered'
   return status
 }
@@ -136,6 +136,8 @@ export default function ParentsPage() {
   const wantsWhatsapp = compose.channels.includes('whatsapp')
   const whatsappLive = Boolean(stats.whatsapp_live)
   const schoolWhatsapp = stats.whatsapp_from || '0591723646'
+  const mailLive = Boolean(stats.mail_live)
+  const schoolEmail = stats.mail_from || 'victorqwao855@gmail.com'
 
   const startCreate = () => {
     setEditing(true)
@@ -224,6 +226,9 @@ export default function ParentsPage() {
       if (compose.channels.includes('whatsapp') && !stats.whatsapp_live) {
         toast('WhatsApp is not connected. Open each parent from Sent to deliver from the school phone.', { duration: 7000 })
       }
+      if (compose.channels.includes('email') && !stats.mail_live) {
+        toast('School email SMTP is not connected yet. Add the mailbox password in the API .env to send live mail.', { duration: 7000 })
+      }
       setCompose((current) => ({ ...current, subject: '', body: '', parent_ids: [] }))
       load()
       loadMessages()
@@ -274,6 +279,13 @@ export default function ParentsPage() {
         {roleDesk[role] || roleDesk.teacher}
       </div>
 
+      {!mailLive && (
+        <div className="rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-950 ring-1 ring-amber-100">
+          School email is set to {schoolEmail}, but SMTP is not connected yet. Add the Gmail app password
+          as MAIL_PASSWORD in the API .env so notices leave from that address.
+        </div>
+      )}
+
       {!whatsappLive && (
         <div className="rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-950 ring-1 ring-amber-100">
           WhatsApp is not connected to {schoolWhatsapp}, so parent phones will not receive notices automatically.
@@ -293,6 +305,11 @@ export default function ParentsPage() {
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Reachable on WhatsApp</p>
           <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.with_phone ?? withPhone.length}</p>
+        </div>
+        <div className="card">
+          <p className="text-xs uppercase tracking-wide text-slate-400">School email</p>
+          <p className="mt-1 break-all text-lg font-semibold text-emerald-950">{schoolEmail}</p>
+          <p className="mt-1 text-xs text-slate-400">{mailLive ? 'Live — notices send from this address' : 'SMTP password still needed'}</p>
         </div>
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">School WhatsApp</p>
@@ -516,10 +533,12 @@ export default function ParentsPage() {
               required
             />
             <p className="text-xs text-slate-400">
-              Email goes to the address on file. WhatsApp is meant to leave from {schoolWhatsapp} to each parent’s Ghana mobile.
+              Email leaves from {schoolEmail}
+              {mailLive ? ' (live SMTP).' : ' once the mailbox password is set.'}
+              {' '}WhatsApp is meant to leave from {schoolWhatsapp}
               {whatsappLive
-                ? ' Live delivery is on.'
-                : ' Automatic delivery is off — use Open WhatsApp on the Sent tab until the school phone is linked.'}
+                ? ' (live).'
+                : ' — use Open WhatsApp on the Sent tab until the school phone is linked.'}
             </p>
             <button className="btn-primary inline-flex items-center gap-2" disabled={busy}>
               <FiSend /> {busy ? 'Sending…' : `Send to ${recipientPreview}`}
@@ -612,10 +631,10 @@ export default function ParentsPage() {
                           </span>
                           <span className="text-right text-xs">
                             {row.email_status && row.email_status !== 'skipped' && (
-                              <span className={`block ${row.email_status === 'sent' ? 'text-success' : 'text-red-700'}`}>Email {row.email_status}</span>
+                              <span className={`block ${deliveryStatusClass(row.email_status)}`}>Email {deliveryStatusLabel(row.email_status)}</span>
                             )}
                             {row.whatsapp_status && row.whatsapp_status !== 'skipped' && (
-                              <span className={`block ${whatsappStatusClass(row.whatsapp_status)}`}>WhatsApp {whatsappStatusLabel(row.whatsapp_status)}</span>
+                              <span className={`block ${deliveryStatusClass(row.whatsapp_status)}`}>WhatsApp {deliveryStatusLabel(row.whatsapp_status)}</span>
                             )}
                             {(!row.email_status || row.email_status === 'skipped') && (!row.whatsapp_status || row.whatsapp_status === 'skipped') && (
                               <span className={row.status === 'sent' ? 'text-success' : 'text-red-700'}>{row.status}</span>

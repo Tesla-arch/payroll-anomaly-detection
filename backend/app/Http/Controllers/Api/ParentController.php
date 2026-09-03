@@ -18,7 +18,7 @@ use Illuminate\Validation\ValidationException;
 
 class ParentController extends Controller
 {
-    public function index(Request $request, WhatsAppMessageClient $whatsapp): JsonResponse
+    public function index(Request $request, WhatsAppMessageClient $whatsapp, ParentMessageService $mailer): JsonResponse
     {
         $query = User::query()
             ->parents()
@@ -55,6 +55,8 @@ class ParentController extends Controller
                 'with_phone' => User::query()->parents()->where('status', 'active')->whereNotNull('phone')->where('phone', '!=', '')->count(),
                 'unlinked_students' => Student::query()->whereNull('parent_id')->count(),
                 'messages' => ParentMessage::query()->count(),
+                'mail_from' => config('mail.from.address'),
+                'mail_live' => $mailer->mailIsLive(),
                 'whatsapp_from' => GhanaPhone::display(config('services.whatsapp.from_number')),
                 'whatsapp_driver' => $whatsapp->driver(),
                 'whatsapp_live' => $whatsapp->isLive(),

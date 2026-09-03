@@ -29,7 +29,11 @@
                 @endif
                 <div style="font-size:15px;line-height:1.6;white-space:pre-wrap;">{{ $notice->body }}</div>
                 <p style="margin:24px 0 0;font-size:13px;color:#64748b;">
-                    Please contact the school office if you cannot attend or need a follow-up.
+                    Please contact the school office
+                    @if(config('mail.from.address'))
+                        at <a href="mailto:{{ config('mail.from.address') }}" style="color:#065f46;">{{ config('mail.from.address') }}</a>
+                    @endif
+                    if you cannot attend or need a follow-up.
                 </p>
             </td>
         </tr>

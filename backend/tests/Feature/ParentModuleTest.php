@@ -94,7 +94,9 @@ class ParentModuleTest extends TestCase
             ->assertJsonPath('subject', 'Sports day');
 
         Mail::assertSent(ParentSchoolMail::class, function (ParentSchoolMail $mail) use ($parent) {
-            return $mail->hasTo($parent->email) && $mail->notice->subject === 'Sports day';
+            return $mail->hasTo($parent->email)
+                && $mail->notice->subject === 'Sports day'
+                && $mail->envelope()->from->address === config('mail.from.address');
         });
 
         $this->assertDatabaseHas('notifications', [
@@ -189,7 +191,38 @@ class ParentModuleTest extends TestCase
             ->assertOk()
             ->assertJsonPath('stats.whatsapp_from', '0591723646')
             ->assertJsonPath('stats.whatsapp_driver', 'log')
-            ->assertJsonPath('stats.whatsapp_live', false);
+            ->assertJsonPath('stats.whatsapp_live', false)
+            ->assertJsonPath('stats.mail_from', config('mail.from.address'))
+            ->assertJsonPath('stats.mail_live', false);
+    }
+
+    public function test_parent_notice_mail_uses_the_configured_school_address(): void
+    {
+        Mail::fake();
+        config([
+            'mail.from.address' => 'victorqwao855@gmail.com',
+            'mail.from.name' => 'School Management System',
+        ]);
+
+        $this->actingAsRole('teacher');
+        $parent = $this->userWithRole('parent', ['email' => 'inbox.parent@example.com']);
+
+        $this->postJson('/api/parent-messages', [
+            'type' => 'notice',
+            'subject' => 'Uniform check',
+            'body' => 'Please ensure full uniform tomorrow.',
+            'channels' => ['email'],
+            'parent_ids' => [$parent->id],
+        ])->assertCreated()
+            ->assertJsonPath('recipients.0.email_status', 'sent');
+
+        Mail::assertSent(ParentSchoolMail::class, function (ParentSchoolMail $mail) {
+            $from = $mail->envelope()->from;
+
+            return $from
+                && $from->address === 'victorqwao855@gmail.com'
+                && $from->name === 'School Management System';
+        });
     }
 
     public function test_whatsapp_channel_fails_without_a_phone_number(): void

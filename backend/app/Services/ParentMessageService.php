@@ -14,6 +14,13 @@ class ParentMessageService
 {
     public function __construct(protected WhatsAppMessageClient $whatsapp) {}
 
+    public function mailIsLive(): bool
+    {
+        return config('mail.default') === 'smtp'
+            && filled(config('mail.mailers.smtp.username'))
+            && filled(config('mail.mailers.smtp.password'));
+    }
+
     /**
      * @param  array<int, User>  $parents
      */
@@ -89,7 +96,7 @@ class ParentMessageService
             } else {
                 try {
                     Mail::to($email)->send(new ParentSchoolMail($notice, $parent));
-                    $emailStatus = 'sent';
+                    $emailStatus = $this->emailStatusAfterSend();
                 } catch (Throwable $exception) {
                     $emailStatus = 'failed';
                     $errors[] = substr($exception->getMessage(), 0, 240);
@@ -114,7 +121,8 @@ class ParentMessageService
             }
         }
 
-        $delivered = $emailStatus === 'sent' || in_array($whatsappStatus, ['sent', 'logged'], true);
+        $delivered = in_array($emailStatus, ['sent', 'logged'], true)
+            || in_array($whatsappStatus, ['sent', 'logged'], true);
         $errorText = implode(' · ', array_unique($errors));
 
         return [
@@ -128,6 +136,15 @@ class ParentMessageService
             'whatsapp_error' => $whatsappError,
             'sent_at' => $delivered ? now() : null,
         ];
+    }
+
+    protected function emailStatusAfterSend(): string
+    {
+        return match (config('mail.default')) {
+            'array' => 'sent',
+            'log' => 'logged',
+            default => 'sent',
+        };
     }
 
     protected function whatsappBody(ParentMessage $notice, User $parent): string

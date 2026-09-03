@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Support\GhanaPhone;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
@@ -10,6 +11,22 @@ use RuntimeException;
 class WhatsAppMessageClient
 {
     protected ?bool $greenAuthorized = null;
+
+    protected function http(int $timeout = 20): PendingRequest
+    {
+        $request = Http::timeout($timeout)->acceptJson();
+        $bundle = config('services.whatsapp.ca_bundle');
+        if (! filled($bundle)) {
+            $bundle = is_file(base_path('resources/certs/cacert.pem'))
+                ? base_path('resources/certs/cacert.pem')
+                : storage_path('app/cacert.pem');
+        }
+        if (is_string($bundle) && is_file($bundle)) {
+            $request = $request->withOptions(['verify' => $bundle]);
+        }
+
+        return $request;
+    }
 
     public function send(string $to, string $body): void
     {
@@ -70,9 +87,8 @@ class WhatsAppMessageClient
         $version = trim((string) config('services.whatsapp.version', 'v21.0'), '/');
         $url = "https://graph.facebook.com/{$version}/{$phoneId}/messages";
 
-        $response = Http::withToken($token)
-            ->timeout(15)
-            ->acceptJson()
+        $response = $this->http(15)
+            ->withToken($token)
             ->asJson()
             ->post($url, [
                 'messaging_product' => 'whatsapp',
@@ -105,8 +121,7 @@ class WhatsAppMessageClient
 
         $url = "{$host}/waInstance{$instance}/sendMessage/{$token}";
 
-        $response = Http::timeout(20)
-            ->acceptJson()
+        $response = $this->http(20)
             ->asJson()
             ->post($url, [
                 'chatId' => $to.'@c.us',
@@ -128,8 +143,7 @@ class WhatsAppMessageClient
             return;
         }
 
-        $response = Http::timeout(15)
-            ->acceptJson()
+        $response = $this->http(15)
             ->get("{$host}/waInstance{$instance}/getStateInstance/{$token}");
 
         $state = (string) $response->json('stateInstance');

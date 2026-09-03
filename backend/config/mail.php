@@ -47,6 +47,25 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+            'stream' => (static function () {
+                $bundle = env('MAIL_CA_BUNDLE') ?: env('SSL_CA_BUNDLE');
+                if (! $bundle) {
+                    foreach ([base_path('resources/certs/cacert.pem'), storage_path('app/cacert.pem')] as $path) {
+                        if (is_file($path)) {
+                            $bundle = $path;
+                            break;
+                        }
+                    }
+                }
+
+                return $bundle ? [
+                    'ssl' => [
+                        'cafile' => $bundle,
+                        'verify_peer' => true,
+                        'verify_peer_name' => true,
+                    ],
+                ] : [];
+            })(),
         ],
 
         'ses' => [

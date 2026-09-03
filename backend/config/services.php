@@ -44,6 +44,7 @@ return [
         'green_api_url' => env('GREEN_API_URL', 'https://api.green-api.com'),
         'green_api_instance' => env('GREEN_API_INSTANCE_ID'),
         'green_api_token' => env('GREEN_API_TOKEN'),
+        'ca_bundle' => env('WHATSAPP_CA_BUNDLE'),
     ],
 
 ];
