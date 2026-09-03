@@ -37,4 +37,16 @@ class GhanaPhone
     {
         return self::toWhatsApp(config('services.whatsapp.from_number'));
     }
+
+    public static function chatUrl(?string $raw, ?string $text = null): ?string
+    {
+        $e164 = self::toWhatsApp($raw);
+        if (! $e164) {
+            return null;
+        }
+
+        $url = 'https://wa.me/'.$e164;
+
+        return ($text !== null && $text !== '') ? $url.'?text='.rawurlencode($text) : $url;
+    }
 }

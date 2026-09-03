@@ -105,7 +105,7 @@ class ParentMessageService
             } else {
                 try {
                     $this->whatsapp->send($phone, $this->whatsappBody($notice, $parent));
-                    $whatsappStatus = 'sent';
+                    $whatsappStatus = $this->whatsapp->isLive() ? 'sent' : 'logged';
                 } catch (Throwable $exception) {
                     $whatsappStatus = 'failed';
                     $whatsappError = substr($exception->getMessage(), 0, 240);
@@ -114,7 +114,7 @@ class ParentMessageService
             }
         }
 
-        $delivered = $emailStatus === 'sent' || $whatsappStatus === 'sent';
+        $delivered = $emailStatus === 'sent' || in_array($whatsappStatus, ['sent', 'logged'], true);
         $errorText = implode(' · ', array_unique($errors));
 
         return [

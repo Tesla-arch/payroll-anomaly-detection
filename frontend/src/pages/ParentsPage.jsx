@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { FiMail, FiMessageCircle, FiPlus, FiSearch, FiSend } from 'react-icons/fi'
+import { FiExternalLink, FiMail, FiMessageCircle, FiPlus, FiSearch, FiSend } from 'react-icons/fi'
 import api from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import DataTable from '../components/DataTable'
@@ -38,6 +38,42 @@ function prettyWhen(value) {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return String(value).replace('T', ' ').slice(0, 16)
   return date.toLocaleString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+}
+
+function whatsappChatUrl(phone, text) {
+  if (!phone) return null
+  const digits = String(phone).replace(/\D+/g, '')
+  if (!digits) return null
+  const e164 = digits.startsWith('233') ? digits : digits.startsWith('0') ? `233${digits.slice(1)}` : digits
+  const url = `https://wa.me/${e164}`
+  return text ? `${url}?text=${encodeURIComponent(text)}` : url
+}
+
+function parentWhatsAppText(notice, parent) {
+  const name = `${parent?.first_name || ''} ${parent?.last_name || ''}`.trim() || 'parent'
+  const lines = [
+    'School Management System',
+    notice?.type === 'meeting' ? 'Parent meeting' : 'School notice',
+    '',
+    `Dear ${name},`,
+  ]
+  if (notice?.type === 'meeting') {
+    if (notice.meeting_at) lines.push(`When: ${prettyWhen(notice.meeting_at)}`)
+    lines.push(`Where: ${notice.meeting_venue || 'School compound'}`)
+  }
+  lines.push('', notice?.subject || '', notice?.body || '')
+  return lines.filter((line) => line !== undefined).join('\n')
+}
+
+function whatsappStatusClass(status) {
+  if (status === 'sent') return 'text-success'
+  if (status === 'logged') return 'text-amber-700'
+  return 'text-red-700'
+}
+
+function whatsappStatusLabel(status) {
+  if (status === 'logged') return 'recorded — not delivered'
+  return status
 }
 
 export default function ParentsPage() {
@@ -98,6 +134,8 @@ export default function ParentsPage() {
   const selectedParents = parents.filter((row) => compose.parent_ids.includes(row.id))
   const wantsEmail = compose.channels.includes('email')
   const wantsWhatsapp = compose.channels.includes('whatsapp')
+  const whatsappLive = Boolean(stats.whatsapp_live)
+  const schoolWhatsapp = stats.whatsapp_from || '0591723646'
 
   const startCreate = () => {
     setEditing(true)
@@ -183,6 +221,9 @@ export default function ParentsPage() {
       }
       const { data } = await api.post('/parent-messages', payload)
       toast.success(`${data.sent_count} household${data.sent_count === 1 ? '' : 's'} reached${data.failed_count ? ` · ${data.failed_count} failed` : ''}`)
+      if (compose.channels.includes('whatsapp') && !stats.whatsapp_live) {
+        toast('WhatsApp is not connected. Open each parent from Sent to deliver from the school phone.', { duration: 7000 })
+      }
       setCompose((current) => ({ ...current, subject: '', body: '', parent_ids: [] }))
       load()
       loadMessages()
@@ -233,6 +274,13 @@ export default function ParentsPage() {
         {roleDesk[role] || roleDesk.teacher}
       </div>
 
+      {!whatsappLive && (
+        <div className="rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-950 ring-1 ring-amber-100">
+          WhatsApp is not connected to {schoolWhatsapp}, so parent phones will not receive notices automatically.
+          After you compose, open each household from the Sent tab — WhatsApp on this device should be signed in as {schoolWhatsapp}.
+        </div>
+      )}
+
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Parents</p>
@@ -248,8 +296,8 @@ export default function ParentsPage() {
         </div>
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">School WhatsApp</p>
-          <p className="mt-1 text-2xl font-semibold text-emerald-950">{stats.whatsapp_from || '0591723646'}</p>
-          <p className="mt-1 text-xs text-slate-400">Notices send from this account</p>
+          <p className="mt-1 text-2xl font-semibold text-emerald-950">{schoolWhatsapp}</p>
+          <p className="mt-1 text-xs text-slate-400">{whatsappLive ? 'Live — notices send from this account' : 'Not connected — open parents in WhatsApp from Sent'}</p>
         </div>
         <div className="card">
           <p className="text-xs uppercase tracking-wide text-slate-400">Pupils without a parent account</p>
@@ -468,7 +516,10 @@ export default function ParentsPage() {
               required
             />
             <p className="text-xs text-slate-400">
-              Email goes to the address on file. WhatsApp is sent from the school account {stats.whatsapp_from || '0591723646'} to each parent’s registered Ghana mobile (024… becomes +233…). With the demo mailer and WhatsApp log driver, copies are written to the API log; connect SMTP and a Meta WhatsApp Cloud token for live delivery.
+              Email goes to the address on file. WhatsApp is meant to leave from {schoolWhatsapp} to each parent’s Ghana mobile.
+              {whatsappLive
+                ? ' Live delivery is on.'
+                : ' Automatic delivery is off — use Open WhatsApp on the Sent tab until the school phone is linked.'}
             </p>
             <button className="btn-primary inline-flex items-center gap-2" disabled={busy}>
               <FiSend /> {busy ? 'Sending…' : `Send to ${recipientPreview}`}
@@ -548,26 +599,43 @@ export default function ParentsPage() {
                 )}
                 <p className="whitespace-pre-wrap text-sm text-slate-600">{sent.body}</p>
                 <ul className="space-y-1 text-sm">
-                  {(sent.recipients || []).map((row) => (
-                    <li key={row.id} className="flex justify-between gap-2 rounded-lg bg-stone-50 px-3 py-2">
-                      <span>
-                        {row.parent?.first_name} {row.parent?.last_name}
-                        <span className="block text-xs text-slate-400">{row.email || 'No email'}</span>
-                        <span className="block text-xs text-slate-400">{row.phone || 'No WhatsApp'}</span>
-                      </span>
-                      <span className="text-right text-xs">
-                        {row.email_status && row.email_status !== 'skipped' && (
-                          <span className={`block ${row.email_status === 'sent' ? 'text-success' : 'text-red-700'}`}>Email {row.email_status}</span>
+                  {(sent.recipients || []).map((row) => {
+                    const chatUrl = whatsappChatUrl(row.phone, parentWhatsAppText(sent, row.parent))
+                    const showOpen = Boolean(chatUrl) && (!whatsappLive || row.whatsapp_status === 'logged' || row.whatsapp_status === 'failed')
+                    return (
+                      <li key={row.id} className="space-y-1 rounded-lg bg-stone-50 px-3 py-2">
+                        <div className="flex justify-between gap-2">
+                          <span>
+                            {row.parent?.first_name} {row.parent?.last_name}
+                            <span className="block text-xs text-slate-400">{row.email || 'No email'}</span>
+                            <span className="block text-xs text-slate-400">{row.phone || 'No WhatsApp'}</span>
+                          </span>
+                          <span className="text-right text-xs">
+                            {row.email_status && row.email_status !== 'skipped' && (
+                              <span className={`block ${row.email_status === 'sent' ? 'text-success' : 'text-red-700'}`}>Email {row.email_status}</span>
+                            )}
+                            {row.whatsapp_status && row.whatsapp_status !== 'skipped' && (
+                              <span className={`block ${whatsappStatusClass(row.whatsapp_status)}`}>WhatsApp {whatsappStatusLabel(row.whatsapp_status)}</span>
+                            )}
+                            {(!row.email_status || row.email_status === 'skipped') && (!row.whatsapp_status || row.whatsapp_status === 'skipped') && (
+                              <span className={row.status === 'sent' ? 'text-success' : 'text-red-700'}>{row.status}</span>
+                            )}
+                            {row.whatsapp_error && <span className="mt-1 block text-red-700">{row.whatsapp_error}</span>}
+                          </span>
+                        </div>
+                        {showOpen && (
+                          <a
+                            href={chatUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-medium text-emerald-800 hover:underline"
+                          >
+                            <FiExternalLink /> Open WhatsApp
+                          </a>
                         )}
-                        {row.whatsapp_status && row.whatsapp_status !== 'skipped' && (
-                          <span className={`block ${row.whatsapp_status === 'sent' ? 'text-success' : 'text-red-700'}`}>WhatsApp {row.whatsapp_status}</span>
-                        )}
-                        {(!row.email_status || row.email_status === 'skipped') && (!row.whatsapp_status || row.whatsapp_status === 'skipped') && (
-                          <span className={row.status === 'sent' ? 'text-success' : 'text-red-700'}>{row.status}</span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
+                      </li>
+                    )
+                  })}
                 </ul>
               </>
             ) : (

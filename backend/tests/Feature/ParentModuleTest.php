@@ -175,7 +175,7 @@ class ParentModuleTest extends TestCase
         ])->assertCreated()
             ->assertJsonPath('sent_count', 1)
             ->assertJsonPath('recipients.0.phone', '233241111111')
-            ->assertJsonPath('recipients.0.whatsapp_status', 'sent')
+            ->assertJsonPath('recipients.0.whatsapp_status', 'logged')
             ->assertJsonPath('recipients.0.email_status', 'skipped');
 
         Mail::assertNothingSent();
@@ -187,7 +187,9 @@ class ParentModuleTest extends TestCase
 
         $this->getJson('/api/parents')
             ->assertOk()
-            ->assertJsonPath('stats.whatsapp_from', '0591723646');
+            ->assertJsonPath('stats.whatsapp_from', '0591723646')
+            ->assertJsonPath('stats.whatsapp_driver', 'log')
+            ->assertJsonPath('stats.whatsapp_live', false);
     }
 
     public function test_whatsapp_channel_fails_without_a_phone_number(): void
@@ -248,6 +250,68 @@ class ParentModuleTest extends TestCase
                 && str_contains((string) $request['text']['body'], 'School closed tomorrow.')
                 && str_contains((string) $request['text']['body'], '0591723646');
         });
+    }
+
+    public function test_green_api_posts_to_the_instance(): void
+    {
+        Mail::fake();
+        Http::fake([
+            'https://1103.api.green-api.com/*/getStateInstance/*' => Http::response(['stateInstance' => 'authorized'], 200),
+            'https://1103.api.green-api.com/*/sendMessage/*' => Http::response(['idMessage' => 'ABC123'], 200),
+        ]);
+        config([
+            'services.whatsapp.driver' => 'green_api',
+            'services.whatsapp.green_api_url' => 'https://1103.api.green-api.com',
+            'services.whatsapp.green_api_instance' => '1103123456',
+            'services.whatsapp.green_api_token' => 'green-token',
+        ]);
+
+        $this->actingAsRole('headteacher');
+        $parent = $this->userWithRole('parent', [
+            'email' => 'green.wa@example.com',
+            'phone' => '0551833479',
+        ]);
+
+        $this->postJson('/api/parent-messages', [
+            'type' => 'notice',
+            'subject' => 'Closed',
+            'body' => 'School closed tomorrow.',
+            'channels' => ['whatsapp'],
+            'parent_ids' => [$parent->id],
+        ])->assertCreated()
+            ->assertJsonPath('recipients.0.whatsapp_status', 'sent');
+
+        Http::assertSent(function ($request) {
+            return str_contains($request->url(), '/waInstance1103123456/sendMessage/green-token')
+                && $request['chatId'] === '233551833479@c.us'
+                && str_contains((string) $request['message'], 'School closed tomorrow.');
+        });
+    }
+
+    public function test_cloud_whatsapp_fails_without_credentials(): void
+    {
+        Mail::fake();
+        config([
+            'services.whatsapp.driver' => 'cloud',
+            'services.whatsapp.token' => '',
+            'services.whatsapp.phone_number_id' => '',
+        ]);
+
+        $this->actingAsRole('teacher');
+        $parent = $this->userWithRole('parent', [
+            'email' => 'noconfig.wa@example.com',
+            'phone' => '0241111111',
+        ]);
+
+        $this->postJson('/api/parent-messages', [
+            'type' => 'notice',
+            'subject' => 'Closed',
+            'body' => 'School closed tomorrow.',
+            'channels' => ['whatsapp'],
+            'parent_ids' => [$parent->id],
+        ])->assertCreated()
+            ->assertJsonPath('sent_count', 0)
+            ->assertJsonPath('recipients.0.whatsapp_status', 'failed');
     }
 
     public function test_parent_cannot_open_the_parent_register(): void

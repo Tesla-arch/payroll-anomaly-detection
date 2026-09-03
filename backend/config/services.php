@@ -41,6 +41,9 @@ return [
         'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
         'version' => env('WHATSAPP_API_VERSION', 'v21.0'),
         'from_number' => env('WHATSAPP_FROM_NUMBER', '0591723646'),
+        'green_api_url' => env('GREEN_API_URL', 'https://api.green-api.com'),
+        'green_api_instance' => env('GREEN_API_INSTANCE_ID'),
+        'green_api_token' => env('GREEN_API_TOKEN'),
     ],
 
 ];
