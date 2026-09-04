@@ -12,8 +12,17 @@ class StaffAttendanceSeeder extends Seeder
 {
     public function run(): void
     {
-        $end = Carbon::today();
-        $start = $end->copy()->subMonths(3)->startOfDay();
+        $end = Carbon::parse($this->boundDate('ATTENDANCE_END', Carbon::today()->toDateString()));
+        $start = Carbon::parse($this->boundDate(
+            'ATTENDANCE_START',
+            $end->copy()->subMonths(3)->toDateString(),
+        ))->startOfDay();
+
+        if ($start->gt($end)) {
+            $this->command?->error('ATTENDANCE_START must be on or before ATTENDANCE_END.');
+
+            return;
+        }
 
         $staff = Staff::query()->orderBy('id')->get();
         if ($staff->isEmpty()) {
@@ -80,6 +89,13 @@ class StaffAttendanceSeeder extends Seeder
             $created,
             $updated,
         ));
+    }
+
+    protected function boundDate(string $envKey, string $fallback): string
+    {
+        $value = getenv($envKey);
+
+        return is_string($value) && $value !== '' ? $value : $fallback;
     }
 
     protected function leavePayload(): array
