@@ -3,8 +3,10 @@ import { Link, Navigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { FiEye, FiEyeOff, FiRefreshCw } from 'react-icons/fi'
 import api from '../api/client'
+import AuthInput from '../components/AuthInput'
 import AuthShell from '../components/AuthShell'
 import { useAuth } from '../context/AuthContext'
+import { AUTH_HINTS, AUTH_LIMITS, sanitizeAuthValue, validateAuthForm } from '../lib/authFields'
 
 const fallbackRoles = [
   { slug: 'super_admin', name: 'Administrator', hint: 'Full school portal, including user accounts.' },
@@ -24,10 +26,22 @@ const empty = {
   captcha: '',
 }
 
+const registerFields = [
+  'first_name',
+  'last_name',
+  'email',
+  'phone',
+  'password',
+  'password_confirmation',
+  'captcha',
+  'role',
+]
+
 export default function Register() {
   const { user, register } = useAuth()
   const [roles, setRoles] = useState(fallbackRoles)
   const [form, setForm] = useState(empty)
+  const [errors, setErrors] = useState({})
   const [challenge, setChallenge] = useState({ id: '', svg: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -37,6 +51,7 @@ export default function Register() {
       const { data } = await api.get('/auth/captcha')
       setChallenge({ id: data.id, svg: data.svg })
       setForm((current) => ({ ...current, captcha: '' }))
+      setErrors((current) => ({ ...current, captcha: '' }))
     } catch {
       toast.error('Could not load the security code')
     }
@@ -51,16 +66,22 @@ export default function Register() {
 
   if (user) return <Navigate to="/" replace />
 
-  const set = (key, value) => setForm((current) => ({ ...current, [key]: value }))
+  const set = (key, value) => {
+    const next = sanitizeAuthValue(key, value)
+    setForm((current) => ({ ...current, [key]: next }))
+    setErrors((current) => ({ ...current, [key]: '' }))
+  }
 
   const submit = async (event) => {
     event.preventDefault()
-    if (form.password !== form.password_confirmation) {
-      toast.error('Password confirmation does not match')
+    const nextErrors = validateAuthForm(registerFields, form)
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length) {
+      toast.error('Check the highlighted fields before registering')
       return
     }
-    if (!challenge.id || !form.captcha.trim()) {
-      toast.error('Enter the security code from the image')
+    if (!challenge.id) {
+      toast.error('Refresh the security code and try again')
       return
     }
     setBusy(true)
@@ -68,8 +89,13 @@ export default function Register() {
       await register({ ...form, captcha_id: challenge.id, captcha: form.captcha.trim() })
       toast.success('Officer account created')
     } catch (error) {
-      const errors = error.response?.data?.errors || {}
-      const first = Object.values(errors)[0]?.[0]
+      const apiErrors = error.response?.data?.errors || {}
+      const mapped = {}
+      Object.entries(apiErrors).forEach(([key, messages]) => {
+        mapped[key] = messages?.[0] || ''
+      })
+      setErrors(mapped)
+      const first = Object.values(apiErrors)[0]?.[0]
       toast.error(first || error.response?.data?.message || 'Could not register')
       await loadCaptcha()
     } finally {
@@ -79,7 +105,7 @@ export default function Register() {
 
   return (
     <AuthShell>
-      <form onSubmit={submit} className="w-full max-w-md rounded-3xl bg-white p-5 shadow-xl shadow-emerald-950/5 ring-1 ring-stone-200 sm:p-8">
+      <form onSubmit={submit} noValidate className="w-full max-w-md rounded-3xl bg-white p-5 shadow-xl shadow-emerald-950/5 ring-1 ring-stone-200 sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">First-time officers</p>
         <h2 className="mt-2 text-2xl font-semibold text-emerald-950 sm:text-3xl">Create an account</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">
@@ -102,56 +128,126 @@ export default function Register() {
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <div>
-            <label className="block text-sm font-medium text-slate-700">First name</label>
-            <input className="input mt-1" value={form.first_name} onChange={(e) => set('first_name', e.target.value)} required />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700">Surname</label>
-            <input className="input mt-1" value={form.last_name} onChange={(e) => set('last_name', e.target.value)} required />
-          </div>
+          <AuthInput
+            id="first_name"
+            name="first_name"
+            label="First name"
+            value={form.first_name}
+            onChange={(e) => set('first_name', e.target.value)}
+            type="text"
+            inputMode="text"
+            autoComplete="given-name"
+            autoCapitalize="words"
+            maxLength={AUTH_LIMITS.name}
+            hint={AUTH_HINTS.first_name}
+            error={errors.first_name}
+            required
+          />
+          <AuthInput
+            id="last_name"
+            name="last_name"
+            label="Surname"
+            value={form.last_name}
+            onChange={(e) => set('last_name', e.target.value)}
+            type="text"
+            inputMode="text"
+            autoComplete="family-name"
+            autoCapitalize="words"
+            maxLength={AUTH_LIMITS.name}
+            hint={AUTH_HINTS.last_name}
+            error={errors.last_name}
+            required
+          />
         </div>
 
-        <label className="mt-4 block text-sm font-medium text-slate-700">School email</label>
-        <input className="input mt-1" type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="name@school.gh" required />
+        <div className="mt-4">
+          <AuthInput
+            id="register_email"
+            name="email"
+            label="School email"
+            value={form.email}
+            onChange={(e) => set('email', e.target.value)}
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            spellCheck={false}
+            maxLength={AUTH_LIMITS.email}
+            placeholder="name@school.gh"
+            hint={AUTH_HINTS.email}
+            error={errors.email}
+            required
+          />
+        </div>
 
-        <label className="mt-4 block text-sm font-medium text-slate-700">Phone</label>
-        <input className="input mt-1" value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="024XXXXXXX" required />
+        <div className="mt-4">
+          <AuthInput
+            id="phone"
+            name="phone"
+            label="Phone"
+            value={form.phone}
+            onChange={(e) => set('phone', e.target.value)}
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            maxLength={AUTH_LIMITS.phone}
+            placeholder="024XXXXXXX"
+            hint={AUTH_HINTS.phone}
+            error={errors.phone}
+            required
+          />
+        </div>
 
-        <label className="mt-4 block text-sm font-medium text-slate-700">Password</label>
-        <div className="relative mt-1">
-          <input
-            className="input pr-11"
-            value={form.password}
-            onChange={(e) => set('password', e.target.value)}
+        <div className="mt-4">
+          <label htmlFor="register_password" className="block text-sm font-medium text-slate-700">Password</label>
+          <div className="relative mt-1">
+            <input
+              id="register_password"
+              name="password"
+              className={`input pr-11 ${errors.password ? 'input-error' : ''}`}
+              value={form.password}
+              onChange={(e) => set('password', e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              minLength={8}
+              maxLength={AUTH_LIMITS.password}
+              aria-invalid={errors.password ? 'true' : 'false'}
+              required
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 hover:text-emerald-800"
+              onClick={() => setShowPassword((open) => !open)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            </button>
+          </div>
+          {errors.password ? (
+            <p className="mt-1 text-xs text-rose-700">{errors.password}</p>
+          ) : (
+            <p className="mt-1 text-xs text-slate-400">{AUTH_HINTS.password}</p>
+          )}
+        </div>
+
+        <div className="mt-4">
+          <AuthInput
+            id="password_confirmation"
+            name="password_confirmation"
+            label="Confirm password"
+            value={form.password_confirmation}
+            onChange={(e) => set('password_confirmation', e.target.value)}
             type={showPassword ? 'text' : 'password'}
             autoComplete="new-password"
             minLength={8}
+            maxLength={AUTH_LIMITS.password}
+            hint={AUTH_HINTS.password_confirmation}
+            error={errors.password_confirmation}
             required
           />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 hover:text-emerald-800"
-            onClick={() => setShowPassword((open) => !open)}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
-          >
-            {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-          </button>
         </div>
 
-        <label className="mt-4 block text-sm font-medium text-slate-700">Confirm password</label>
-        <input
-          className="input mt-1"
-          value={form.password_confirmation}
-          onChange={(e) => set('password_confirmation', e.target.value)}
-          type={showPassword ? 'text' : 'password'}
-          autoComplete="new-password"
-          minLength={8}
-          required
-        />
-
-        <label className="mt-4 block text-sm font-medium text-slate-700">Security code</label>
-        <p className="mt-1 text-xs text-slate-400">Type the five characters from the picture so we know a person is registering this desk.</p>
+        <label htmlFor="captcha" className="mt-4 block text-sm font-medium text-slate-700">Security code</label>
+        <p className="mt-1 text-xs text-slate-400">Type the five letters or numbers from the picture so we know a person is registering this desk.</p>
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <div className="overflow-hidden rounded-xl ring-1 ring-stone-200">
             {challenge.svg ? (
@@ -174,14 +270,22 @@ export default function Register() {
             <FiRefreshCw /> New code
           </button>
         </div>
-        <input
-          className="input mt-3 uppercase tracking-[0.28em]"
+        <AuthInput
+          id="captcha"
+          name="captcha"
           value={form.captcha}
-          onChange={(e) => set('captcha', e.target.value.toUpperCase())}
+          onChange={(e) => set('captcha', e.target.value)}
+          type="text"
+          inputMode="text"
           autoComplete="off"
+          autoCapitalize="characters"
           spellCheck={false}
-          maxLength={8}
+          maxLength={AUTH_LIMITS.captcha}
+          pattern="[A-Za-z0-9]{5}"
           placeholder="ENTER CODE"
+          className="uppercase tracking-[0.28em]"
+          hint={AUTH_HINTS.captcha}
+          error={errors.captcha}
           required
         />
 

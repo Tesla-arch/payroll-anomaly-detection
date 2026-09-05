@@ -192,6 +192,15 @@ textarea {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 22%, transparent);
 }
 
+.input-error {
+  border-color: #b91c1c;
+}
+
+.input-error:focus {
+  border-color: #b91c1c;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #b91c1c 22%, transparent);
+}
+
 .btn-primary {
   @apply inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white disabled:opacity-60;
   background-color: var(--primary);

@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Staff;
 use App\Models\User;
 use App\Support\Auditor;
+use App\Support\GhanaPhone;
 use App\Services\RegistrationCaptcha;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -55,8 +56,10 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'email:filter', 'max:255'],
+            'password' => ['required', 'string', 'min:1', 'max:72'],
+        ], [
+            'email.email' => 'Enter a valid email address, for example name@school.gh.',
         ]);
 
         $user = User::findByEmail($credentials['email'])?->load(['role', 'staff']);
@@ -82,11 +85,15 @@ class AuthController extends Controller
     {
         $request->merge([
             'email' => User::normalizeEmail($request->input('email')),
+            'employee_id' => strtoupper(trim((string) $request->input('employee_id'))),
         ]);
 
         $credentials = $request->validate([
-            'employee_id' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'email'],
+            'employee_id' => ['required', 'string', 'min:3', 'max:50', 'regex:/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/'],
+            'email' => ['required', 'email:filter', 'max:255'],
+        ], [
+            'employee_id.regex' => 'Staff ID may only contain letters, numbers and hyphens, for example SMS-2026-0001.',
+            'email.email' => 'Enter the employment email in a valid format, for example name@school.gh.',
         ]);
 
         $staff = Staff::query()
@@ -131,17 +138,33 @@ class AuthController extends Controller
     {
         $request->merge([
             'email' => User::normalizeEmail($request->input('email')),
+            'first_name' => trim((string) $request->input('first_name')),
+            'last_name' => trim((string) $request->input('last_name')),
+            'phone' => trim((string) $request->input('phone')),
+            'captcha' => strtoupper(trim((string) $request->input('captcha'))),
         ]);
 
+        $nameRule = ['required', 'string', 'min:2', 'max:100', 'regex:/^[\p{L}][\p{L} .\'-]{1,99}$/u'];
+
         $data = $request->validate([
-            'first_name' => ['required', 'string', 'max:100'],
-            'last_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'phone' => ['required', 'string', 'max:30'],
-            'password' => ['required', 'confirmed', Password::min(8)],
+            'first_name' => $nameRule,
+            'last_name' => $nameRule,
+            'email' => ['required', 'email:filter', 'max:255', 'unique:users,email'],
+            'phone' => ['required', 'string', 'max:16', function (string $attribute, mixed $value, \Closure $fail): void {
+                if (! GhanaPhone::isValid(is_string($value) ? $value : null)) {
+                    $fail('Enter a Ghana mobile number such as 024XXXXXXX or +233XXXXXXXXX.');
+                }
+            }],
+            'password' => ['required', 'confirmed', Password::min(8)->max(72)],
             'role' => ['required', 'string', Rule::in(Role::SELF_REGISTER_SLUGS)],
             'captcha_id' => ['required', 'uuid'],
-            'captcha' => ['required', 'string', 'max:12'],
+            'captcha' => ['required', 'string', 'size:5', 'regex:/^[A-Za-z0-9]{5}$/'],
+        ], [
+            'first_name.regex' => 'First name may only contain letters, spaces, hyphens or apostrophes.',
+            'last_name.regex' => 'Surname may only contain letters, spaces, hyphens or apostrophes.',
+            'email.email' => 'Enter a valid school email, for example name@school.gh.',
+            'captcha.size' => 'The security code is five characters.',
+            'captcha.regex' => 'The security code may only contain letters and numbers.',
         ]);
 
         if (! $captcha->verify($data['captcha_id'], $data['captcha'])) {

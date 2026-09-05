@@ -4,6 +4,11 @@ namespace App\Support;
 
 class GhanaPhone
 {
+    public static function isValid(?string $raw): bool
+    {
+        return self::toWhatsApp($raw) !== null;
+    }
+
     public static function toWhatsApp(?string $raw): ?string
     {
         $digits = preg_replace('/\D+/', '', (string) $raw) ?? '';

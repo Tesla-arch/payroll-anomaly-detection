@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
+import AuthInput from '../components/AuthInput'
 import AuthShell from '../components/AuthShell'
 import { useAuth } from '../context/AuthContext'
+import { AUTH_HINTS, AUTH_LIMITS, sanitizeAuthValue, validateAuthForm } from '../lib/authFields'
 
 const officerDemos = [
   ['admin@school.gh', 'Administrator'],
@@ -26,15 +28,25 @@ export default function Login() {
   const [employeeId, setEmployeeId] = useState('EMP-1001')
   const [password, setPassword] = useState('password')
   const [showPassword, setShowPassword] = useState(false)
+  const [errors, setErrors] = useState({})
   const [busy, setBusy] = useState(false)
 
   if (user) return <Navigate to="/" replace />
+
+  const setField = (field, value) => {
+    const next = sanitizeAuthValue(field, value)
+    if (field === 'email') setEmail(next)
+    if (field === 'employee_id') setEmployeeId(next)
+    if (field === 'password') setPassword(next)
+    setErrors((current) => ({ ...current, [field]: '' }))
+  }
 
   const setMode = (next) => {
     const copy = new URLSearchParams(params)
     if (next === 'staff') copy.set('desk', 'staff')
     else copy.delete('desk')
     setParams(copy, { replace: true })
+    setErrors({})
     if (next === 'staff') {
       setEmployeeId('EMP-1001')
       setEmail('teacher@school.gh')
@@ -45,6 +57,15 @@ export default function Login() {
 
   const submit = async (event) => {
     event.preventDefault()
+    const form = { email, employee_id: employeeId, password }
+    const fields = mode === 'staff' ? ['employee_id', 'email'] : ['email', 'password']
+    const nextErrors = validateAuthForm(fields, form)
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length) {
+      toast.error('Check the highlighted fields before signing in')
+      return
+    }
+
     setBusy(true)
     try {
       if (mode === 'staff') {
@@ -54,8 +75,13 @@ export default function Login() {
       }
       toast.success('Welcome back')
     } catch (error) {
-      const errors = error.response?.data?.errors || {}
-      toast.error(errors.employee_id?.[0] || errors.email?.[0] || error.response?.data?.message || 'Login failed')
+      const apiErrors = error.response?.data?.errors || {}
+      setErrors({
+        email: apiErrors.email?.[0] || '',
+        employee_id: apiErrors.employee_id?.[0] || '',
+        password: apiErrors.password?.[0] || '',
+      })
+      toast.error(apiErrors.employee_id?.[0] || apiErrors.email?.[0] || error.response?.data?.message || 'Login failed')
     } finally {
       setBusy(false)
     }
@@ -63,7 +89,7 @@ export default function Login() {
 
   return (
     <AuthShell>
-      <form onSubmit={submit} className="w-full max-w-md rounded-3xl bg-white p-5 shadow-xl shadow-emerald-950/5 ring-1 ring-stone-200 sm:p-9">
+      <form onSubmit={submit} noValidate className="w-full max-w-md rounded-3xl bg-white p-5 shadow-xl shadow-emerald-950/5 ring-1 ring-stone-200 sm:p-9">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-800">Role-based access</p>
         <h2 className="mt-2 text-2xl font-semibold text-emerald-950 sm:text-3xl">Sign in</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-500">
@@ -88,52 +114,80 @@ export default function Login() {
         </div>
 
         {mode === 'staff' ? (
-          <>
-            <label className="mt-6 block text-sm font-medium text-slate-700">Staff ID</label>
-            <input
-              className="input mt-1 font-medium tracking-wide"
+          <div className="mt-6 space-y-4">
+            <AuthInput
+              id="employee_id"
+              name="employee_id"
+              label="Staff ID"
               value={employeeId}
-              onChange={(e) => setEmployeeId(e.target.value)}
+              onChange={(e) => setField('employee_id', e.target.value)}
+              type="text"
+              inputMode="text"
               autoComplete="username"
+              autoCapitalize="characters"
+              spellCheck={false}
+              maxLength={AUTH_LIMITS.employeeId}
+              pattern="[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*"
               placeholder="SMS-2026-0001"
+              className="font-medium tracking-wide uppercase"
+              hint={AUTH_HINTS.employee_id}
+              error={errors.employee_id}
               required
             />
-            <label className="mt-4 block text-sm font-medium text-slate-700">Employment email</label>
-            <input
-              className="input mt-1"
+            <AuthInput
+              id="staff_email"
+              name="email"
+              label="Employment email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setField('email', e.target.value)}
               type="email"
+              inputMode="email"
               autoComplete="email"
+              spellCheck={false}
+              maxLength={AUTH_LIMITS.email}
               placeholder="name@school.gh"
+              hint={AUTH_HINTS.email}
+              error={errors.email}
               required
             />
-          </>
+          </div>
         ) : (
-          <>
-            <label className="mt-6 block text-sm font-medium text-slate-700">Email</label>
-            <input
-              className="input mt-1"
+          <div className="mt-6">
+            <AuthInput
+              id="officer_email"
+              name="email"
+              label="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setField('email', e.target.value)}
               type="email"
+              inputMode="email"
               autoComplete="username"
+              spellCheck={false}
+              maxLength={AUTH_LIMITS.email}
               placeholder="name@school.gh"
+              hint={AUTH_HINTS.email}
+              error={errors.email}
               required
             />
-          </>
+          </div>
         )}
 
         {mode === 'officer' && (
-          <>
-            <label className="mt-4 block text-sm font-medium text-slate-700">Password</label>
+          <div className="mt-4">
+            <label htmlFor="officer_password" className="block text-sm font-medium text-slate-700">Password</label>
             <div className="relative mt-1">
               <input
-                className="input pr-11"
+                id="officer_password"
+                name="password"
+                className={`input pr-11 ${errors.password ? 'input-error' : ''}`}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setField('password', e.target.value)}
                 type={showPassword ? 'text' : 'password'}
+                inputMode="text"
                 autoComplete="current-password"
+                minLength={1}
+                maxLength={AUTH_LIMITS.password}
+                aria-invalid={errors.password ? 'true' : 'false'}
                 required
               />
               <button
@@ -145,7 +199,12 @@ export default function Login() {
                 {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
               </button>
             </div>
-          </>
+            {errors.password ? (
+              <p className="mt-1 text-xs text-rose-700">{errors.password}</p>
+            ) : (
+              <p className="mt-1 text-xs text-slate-400">Officers and parents use the password created with this email.</p>
+            )}
+          </div>
         )}
 
         <button className="btn-primary mt-6 w-full py-2.5 text-base" disabled={busy}>
@@ -185,6 +244,7 @@ export default function Login() {
                   onClick={() => {
                     setEmployeeId(id)
                     setEmail(demoEmail)
+                    setErrors({})
                   }}
                 >
                   <span className="block font-semibold">{label}</span>
@@ -199,7 +259,10 @@ export default function Login() {
                   type="button"
                   key={demoEmail}
                   className={`rounded-xl border px-3 py-2 text-left text-xs transition ${email === demoEmail ? 'border-emerald-700 bg-emerald-50 text-emerald-950' : 'border-stone-200 hover:border-emerald-300 hover:bg-stone-50'}`}
-                  onClick={() => setEmail(demoEmail)}
+                  onClick={() => {
+                    setEmail(demoEmail)
+                    setErrors({})
+                  }}
                 >
                   <span className="block font-semibold">{label}</span>
                   <span className="break-all text-slate-500">{demoEmail}</span>

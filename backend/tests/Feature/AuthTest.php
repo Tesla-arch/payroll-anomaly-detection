@@ -184,4 +184,33 @@ class AuthTest extends TestCase
             ->assertOk()
             ->assertJsonPath('user.role.slug', 'headteacher');
     }
+
+    public function test_officer_login_rejects_invalid_email_shape(): void
+    {
+        $this->postJson('/api/auth/login', [
+            'email' => 'not-an-email',
+            'password' => 'password',
+        ])->assertStatus(422)
+            ->assertJsonValidationErrors('email');
+    }
+
+    public function test_staff_login_rejects_invalid_employee_id_characters(): void
+    {
+        $this->postJson('/api/auth/login/staff', [
+            'employee_id' => 'EMP 1001!',
+            'email' => 'teacher@school.gh',
+        ])->assertStatus(422)
+            ->assertJsonValidationErrors('employee_id');
+    }
+
+    public function test_registration_rejects_non_letter_names_and_invalid_phone(): void
+    {
+        $this->seedRoles();
+
+        $this->postJson('/api/auth/register', $this->officerRegistration([
+            'first_name' => 'Efua123',
+            'phone' => 'abc',
+        ]))->assertStatus(422)
+            ->assertJsonValidationErrors(['first_name', 'phone']);
+    }
 }
